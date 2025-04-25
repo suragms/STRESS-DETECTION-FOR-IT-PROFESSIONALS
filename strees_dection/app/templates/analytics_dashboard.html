@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StressGuard Pro | Analytics Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    {% load static %}
+    <style>
+        :root {
+            --primary-blue: #4361ee;
+            --dark-blue: #3a0ca3;
+            --accent-orange: #f72585;
+            --neon-cyan: #4cc9f0;
+            --white: #FFFFFF;
+            --dark-bg: #0f172a;
+            --card-bg: rgba(15, 23, 42, 0.7);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            --rounded: 0.5rem;
+            --rounded-lg: 0.75rem;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: var(--white);
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(67, 97, 238, 0.15) 0%, transparent 20%),
+                        radial-gradient(circle at 90% 80%, rgba(244, 63, 94, 0.15) 0%, transparent 20%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes dropdownSlide {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px var(--shadow-color);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--accent-orange);
+            font-size: 1.75rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--rounded);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover,
+        .nav-link:focus {
+            color: var(--neon-cyan);
+            background: rgba(76, 201, 240, 0.1);
+        }
+
+        .nav-link i {
+            font-size: 1rem;
+        }
+
+        .dropdown .nav-link {
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            min-width: 200px;
+            border-radius: var(--rounded);
+            box-shadow: 0 8px 32px var(--shadow-color);
+            padding: 0.5rem 0;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: dropdownSlide 0.2s ease-out;
+        }
+
+        .dropdown:hover .dropdown-menu,
+        .dropdown:focus-within .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover,
+        .dropdown-item:focus {
+            background: rgba(76, 201, 240, 0.1);
+            color: var(--neon-cyan);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        .hamburger:hover,
+        .hamburger:focus {
+            color: var(--neon-cyan);
+        }
+
+        .dashboard-container {
+            padding: 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent 0%,
+                rgba(76, 201, 240, 0.1) 50%,
+                transparent 100%
+            );
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        h2 {
+            color: var(--white);
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--primary-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        h3 {
+            color: var(--white);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-orange), transparent);
+            border-radius: 3px;
+        }
+
+        .section-container {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            margin-bottom: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .data-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .data-item {
+            padding: 1.5rem;
+            background: var(--glass-bg);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            border-left: 4px solid var(--neon-cyan);
+        }
+
+        .data-item:hover {
+            background: rgba(76, 201, 240, 0.1);
+            transform: translateX(5px);
+        }
+
+        .data-item i {
+            font-size: 1.5rem;
+            color: var(--neon-cyan);
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .data-text {
+            font-size: 1.1rem;
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .no-data {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            padding: 2rem;
+            background: var(--glass-bg);
+            border-radius: 16px;
+        }
+
+        .btn-process {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(45deg, var(--primary-blue), var(--neon-cyan));
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(67, 97, 238, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-process::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-process:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(67, 97, 238, 0.5);
+        }
+
+        .btn-process:hover::before {
+            left: 100%;
+        }
+
+        .btn-process i {
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .messages {
+            margin-bottom: 2rem;
+            list-style: none;
+            padding: 0;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .messages li {
+            padding: 1.2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            text-align: center;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .messages li i {
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .messages .success {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .messages .error {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--error);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .messages .warning {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 0.8rem;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+        }
+
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--error);
+        }
+
+        .badge-info {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+
+        /* Responsive Navbar */
+        @media (max-width: 1024px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--card-bg);
+                backdrop-filter: blur(16px);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 8px 32px var(--shadow-color);
+                border-radius: 0 0 var(--rounded) var(--rounded);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-menu.show {
+                display: flex;
+            }
+
+            .nav-item {
+                width: 100%;
+            }
+
+            .nav-link {
+                padding: 0.75rem;
+                justify-content: flex-start;
+                font-size: 1rem;
+            }
+
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                background: rgba(76, 201, 240, 0.05);
+                padding: 0.5rem 1rem;
+                display: none;
+                border: none;
+            }
+
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+
+            .dropdown .nav-link i.fa-chevron-down {
+                margin-left: auto;
+                transition: transform 0.3s ease;
+            }
+
+            .dropdown.active .nav-link i.fa-chevron-down {
+                transform: rotate(180deg);
+            }
+
+            .dashboard-container {
+                padding: 1.5rem;
+            }
+
+            .dashboard-header,
+            .section-container {
+                padding: 1.8rem;
+            }
+
+            h2 {
+                font-size: 2.2rem;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+            }
+
+            .data-text {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .dashboard-container {
+                padding: 1rem;
+            }
+
+            .dashboard-header,
+            .section-container {
+                padding: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            h3 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-brain"></i>
+                StressGuard Pro
+            </a>
+            <div class="hamburger" role="button" aria-label="Toggle navigation" tabindex="0">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="nav-menu">
+                <div class="nav-item">
+                    <a href="/usershome/" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false"><i class="fas fa-tachometer-alt"></i> Dashboards <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="{% url 'analytics_dashboard' %}" class="dropdown-item" role="menuitem">Analytics Dashboard</a>
+                        <a href="{% url 'personal_dashboard' %}" class="dropdown-item" role="menuitem">Personal Dashboard</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="/settings" class="nav-link"><i class="fas fa-cog"></i> Settings</a>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle"></i> Account <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="/userprofile/" class="dropdown-item" role="menuitem">Profile</a>
+                        <a href="/user_logout/" class="dropdown-item" role="menuitem">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <!-- Display Messages -->
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">
+                        <i class="fas 
+                            {% if message.tags == 'success' %}fa-check-circle
+                            {% elif message.tags == 'error' %}fa-times-circle
+                            {% elif message.tags == 'warning' %}fa-exclamation-circle
+                            {% else %}fa-info-circle{% endif %}"></i>
+                        {{ message }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div class="dashboard-header">
+            <h2>StressGuard Analytics Dashboard</h2>
+            <p style="color: rgba(255,255,255,0.7); margin-bottom: 2rem;">Comprehensive insights into your stress patterns and biometric data</p>
+            <a href="{% url 'process_raw_data' %}" class="btn-process">
+                <i class="fas fa-bolt"></i> Process New Data
+            </a>
+        </div>
+
+        <!-- Grid Layout for Sections -->
+        <div class="grid-layout">
+            <!-- Processed Data -->
+            <div class="section-container">
+                <h3><i class="fas fa-database" style="margin-right: 0.8rem;"></i> Processed Data</h3>
+                {% if processed_data %}
+                    <ul class="data-list">
+                        {% for data in processed_data %}
+                            <li class="data-item">
+                                <i class="fas fa-microchip"></i>
+                                <span class="data-text">
+                                    {{ data.data_type }} 
+                                    <span class="badge {% if data.is_valid %}badge-success{% else %}badge-danger{% endif %}">
+                                        {{ data.is_valid|yesno:"Valid,Invalid" }}
+                                    </span>
+                                    <br>
+                                    <small style="opacity: 0.7;">Processed at {{ data.processed_at }}</small>
+                                </span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="no-data"><i class="fas fa-database" style="margin-right: 0.5rem;"></i> No data found</p>
+                {% endif %}
+            </div>
+
+            <!-- Extracted Features -->
+            <div class="section-container">
+                <h3><i class="fas fa-chart-line" style="margin-right: 0.8rem;"></i> Extracted Features</h3>
+                {% if features %}
+                    <ul class="data-list">
+                        {% for feature in features %}
+                            <li class="data-item">
+                                <i class="fas fa-wave-square"></i>
+                                <span class="data-text">
+                                    <strong>{{ feature.feature_type }}</strong>: {{ feature.feature_value|floatformat:2 }}
+                                    <br>
+                                    <small style="opacity: 0.7;">Extracted at {{ feature.extracted_at }}</small>
+                                </span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="no-data"><i class="fas fa-chart-line" style="margin-right: 0.5rem;"></i> No features extracted</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="grid-layout">
+            <!-- Stress Patterns -->
+            <div class="section-container">
+                <h3><i class="fas fa-brain" style="margin-right: 0.8rem;"></i> Stress Patterns</h3>
+                {% if patterns %}
+                    <ul class="data-list">
+                        {% for pattern in patterns %}
+                            <li class="data-item">
+                                <i class="fas fa-project-diagram"></i>
+                                <span class="data-text">
+                                    <strong>{{ pattern.pattern_type }}</strong> 
+                                    <span class="badge badge-info">{{ pattern.confidence_score|floatformat:2 }} confidence</span>
+                                    <br>
+                                    {{ pattern.description }}
+                                </span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="no-data"><i class="fas fa-brain" style="margin-right: 0.5rem;"></i> No patterns recognized</p>
+                {% endif %}
+            </div>
+
+            <!-- Anomalies -->
+            <div class="section-container">
+                <h3><i class="fas fa-exclamation-triangle" style="margin-right: 0.8rem;"></i> Detected Anomalies</h3>
+                {% if anomalies %}
+                    <ul class="data-list">
+                        {% for anomaly in anomalies %}
+                            <li class="data-item">
+                                <i class="fas fa-bug"></i>
+                                <span class="data-text">
+                                    <strong>{{ anomaly.anomaly_type }}</strong>
+                                    <span class="badge {% if anomaly.severity == 'High' %}badge-danger{% elif anomaly.severity == 'Medium' %}badge-warning{% else %}badge-info{% endif %}">
+                                        {{ anomaly.severity }}
+                                    </span>
+                                    <br>
+                                    {{ anomaly.description }}
+                                </span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="no-data"><i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i> No anomalies detected</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- ML Predictions (Full Width) -->
+        <div class="section-container">
+            <h3><i class="fas fa-robot" style="margin-right: 0.8rem;"></i> AI Predictions</h3>
+            {% if predictions %}
+                <ul class="data-list">
+                    {% for prediction in predictions %}
+                        <li class="data-item">
+                            <i class="fas fa-robot"></i>
+                            <span class="data-text">
+                                <strong>{{ prediction.prediction_type }}</strong>: 
+                                <span style="color: {% if prediction.prediction_value > 0.7 %}var(--error){% elif prediction.prediction_value > 0.4 %}var(--warning){% else %}var(--success){% endif %}">
+                                    {{ prediction.prediction_value|floatformat:2 }}
+                                </span>
+                                <span class="badge" style="background: rgba(76, 201, 240, 0.2); color: var(--neon-cyan);">
+                                    {{ prediction.confidence_score|floatformat:2 }} confidence
+                                </span>
+                            </span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="no-data"><i class="fas fa-robot" style="margin-right: 0.5rem;"></i> No predictions available</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+            hamburger.innerHTML = navMenu.classList.contains('show') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+            hamburger.setAttribute('aria-expanded', navMenu.classList.contains('show'));
+        });
+
+        // Keyboard support for hamburger
+        hamburger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                navMenu.classList.toggle('show');
+                hamburger.innerHTML = navMenu.classList.contains('show') 
+                    ? '<i class="fas fa-times"></i>' 
+                    : '<i class="fas fa-bars"></i>';
+                hamburger.setAttribute('aria-expanded', navMenu.classList.contains('show'));
+            }
+        });
+
+        // Dropdown toggle for mobile
+        document.querySelectorAll('.dropdown .nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    const dropdown = link.parentElement;
+                    dropdown.classList.toggle('active');
+                    const ariaExpanded = dropdown.classList.contains('active');
+                    link.setAttribute('aria-expanded', ariaExpanded);
+                }
+            });
+        });
+
+        // Animation trigger on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section-container');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            sections.forEach(section => {
+                section.style.opacity = 0;
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>

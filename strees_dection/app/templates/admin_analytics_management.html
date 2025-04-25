@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StressGuard Pro | Admin Analytics Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #2A5EE8;
+            --dark-blue: #1A3A7A;
+            --accent-orange: #FF6B35;
+            --neon-cyan: #00D4FF;
+            --white: #FFFFFF;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .dashboard-container {
+            padding: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+        }
+
+        h2 {
+            color: var(--white);
+            font-size: 3.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h3 {
+            color: var(--white);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .section-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: Amber: #f5f5f5;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            margin-bottom: 4rem;
+        }
+
+        .data-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .data-item {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .data-item:last-child {
+            border-bottom: none;
+        }
+
+        .data-text {
+            font-size: 1.2rem;
+            color: var(--white);
+        }
+
+        .btn-review {
+            padding: 0.5rem 1.5rem;
+            background: var(--primary-blue);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-review:hover {
+            background: var(--accent-orange);
+        }
+
+        .no-data {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container, .section-container {
+                padding: 2rem;
+            }
+
+            h2 {
+                font-size: 2.5rem;
+            }
+
+            .data-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h2>Admin Analytics Management</h2>
+        </div>
+
+        <!-- Summary -->
+        <div class="section-container">
+            <h3>Analytics Summary</h3>
+            <p>Total Processed Data Records: {{ total_processed }}</p>
+            <p>Total Anomalies Detected: {{ total_anomalies }}</p>
+            <p>Total ML Predictions: {{ total_predictions }}</p>
+        </div>
+
+        <!-- Processed Data -->
+        <div class="section-container">
+            <h3>Recent Processed Data</h3>
+            {% if processed_data %}
+                <ul class="data-list">
+                    {% for data in processed_data %}
+                        <li class="data-item">
+                            <span class="data-text">{{ data.user.email_id }} - {{ data.data_type }} processed at {{ data.processed_at }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="no-data">No processed data available.</p>
+            {% endif %}
+        </div>
+
+        <!-- Anomalies -->
+        <div class="section-container">
+            <h3>Unreviewed Anomalies</h3>
+            {% if anomalies %}
+                <ul class="data-list">
+                    {% for anomaly in anomalies %}
+                        <li class="data-item">
+                            <span class="data-text">{{ anomaly.user.email_id }} - {{ anomaly.anomaly_type }} (Severity: {{ anomaly.severity }})</span>
+                            <a href="{% url 'review_anomaly' anomaly.id %}" class="btn-review">Review</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="no-data">No unreviewed anomalies.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
