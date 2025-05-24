@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StressGuard Pro | Recommendation Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary: #4361ee;
+            --primary-light: #3f37c9;
+            --primary-dark: #3a0ca3;
+            --secondary: #f72585;
+            --accent: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --success: #4bb543;
+            --warning: #ffcc00;
+            --danger: #f44336;
+            --sidebar-width: 280px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 15px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05);
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            --gradient-accent: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: var(--transition);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body.dark-mode {
+            background-color: #121212;
+            color: #f5f5f5;
+        }
+
+        /* Glassmorphism Effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        body.dark-mode .glass {
+            background: rgba(30, 30, 30, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Sidebar Styles - Modern Glassmorphism */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: var(--sidebar-width);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 2rem 1.5rem;
+            box-shadow: var(--shadow-md);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        body.dark-mode .sidebar {
+            background: rgba(30, 30, 30, 0.8);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(67, 97, 238, 0.1);
+        }
+
+        body.dark-mode .sidebar-header {
+            border-bottom: 1px solid rgba(247, 37, 133, 0.1);
+        }
+
+        .sidebar-logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body.dark-mode .sidebar-logo {
+            color: #fff;
+        }
+
+        .sidebar-logo i {
+            color: var(--secondary);
+            font-size: 1.8rem;
+            animation: rotateLogo 6s linear infinite;
+        }
+
+        @keyframes rotateLogo {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            cursor: pointer;
+            padding: 0.75rem;
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 1100;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        body.dark-mode .hamburger {
+            color: #fff;
+            background: rgba(30, 30, 30, 0.9);
+        }
+
+        .hamburger:hover {
+            color: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        .settings-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .settings-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.2rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
+            margin-bottom: 0.25rem;
+            border: 1px solid rgba(67, 97, 238, 0.05);
+        }
+
+        body.dark-mode .settings-link {
+            background: rgba(40, 40, 40, 0.7);
+            color: #f5f5f5;
+            border: 1px solid rgba(247, 37, 133, 0.05);
+        }
+
+        .settings-link i {
+            color: var(--primary);
+            font-size: 1.1rem;
+            min-width: 24px;
+            transition: var(--transition);
+        }
+
+        .settings-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(5px);
+            box-shadow: var(--shadow-sm);
+            border-color: transparent;
+        }
+
+        body.dark-mode .settings-link:hover {
+            background: var(--secondary);
+        }
+
+        .settings-link:hover i {
+            color: white;
+        }
+
+        .settings-link.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        body.dark-mode .settings-link.active {
+            background: var(--secondary);
+        }
+
+        .settings-link.active i {
+            color: white;
+        }
+
+        /* Content Area */
+        .content {
+            margin: 2rem 2rem 2rem calc(var(--sidebar-width) + 2rem);
+            padding: 2.5rem;
+            flex: 1;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            animation: fadeIn 0.6s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        body.dark-mode .content {
+            background: rgba(30, 30, 30, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .it-focus {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-subtitle {
+            color: var(--gray);
+            font-size: 1.2rem;
+        }
+
+        .profile-section {
+            margin-bottom: 2rem;
+        }
+
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .profile-picture {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        body.dark-mode .profile-picture {
+            border-color: var(--secondary);
+        }
+
+        .profile-details p {
+            margin: 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        .profile-details .label {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        body.dark-mode .profile-details .label {
+            color: var(--secondary);
+        }
+
+        .alert-popup {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow-md);
+            max-width: 400px;
+            z-index: 1200;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: none;
+        }
+
+        body.dark-mode .alert-popup {
+            background: rgba(30, 30, 30, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .alert-popup.show {
+            display: block;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        .alert-popup .alert-item {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        body.dark-mode .alert-popup .alert-item {
+            background: rgba(40, 40, 40, 0.7);
+        }
+
+        .alert-popup .alert-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .alert-popup p {
+            margin: 0;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        body.dark-mode .alert-popup p {
+            color: #f5f5f5;
+        }
+
+        .alert-popup i {
+            margin-right: 0.5rem;
+            color: var(--danger);
+        }
+
+        .close-btn, .acknowledge-btn, .complete-btn {
+            background: var(--danger);
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 1rem;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .acknowledge-btn {
+            background: var(--primary);
+        }
+
+        .complete-btn {
+            background: var(--success);
+        }
+
+        .close-btn:hover {
+            background: #c82333;
+        }
+
+        .acknowledge-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .complete-btn:hover {
+            background: #218838;
+        }
+
+        .recommendations-section, .resources-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .recommendation-card, .resource-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        body.dark-mode .recommendation-card, body.dark-mode .resource-card {
+            background: rgba(40, 40, 40, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .recommendation-details p, .resource-details p {
+            margin: 0.5rem 0;
+        }
+
+        .recommendation-details .category, .resource-details .category {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        body.dark-mode .recommendation-details .category, body.dark-mode .resource-details .category {
+            color: var(--secondary);
+        }
+
+        .recommendation-details .priority, .resource-details .description {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .resource-details a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .resource-details a:hover {
+            text-decoration: underline;
+        }
+
+        body.dark-mode .resource-details a {
+            color: var(--accent);
+        }
+
+        /* Footer from settings.html */
+        footer {
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-left: var(--sidebar-width);
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 900;
+        }
+
+        body.dark-mode footer {
+            background: var(--gradient-accent);
+        }
+
+        /* Dark Mode Toggle from settings.html */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background: var(--gradient-accent);
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1) rotate(30deg);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hamburger {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .content, footer {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 260px;
+            }
+
+            .content {
+                padding: 1.5rem;
+            }
+
+            .recommendation-card, .resource-card, .profile-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .complete-btn {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+
+            .alert-popup {
+                bottom: 10px;
+                right: 10px;
+                max-width: 90%;
+            }
+
+            .profile-picture {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 240px;
+                padding: 1.5rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .dashboard-subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Utility Classes */
+        .text-primary {
+            color: var(--primary) !important;
+        }
+
+        .text-secondary {
+            color: var(--secondary) !important;
+        }
+
+        .bg-primary {
+            background: var(--primary) !important;
+        }
+
+        .bg-secondary {
+            background: var(--secondary) !important;
+        }
+
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .mt-4 { margin-top: 2rem; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 2rem; }
+    </style>
+</head>
+<body>
+    <div class="sidebar" role="navigation" aria-label="Main navigation">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <i class="fas fa-brain"></i>
+                StressGuard Pro
+            </div>
+        </div>
+        <div class="hamburger" aria-label="Toggle sidebar" aria-controls="sidebar">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="settings-links">
+            <a href="{% url 'settings' %}" class="settings-link"><i class="fas fa-cogs"></i> Settings</a>
+            <a href="{% url 'faq' %}" class="settings-link"><i class="fas fa-question-circle"></i> FAQ</a>
+            <a href="{% url 'account_privacy' %}" class="settings-link"><i class="fas fa-shield-alt"></i> Privacy</a>
+            <a href="{% url 'forget_password' %}" class="settings-link"><i class="fas fa-question-circle"></i> Forgot Password?</a>
+            <a href="{% url 'recommendation_dashboard' %}" class="settings-link active"><i class="fas fa-lightbulb"></i> Recommendations</a>
+            <a href="{% url 'view_resources' %}" class="settings-link"><i class="fas fa-book"></i> Resources</a>
+            <a href="{% url 'user_logout' %}" class="settings-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <section class="it-focus" aria-labelledby="dashboard-header">
+            <!-- Profile Section -->
+            <div class="profile-section">
+                <h3 id="profile" class="section-title"><i class="fas fa-user"></i> Your Profile</h3>
+                <div class="profile-card glass slide-up">
+                    {% if user.image %}
+                        <img src="{{ user.image.url|default:'/media/profiles/default.jpg' }}" alt="Profile Picture for {{ user.first_name|default:'User' }}" class="profile-picture" onerror="console.error('Failed to load profile image:', this.src); this.src='/media/profiles/default.jpg';">
+                    {% else %}
+                        <img src="/media/profiles/default.jpg" alt="Default Profile Picture" class="profile-picture" onerror="console.error('Failed to load default image:', this.src);">
+                    {% endif %}
+                    <div class="profile-details">
+                        <p><span class="label">Name:</span> {{ user.first_name|default:"N/A" }} {{ user.last_name|default:"" }}</p>
+                        <p><span class="label">Email:</span> {{ user.email_id|default:"N/A" }}</p>
+                        {% if user.department %}
+                            <p><span class="label">Department:</span> {{ user.department|default:"N/A" }}</p>
+                        {% endif %}
+                        <a href="{% url 'userprofile_edit' user.id %}" class="action-btn"><i class="fas fa-edit"></i> Edit Profile</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-header">
+                <div class="welcome-message">
+                    <h1>Recommendation Dashboard</h1>
+                    <p class="dashboard-subtitle">Personalized stress management recommendations and alerts</p>
+                </div>
+                <div class="current-date">
+                    <i class="far fa-calendar-alt mr-1"></i>
+                    <span id="current-date"></span>
+                </div>
+            </div>
+
+            <!-- Recommendations Section -->
+            <div class="recommendations-section">
+                <h3 class="section-title"><i class="fas fa-lightbulb"></i> Your Recommendations</h3>
+                {% if recommendations %}
+                    {% for recommendation in recommendations %}
+                        <div class="recommendation-card glass slide-up">
+                            <div class="recommendation-details">
+                                <p class="category">{{ recommendation.get_category_display|default:"N/A" }}</p>
+                                <p>{{ recommendation.recommendation_text|default:"No description" }}</p>
+                                <p class="priority">Priority: {{ recommendation.priority|default:"N/A" }}</p>
+                                <p class="priority">Created: {{ recommendation.created_at|date:"F d, Y H:i"|default:"N/A" }}</p>
+                            </div>
+                            <button class="complete-btn" data-recommendation-id="{{ recommendation.id }}" aria-label="Mark recommendation as completed">Mark as Completed</button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="recommendation-card glass slide-up">
+                        <p>No recommendations available. Please take a stress assessment to receive personalized suggestions.</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Resources Section -->
+            <div class="resources-section">
+                <h3 class="section-title"><i class="fas fa-book-open"></i> Recommended Resources</h3>
+                <div class="resources-grid">
+                    {% if resources %}
+                        {% for resource in resources %}
+                            <div class="resource-card glass slide-up">
+                                <div class="resource-icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <h3>{{ resource.title|default:"No title" }}</h3>
+                                <p class="description">{{ resource.description|truncatewords:20|default:"No description" }}</p>
+                                {% if resource.url %}
+                                    <a href="{{ resource.url }}" target="_blank" class="resource-link" aria-label="View resource {{ resource.title|default:'resource' }}">
+                                        View Resource <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                {% elif resource.file %}
+                                    <a href="{{ resource.file.url }}" download class="resource-link" aria-label="Download resource {{ resource.title|default:'resource' }}">
+                                        Download Resource <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="resource-card glass slide-up">
+                            <p>No resources available at this time.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Alert Pop-up -->
+            {% if pending_alerts > 0 %}
+            <div class="alert-popup glass" id="alert-popup" role="alertdialog" aria-labelledby="alert-message">
+                {% for alert in alerts %}
+                    <div class="alert-item glass">
+                        <p id="alert-message-{{ alert.id }}">
+                            <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
+                            {{ alert.message|default:"No message" }} (Threshold: {{ alert.threshold|default:"N/A" }})
+                            <br>
+                            <small>Triggered: {{ alert.triggered_at|date:"F d, Y H:i"|default:"N/A" }}</small>
+                        </p>
+                        <button class="acknowledge-btn" data-alert-id="{{ alert.id }}" aria-label="Acknowledge alert">Acknowledge</button>
+                    </div>
+                {% endfor %}
+                <button class="close-btn" aria-label="Close alert popup">Close</button>
+            </div>
+            {% endif %}
+        </section>
+    </div>
+
+    <footer role="contentinfo">
+        <p>© 2025 StressGuard Pro. All rights reserved.</p>
+    </footer>
+
+    <div class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <script>
+        // Sidebar functionality
+        const hamburger = document.querySelector('.hamburger');
+        const sidebar = document.querySelector('.sidebar');
+
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', sidebar.classList.contains('active'));
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+                sidebar.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Dark mode toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const toggle = document.querySelector('.dark-mode-toggle i');
+            toggle.classList.toggle('fa-moon');
+            toggle.classList.toggle('fa-sun');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            const toggle = document.querySelector('.dark-mode-toggle i');
+            toggle.classList.remove('fa-moon');
+            toggle.classList.add('fa-sun');
+        }
+
+        // Display current date
+        function updateCurrentDate() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', options);
+        }
+
+        // Alert popup animation
+        const alertPopup = document.querySelector('#alert-popup');
+        if (alertPopup) {
+            console.log('Alert popup found, adding show class');
+            setTimeout(() => alertPopup.classList.add('show'), 500);
+            const closeBtn = alertPopup.querySelector('.close-btn');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    console.log('Close button clicked, hiding popup');
+                    alertPopup.classList.remove('show');
+                });
+            } else {
+                console.error('Close button not found in alert popup');
+            }
+        } else {
+            console.log('No alert popup present (pending_alerts <= 0)');
+        }
+
+        // AJAX for acknowledging alerts
+        document.querySelectorAll('.acknowledge-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const alertId = btn.getAttribute('data-alert-id');
+                if (!alertId) {
+                    alert('Invalid alert ID');
+                    return;
+                }
+                console.log(`Acknowledging alert ID: ${alertId}`);
+                fetch(`/acknowledge-alert/${alertId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: ''
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'success') {
+                        console.log(`Alert ${alertId} acknowledged successfully`);
+                        btn.parentElement.remove();
+                        if (!alertPopup.querySelector('.alert-item')) {
+                            alertPopup.classList.remove('show');
+                        }
+                    } else {
+                        alert('Failed to acknowledge alert: ' + (data.message || 'Unknown error'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error acknowledging alert:', error);
+                    alert('An error occurred while acknowledging the alert.');
+                });
+            });
+        });
+
+        // AJAX for completing recommendations
+        document.querySelectorAll('.complete-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const recommendationId = btn.getAttribute('data-recommendation-id');
+                if (!recommendationId) {
+                    alert('Invalid recommendation ID');
+                    return;
+                }
+                console.log(`Marking recommendation ID: ${recommendationId} as complete`);
+                fetch(`/mark-recommendation-complete/${recommendationId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: ''
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'success') {
+                        console.log(`Recommendation ${recommendationId} marked as complete`);
+                        btn.parentElement.remove();
+                    } else {
+                        alert('Failed to mark recommendation as completed: ' + (data.message || 'Unknown error'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error completing recommendation:', error);
+                    alert('An error occurred while marking the recommendation as completed.');
+                });
+            });
+        });
+
+        // Debug profile image
+        const profileImg = document.querySelector('.profile-picture');
+        if (profileImg) {
+            console.log('Profile image src:', profileImg.src);
+            profileImg.addEventListener('error', () => {
+                console.error('Profile image failed to load, using default');
+                profileImg.src = '/media/profiles/default.jpg';
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCurrentDate();
+            // Add active class to current page link
+            const currentPath = window.location.pathname;
+            document.querySelectorAll('.settings-link').forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

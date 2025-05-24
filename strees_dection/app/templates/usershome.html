@@ -1,0 +1,2486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StressGuard Pro | AI-Powered IT Wellness Platform</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://media.licdn.com/dms/image/v2/D5603AQGIV1rv-n7MKg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730176568676?e=1752710400&v=beta&t=0qF98hpu_-1tqTWKEBakZGxwZiYsdlpucu0Uhf8VSUo">
+    <link rel="apple-touch-icon" href="https://media.licdn.com/dms/image/v2/D5603AQGIV1rv-n7MKg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730176568676?e=1752710400&v=beta&t=0qF98hpu_-1tqTWKEBakZGxwZiYsdlpucu0Uhf8VSUo">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-dark: #4338CA;
+            --primary-light: #6366F1;
+            --accent: #F59E0B;
+            --dark: #111827;
+            --light: #F9FAFB;
+            --gray: #6B7280;
+            --gray-light: #E5E7EB;
+            --success: #10B981;
+            --danger: #EF4444;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.1);
+            --rounded: 0.375rem;
+            --rounded-lg: 0.5rem;
+            --rounded-xl: 0.75rem;
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.18);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes rgbGlow {
+            0% { box-shadow: 0 0 10px 2px rgba(79, 70, 229, 0.7); }
+            50% { box-shadow: 0 0 15px 4px rgba(245, 158, 11, 0.7); }
+            100% { box-shadow: 0 0 10px 2px rgba(79, 70, 229, 0.7); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.85; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            transition: var(--transition);
+            min-height: 44px; /* Accessible touch target */
+        }
+
+        .logo:hover {
+            color: var(--primary-dark);
+        }
+
+        .logo i {
+            font-size: 1.6rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--rounded-lg);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            min-height: 44px; /* Accessible touch target */
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background-color: rgba(79, 70, 229, 0.08);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            background-color: rgba(79, 70, 229, 0.1);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            background-color: white;
+            border-radius: var(--rounded-lg);
+            box-shadow: var(--shadow-lg);
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            border: 1px solid var(--gray-light);
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            min-height: 44px; /* Accessible touch target */
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(79, 70, 229, 0.08);
+            color: var(--primary);
+        }
+
+        .dropdown-item i {
+            margin-right: 0.5rem;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            color: var(--dark);
+            background-color: rgba(79, 70, 229, 0.1);
+            padding: 0.5rem;
+            border-radius: var(--rounded);
+            transition: var(--transition);
+            min-height: 44px; /* Accessible touch target */
+        }
+
+        .hamburger:hover {
+            background-color: rgba(79, 70, 229, 0.15);
+            color: var(--primary);
+        }
+
+        /* Notification Popover */
+        .notification-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(79, 70, 229, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            transition: var(--transition);
+            position: relative;
+            border: none;
+            cursor: pointer;
+        }
+
+        .notification-btn:hover {
+            background-color: rgba(79, 70, 229, 0.15);
+            color: var(--primary);
+        }
+
+        .unread-count {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 18px;
+            height: 18px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .notification-popover {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 0.5rem);
+            width: 360px;
+            max-height: 480px;
+            background-color: white;
+            border-radius: var(--rounded-xl);
+            box-shadow: var(--shadow-xl);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+            transition: var(--transition);
+            z-index: 100;
+            border: 1px solid var(--gray-light);
+        }
+
+        .notification-popover.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .notification-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .mark-all-read {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            min-height: 44px; /* Accessible touch target */
+            display: flex;
+            align-items: center;
+        }
+
+        .mark-all-read:hover {
+            color: var(--primary-dark);
+        }
+
+        .notification-list {
+            max-height: 380px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--gray-light);
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateX(10px);
+        }
+
+        .notification-item:hover {
+            background-color: rgba(79, 70, 229, 0.05);
+        }
+
+        .notification-item.unread {
+            background-color: rgba(79, 70, 229, 0.03);
+        }
+
+        .notification-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .notification-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.25rem;
+        }
+
+        .notification-item-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .notification-unread {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
+        }
+
+        .notification-time {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        .notification-item-content {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .view-notifications {
+            display: block;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 500;
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+            border-top: 1px solid var(--gray-light);
+            min-height: 44px; /* Accessible touch target */
+        }
+
+        .view-notifications:hover {
+            background-color: rgba(79, 70, 229, 0.05);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 3.25rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            max-width: 90%;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.875rem 1.75rem;
+            border-radius: var(--rounded-lg);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-size: 1rem;
+            min-height: 48px; /* Accessible touch target */
+        }
+
+        .btn-primary {
+            background-color: white;
+            color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: var(--rounded-xl);
+            box-shadow: var(--shadow-xl);
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.02);
+        }
+
+        /* Floating Shapes */
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(45deg, var(--accent), var(--primary-light));
+            top: -150px;
+            right: -150px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, var(--success), var(--primary));
+            bottom: -100px;
+            left: -100px;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        /* Features Section */
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--dark);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: var(--rounded-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--gray-light);
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+
+        .feature-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: var(--rounded-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-card h3 {
+            font-size: 1.375rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            font-size: 0.9375rem;
+        }
+
+        /* Resources Section */
+        .resources {
+            background-color: #f8fafc;
+        }
+
+        .video-carousel {
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+        }
+
+        .carousel-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .carousel-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 1.5rem;
+            padding: 1rem 0;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch; /* Smooth touch scrolling */
+        }
+
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-item {
+            flex: 0 0 420px;
+            scroll-snap-align: start;
+            transition: transform 0.3s ease;
+        }
+
+        .carousel-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .carousel-item h4 {
+            font-size: 1.125rem;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: var(--rounded-xl);
+            box-shadow: var(--shadow-md);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .resources-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .resource-card {
+            background-color: white;
+            border-radius: var(--rounded-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--gray-light);
+        }
+
+        .resource-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .resource-thumbnail {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .resource-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .resource-card:hover .resource-thumbnail img {
+            transform: scale(1.1);
+        }
+
+        .resource-content {
+            padding: 1.5rem;
+        }
+
+        .resource-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .resource-content p {
+            color: var(--gray);
+            font-size: 0.9375rem;
+            margin-bottom: 1rem;
+        }
+
+        .resource-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.8125rem;
+            color: var(--gray);
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+            min-height: 44px; /* Accessible touch target */
+        }
+
+        .read-more:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        /* Ad Section */
+        .ad-section {
+            max-width: 1400px;
+            margin: 4rem auto;
+            text-align: center;
+        }
+
+        .ad-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .ad-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .ad-container {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: var(--rounded-xl);
+            padding: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .ad-container img {
+            width: 300px;
+            border-radius: var(--rounded-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .ad-content {
+            flex: 1;
+        }
+
+        .ad-content h4 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .ad-content p {
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .action-button {
+            background: white;
+            color: var(--primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--rounded-lg);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            min-height: 48px; /* Accessible touch target */
+        }
+
+        .action-button:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 5rem 2rem;
+        }
+
+        .stats-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--rounded-xl);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, white, #E0E7FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-card p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .cta {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta p {
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            font-size: 1.125rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 5rem 2rem 2rem;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-about p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-link {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-height: 44px; /* Accessible touch target */
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: white;
+            min-height: 44px; /* Accessible touch target */
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        /* Chat Button */
+        .chat-button {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            z-index: 999;
+            font-size: 1.5rem;
+            transition: var(--transition);
+            animation: rgbGlow 6s infinite;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Chat Container */
+        .chat-container {
+            position: fixed;
+            bottom: 100px;
+            right: 24px;
+            width: 360px;
+            height: 540px;
+            background-color: white;
+            border-radius: var(--rounded-xl);
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 998;
+            transition: var(--transition);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+        }
+
+        .chat-container.open {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+
+        .chat-header {
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-title {
+            font-weight: 600;
+            font-size: 1.125rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chat-controls button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+            min-height: 44px; /* Accessible touch target */
+        }
+
+        .chat-controls button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            background-color: #f9fafb;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: var(--rounded-lg);
+            font-size: 0.9375rem;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-bottom-right-radius: 0;
+        }
+
+        .bot-message {
+            align-self: flex-start;
+            background-color: white;
+            color: var(--dark);
+            border-bottom-left-radius: 0;
+            border: 1px solid var(--gray-light);
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            text-align: right;
+            margin-top: 0.25rem;
+        }
+
+        .chat-input-container {
+            display: flex;
+            padding: 0.75rem;
+            border-top: 1px solid var(--gray-light);
+            background-color: white;
+        }
+
+        #chat-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--rounded-lg) 0 0 var(--rounded-lg);
+            outline: none;
+            font-size: 0.9375rem;
+            transition: var(--transition);
+        }
+
+        #chat-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+        }
+
+        #send-message {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 0 1rem;
+            border-radius: 0 var(--rounded-lg) var(--rounded-lg) 0;
+            cursor: pointer;
+            transition: var(--transition);
+            min-height: 44px; /* Accessible touch target */
+        }
+
+        #send-message:hover {
+            opacity: 0.9;
+        }
+
+        .voice-btn {
+            background-color: white;
+            border: 2px solid var(--success);
+            color: var(--success);
+            border-radius: var(--rounded-lg);
+            width: 40px;
+            height: 40px;
+            margin-left: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            min-height: 44px; /* Accessible touch target */
+        }
+
+        .voice-btn:hover {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .voice-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .voice-btn.recording {
+            background-color: var(--danger);
+            border-color: var(--danger);
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 1400px) {
+            .nav-container, .hero-container, .features-grid, .resources-grid, .stats-grid, .footer-grid, .ad-section {
+                max-width: 1600px;
+            }
+            .hero-content h1 {
+                font-size: 3.75rem;
+            }
+            .hero-content p {
+                font-size: 1.25rem;
+            }
+            .section-title {
+                font-size: 2.75rem;
+            }
+            .features-grid {
+                gap: 2.5rem;
+            }
+            .resources-grid {
+                gap: 2.5rem;
+            }
+            .carousel-item {
+                flex: 0 0 480px;
+            }
+            .ad-container {
+                padding: 3rem;
+                gap: 2.5rem;
+            }
+            .ad-container img {
+                width: 350px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .hero-content h1 {
+                font-size: 2.75rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
+            }
+            .resources-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 1.5rem;
+            }
+            .carousel-item {
+                flex: 0 0 380px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+            .hero-content p {
+                max-width: 100%;
+            }
+            .hero-cta {
+                justify-content: center;
+            }
+            .hero-image {
+                order: -1;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            .ad-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 2rem;
+            }
+            .ad-container img {
+                width: 100%;
+                max-width: 350px;
+            }
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            }
+            .carousel-item {
+                flex: 0 0 340px;
+            }
+            .notification-popover {
+                width: 340px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            .nav-menu {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: white;
+                flex-direction: column;
+                padding: 4rem 1.5rem;
+                box-shadow: var(--shadow-lg);
+                z-index: 999;
+                overflow-y: auto;
+            }
+            .nav-menu.show {
+                display: flex;
+            }
+            .nav-link {
+                padding: 1rem;
+                font-size: 1.1rem;
+                justify-content: flex-start;
+            }
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                transform: none;
+                opacity: 1;
+                visibility: visible;
+                display: none;
+                background: none;
+                padding: 0.5rem 0 0 1rem;
+                border: none;
+            }
+            .dropdown:hover .dropdown-menu {
+                display: block;
+            }
+            .notification-popover {
+                width: calc(100% - 2rem);
+                left: 1rem;
+                right: 1rem;
+            }
+            .hero {
+                padding: 4rem 1.5rem 3rem;
+                min-height: auto;
+            }
+            .hero-content h1 {
+                font-size: 2.25rem;
+            }
+            .hero-content p {
+                font-size: 1rem;
+            }
+            .section {
+                padding: 3rem 1.5rem;
+            }
+            .section-title {
+                font-size: 1.75rem;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .resources-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .carousel-item {
+                flex: 0 0 300px;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 1.5rem;
+            }
+            .ad-section {
+                margin: 3rem 1.5rem;
+            }
+            .ad-container {
+                padding: 1.5rem;
+                gap: 1.5rem;
+            }
+            .ad-content h4 {
+                font-size: 1.5rem;
+            }
+            .ad-content p {
+                font-size: 0.95rem;
+            }
+            .cta h2 {
+                font-size: 1.75rem;
+            }
+            .cta p {
+                font-size: 1rem;
+            }
+            .footer {
+                padding: 3rem 1.5rem 1.5rem;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .chat-container {
+                width: calc(100% - 32px);
+                height: 60vh;
+                right: 16px;
+                bottom: 90px;
+            }
+            .chat-button {
+                right: 16px;
+                bottom: 16px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+            .shape-1 {
+                width: 200px;
+                height: 200px;
+                top: -100px;
+                right: -100px;
+            }
+            .shape-2 {
+                width: 150px;
+                height: 150px;
+                bottom: -75px;
+                left: -75px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0.75rem 1rem;
+            }
+            .logo {
+                font-size: 1.25rem;
+            }
+            .logo i {
+                font-size: 1.4rem;
+            }
+            .hamburger {
+                font-size: 1.2rem;
+                padding: 0.4rem;
+            }
+            .nav-link {
+                font-size: 1rem;
+                padding: 0.8rem;
+            }
+            .dropdown-item {
+                font-size: 0.85rem;
+                padding: 0.6rem 1.2rem;
+            }
+            .notification-btn {
+                width: 36px;
+                height: 36px;
+            }
+            .unread-count {
+                width: 16px;
+                height: 16px;
+                font-size: 0.6rem;
+            }
+            .notification-popover {
+                width: calc(100% - 1.5rem);
+                left: 0.75rem;
+                right: 0.75rem;
+                max-height: 400px;
+            }
+            .notification-title {
+                font-size: 0.95rem;
+            }
+            .mark-all-read {
+                font-size: 0.8rem;
+            }
+            .notification-item {
+                padding: 0.8rem 1.2rem;
+            }
+            .notification-item-title {
+                font-size: 0.85rem;
+            }
+            .notification-time {
+                font-size: 0.7rem;
+            }
+            .notification-item-content {
+                font-size: 0.8rem;
+            }
+            .hero {
+                padding: 3rem 1rem 2rem;
+            }
+            .hero-content h1 {
+                font-size: 1.75rem;
+            }
+            .hero-content p {
+                font-size: 0.95rem;
+            }
+            .hero-cta {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 0.8rem 1.5rem;
+                font-size: 0.95rem;
+            }
+            .hero-image {
+                max-width: 100%;
+            }
+            .section {
+                padding: 2rem 1rem;
+            }
+            .section-title {
+                font-size: 1.5rem;
+            }
+            .section-title::after {
+                width: 60px;
+            }
+            .features-grid {
+                gap: 1rem;
+            }
+            .feature-card {
+                padding: 1.5rem;
+            }
+            .feature-icon {
+                width: 3rem;
+                height: 3rem;
+                font-size: 1.3rem;
+            }
+            .feature-card h3 {
+                font-size: 1.25rem;
+            }
+            .feature-card p {
+                font-size: 0.9rem;
+            }
+            .carousel-title {
+                font-size: 1.3rem;
+            }
+            .carousel-item {
+                flex: 0 0 260px;
+            }
+            .carousel-item h4 {
+                font-size: 1rem;
+            }
+            .resources-grid {
+                gap: 1rem;
+            }
+            .resource-card {
+                border-radius: var(--rounded-lg);
+            }
+            .resource-thumbnail {
+                height: 160px;
+            }
+            .resource-content {
+                padding: 1.2rem;
+            }
+            .resource-content h3 {
+                font-size: 1.1rem;
+            }
+            .resource-content p {
+                font-size: 0.85rem;
+            }
+            .resource-meta {
+                font-size: 0.75rem;
+            }
+            .read-more {
+                font-size: 0.85rem;
+            }
+            .ad-section {
+                margin: 2rem 1rem;
+            }
+            .ad-title {
+                font-size: 1.5rem;
+            }
+            .ad-container {
+                padding: 1.2rem;
+                border-radius: var(--rounded-lg);
+            }
+            .ad-container img {
+                max-width: 300px;
+            }
+            .ad-content h4 {
+                font-size: 1.3rem;
+            }
+            .ad-content p {
+                font-size: 0.9rem;
+            }
+            .action-button {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            .stats {
+                padding: 3rem 1rem;
+            }
+            .stats-grid {
+                gap: 1rem;
+            }
+            .stat-card {
+                padding: 1.2rem;
+            }
+            .stat-number {
+                font-size: 2rem;
+            }
+            .stat-card p {
+                font-size: 0.9rem;
+            }
+            .cta {
+                padding: 3rem 1rem;
+            }
+            .cta h2 {
+                font-size: 1.5rem;
+            }
+            .cta p {
+                font-size: 0.95rem;
+            }
+            .footer {
+                padding: 2rem 1rem 1rem;
+            }
+            .footer-logo {
+                font-size: 1.3rem;
+            }
+            .footer-about p {
+                font-size: 0.9rem;
+            }
+            .footer-col h4 {
+                font-size: 1.1rem;
+            }
+            .footer-link {
+                font-size: 0.9rem;
+            }
+            .social-link {
+                width: 2rem;
+                height: 2rem;
+            }
+            .footer-bottom {
+                font-size: 0.8rem;
+            }
+            .chat-button {
+                width: 48px;
+                height: 48px;
+                font-size: 1.2rem;
+            }
+            .chat-container {
+                height: 50vh;
+                bottom: 80px;
+            }
+            .chat-title {
+                font-size: 1rem;
+            }
+            .chat-controls button {
+                width: 24px;
+                height: 24px;
+            }
+            .message {
+                font-size: 0.85rem;
+                padding: 0.6rem 0.8rem;
+            }
+            .message-time {
+                font-size: 0.65rem;
+            }
+            #chat-input {
+                font-size: 0.85rem;
+                padding: 0.6rem;
+            }
+            #send-message {
+                padding: 0 0.8rem;
+            }
+            .voice-btn {
+                width: 36px;
+                height: 36px;
+            }
+            .shape-1 {
+                width: 150px;
+                height: 150px;
+                top: -75px;
+                right: -75px;
+            }
+            .shape-2 {
+                width: 120px;
+                height: 120px;
+                bottom: -60px;
+                left: -60px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .navbar {
+                padding: 0.6rem 0.8rem;
+            }
+            .logo {
+                font-size: 1.1rem;
+            }
+            .logo i {
+                font-size: 1.2rem;
+            }
+            .hamburger {
+                font-size: 1.1rem;
+                padding: 0.3rem;
+            }
+            .nav-link {
+                font-size: 0.95rem;
+                padding: 0.7rem;
+            }
+            .dropdown-item {
+                font-size: 0.8rem;
+                padding: 0.5rem 1rem;
+            }
+            .notification-btn {
+                width: 32px;
+                height: 32px;
+            }
+            .notification-popover {
+                width: calc(100% - 1rem);
+                left: 0.5rem;
+                right: 0.5rem;
+                max-height: 360px;
+            }
+            .notification-title {
+                font-size: 0.9rem;
+            }
+            .notification-item {
+                padding: 0.7rem 1rem;
+            }
+            .notification-item-title {
+                font-size: 0.8rem;
+            }
+            .notification-time {
+                font-size: 0.65rem;
+            }
+            .notification-item-content {
+                font-size: 0.75rem;
+            }
+            .hero {
+                padding: 2.5rem 0.8rem 1.5rem;
+            }
+            .hero-content h1 {
+                font-size: 1.5rem;
+            }
+            .hero-content p {
+                font-size: 0.9rem;
+            }
+            .btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            .section {
+                padding: 1.5rem 0.8rem;
+            }
+            .section-title {
+                font-size: 1.3rem;
+            }
+            .feature-card {
+                padding: 1.2rem;
+            }
+            .feature-icon {
+                width: 2.8rem;
+                height: 2.8rem;
+                font-size: 1.2rem;
+            }
+            .feature-card h3 {
+                font-size: 1.1rem;
+            }
+            .feature-card p {
+                font-size: 0.85rem;
+            }
+            .carousel-title {
+                font-size: 1.2rem;
+            }
+            .carousel-item {
+                flex: 0 0 240px;
+            }
+            .carousel-item h4 {
+                font-size: 0.95rem;
+            }
+            .resource-content {
+                padding: 1rem;
+            }
+            .resource-content h3 {
+                font-size: 1rem;
+            }
+            .resource-content p {
+                font-size: 0.8rem;
+            }
+            .resource-meta {
+                font-size: 0.7rem;
+            }
+            .read-more {
+                font-size: 0.8rem;
+            }
+            .ad-title {
+                font-size: 1.3rem;
+            }
+            .ad-container {
+                padding: 1rem;
+            }
+            .ad-content h4 {
+                font-size: 1.2rem;
+            }
+            .ad-content p {
+                font-size: 0.85rem;
+            }
+            .action-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+            .stats {
+                padding: 2rem 0.8rem;
+            }
+            .stat-number {
+                font-size: 1.8rem;
+            }
+            .stat-card p {
+                font-size: 0.85rem;
+            }
+            .cta {
+                padding: 2rem 0.8rem;
+            }
+            .cta h2 {
+                font-size: 1.3rem;
+            }
+            .cta p {
+                font-size: 0.9rem;
+            }
+            .footer {
+                padding: 1.5rem 0.8rem 0.8rem;
+            }
+            .footer-logo {
+                font-size: 1.2rem;
+            }
+            .footer-about p {
+                font-size: 0.85rem;
+            }
+            .footer-col h4 {
+                font-size: 1rem;
+            }
+            .footer-link {
+                font-size: 0.85rem;
+            }
+            .social-link {
+                width: 1.8rem;
+                height: 1.8rem;
+            }
+            .footer-bottom {
+                font-size: 0.75rem;
+            }
+            .chat-button {
+                width: 44px;
+                height: 44px;
+                font-size: 1.1rem;
+            }
+            .chat-container {
+                height: 45vh;
+                bottom: 70px;
+            }
+            .chat-title {
+                font-size: 0.95rem;
+            }
+            .chat-controls button {
+                width: 22px;
+                height: 22px;
+            }
+            .message {
+                font-size: 0.8rem;
+                padding: 0.5rem 0.7rem;
+            }
+            .message-time {
+                font-size: 0.6rem;
+            }
+            #chat-input {
+                font-size: 0.8rem;
+                padding: 0.5rem;
+            }
+            #send-message {
+                padding: 0 0.7rem;
+            }
+            .voice-btn {
+                width: 32px;
+                height: 32px;
+            }
+            .shape-1 {
+                width: 120px;
+                height: 120px;
+                top: -60px;
+                right: -60px;
+            }
+            .shape-2 {
+                width: 100px;
+                height: 100px;
+                bottom: -50px;
+                left: -50px;
+            }
+        }
+
+        /* Motion Reduction for Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in, .float-animation, .chat-button, .carousel-item, .feature-card, .resource-card, .stat-card, .action-button, .btn, .social-link {
+                animation: none;
+                transition: none;
+            }
+            .hero-image img, .resource-thumbnail img {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- CSRF Token for AJAX -->
+    <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getCookie('csrftoken');
+    </script>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/usershome" class="logo">
+                <i class="fas fa-shield-alt"></i>
+                StressGuard Pro
+            </a>
+            <div class="hamburger" role="button" aria-label="Toggle navigation" tabindex="0">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="nav-menu">
+                <div class="nav-item">
+                    <button id="notification-btn" class="notification-btn" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <div id="unread-count" class="unread-count"></div>
+                    </button>
+                    <div id="notification-popover" class="notification-popover">
+                        <div class="notification-header">
+                            <div class="notification-title">Notifications</div>
+                            <div id="mark-all-read" class="mark-all-read">Mark all as read</div>
+                        </div>
+                        <div id="notification-list" class="notification-list"></div>
+                        <a href="{% url 'view_recommendations' %}" class="view-notifications">View All Notifications</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="/usershome" class="nav-link active"><i class="fas fa-home"></i> Home</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/settings" class="nav-link"><i class="fas fa-cog"></i> Settings</a>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false"><i class="fas fa-tachometer-alt"></i> Dashboards <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="/analytics-dashboard" class="dropdown-item" role="menuitem"><i class="fas fa-chart-line"></i> Analytics Dashboard</a>
+                        <a href="/personal-dashboard" class="dropdown-item" role="menuitem"><i class="fas fa-user"></i> Personal Dashboard</a>
+                    </div>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle"></i> Account <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="/userprofile" class="dropdown-item" role="menuitem"><i class="fas fa-user"></i> Profile</a>
+                        <a href="/user_logout" class="dropdown-item" role="menuitem"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="hero-container">
+            <div class="hero-content fade-in">
+                <h1>Empower Your Tech Team with AI-Driven Stress Management</h1>
+                <p>Monitor, manage, and mitigate workplace stress for IT professionals with our intelligent platform.</p>
+                <div class="hero-cta">
+                    <a href="/stress_assessment" class="btn btn-primary">Start Free Assessment</a>
+                    <a href="/user_dashboard" class="btn btn-outline">Explore Features</a>
+                </div>
+            </div>
+            <div class="hero-image fade-in">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=2070&q=80" alt="Dashboard Preview">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <h2 class="section-title">Designed for Developer Wellness</h2>
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <h3>Code Pattern Analysis</h3>
+                <p>Detect stress indicators through typing patterns and code commits.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h3>Biometric Monitoring</h3>
+                <p>Track heart rate variability and sleep quality with wearables.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <h3>Project Risk Assessment</h3>
+                <p>Predict stress hotspots based on project timelines.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-network"></i>
+                </div>
+                <h3>Team Analytics</h3>
+                <p>Manager dashboard with privacy-preserving insights.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>AI Recommendations</h3>
+                <p>Personalized suggestions for wellness and breaks.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Privacy First</h3>
+                <p>End-to-end encrypted data with strict access controls.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="section resources">
+        <h2 class="section-title">Stress Management Resources</h2>
+        <div class="video-carousel">
+            <h3 class="carousel-title">Featured Videos</h3>
+            <div class="carousel-container">
+                <div class="carousel-item">
+                    <div class="video-container">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/XqFzXUsC6rE?si=QxScb1wjpnIhrNRg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <h4>Understanding Developer Stress</h4>
+                </div>
+                <div class="carousel-item">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/5qap5aO4i9A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <h4>Mindfulness for Developers</h4>
+                </div>
+                <div class="carousel-item">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/ZToicYcHIOU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <h4>Stress Management Techniques</h4>
+                </div>
+            </div>
+        </div>
+        <div class="resources-grid">
+            <div class="resource-card">
+                <div class="resource-thumbnail">
+                    <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=2069&q=80" alt="Article thumbnail">
+                </div>
+                <div class="resource-content">
+                    <h3>AI-Driven Stress Detection</h3>
+                    <p>How AI identifies stress patterns in coding behavior.</p>
+                    <div class="resource-meta">
+                        <span><i class="far fa-clock"></i> 10 min read</span>
+                        <span><i class="far fa-calendar-alt"></i> April 10, 2025</span>
+                    </div>
+                    <a href="https://www.benthamscience.com/article/146479" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="resource-card">
+                <div class="resource-thumbnail">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=2070&q=80" alt="Article thumbnail">
+                </div>
+                <div class="resource-content">
+                    <h3>Stress-Free Tech Culture</h3>
+                    <p>Strategies for a supportive IT workplace.</p>
+                    <div class="resource-meta">
+                        <span><i class="far fa-clock"></i> 7 min read</span>
+                        <span><i class="far fa-calendar-alt"></i> March 20, 2025</span>
+                    </div>
+                    <a href="https://wellfound.com/blog/tech-burnout" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="resource-card">
+                <div class="resource-thumbnail">
+                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1964&q=80" alt="Article thumbnail">
+                </div>
+                <div class="resource-content">
+                    <h3>Neuroscience of Stress</h3>
+                    <p>Cognitive impacts of stress on programming.</p>
+                    <div class="resource-meta">
+                        <span><i class="far fa-clock"></i> 12 min read</span>
+                        <span><i class="far fa-calendar-alt"></i> February 15, 2025</span>
+                    </div>
+                    <a href="https://www.brainfacts.org/thinking-sensing-and-behaving/emotions-stress-and-anxiety/2018/the-neuroscience-of-stress-061918" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="ad-section">
+            <h3 class="ad-title">Discover StressGuard Pro</h3>
+            <div class="ad-container">
+                <img src="https://cdn.pixabay.com/photo/2014/07/11/15/09/unhappy-389944_1280.jpg" alt="StressGuard Pro Ad">
+                <div class="ad-content">
+                    <h4>Boost Team Wellbeing</h4>
+                    <p>Join thousands of tech companies reducing burnout with our AI-powered platform.</p>
+                    <div class="button-row">
+                        <a href="/stress_assessment" class="action-button">
+                            <i class="fas fa-play"></i> Start Free Assessment
+                        </a>
+                        <a href="/post_keyboard_activity" class="action-button">
+                            <i class="fas fa-keyboard"></i> Post Keyboard
+                        </a>
+                        <a href="/post_voice_pattern" class="action-button">
+                            <i class="fas fa-microphone"></i> Post Voice
+                        </a>
+                        <a href="/post_wearable_data" class="action-button">
+                            <i class="fas fa-heartbeat"></i> Post Wearable
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section stats">
+        <div class="stats-grid">
+            <div class="stat-card fade-in">
+                <div class="stat-number">89%</div>
+                <p>Burnout reduction</p>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-number">3.2x</div>
+                <p>Company ROI</p>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-number">92%</div>
+                <p>Employee satisfaction</p>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-number">45%</div>
+                <p>Productivity boost</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta">
+        <div class="cta-container">
+            <h2>Transform Your Team's Wellbeing</h2>
+            <p>Join tech companies prioritizing developer health with our AI-powered platform.</p>
+            <div class="cta-buttons">
+                <a href="/pricing" class="btn btn-primary">View Pricing</a>
+                <a href="/contact" class="btn btn-outline">Contact Sales</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <i class="fas fa-shield-alt"></i>
+                    StressGuard Pro
+                </div>
+                <div class="footer-about">
+                    <p>Empowering tech professionals with intelligent stress management since 2020.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Product</h4>
+                <ul class="footer-links">
+                    <li><a href="/features" class="footer-link"><i class="fas fa-star"></i> Features</a></li>
+                    <li><a href="/integrations" class="footer-link"><i class="fas fa-plug"></i> Integrations</a></li>
+                    <li><a href="/pricing" class="footer-link"><i class="fas fa-tag"></i> Pricing</a></li>
+                    <li><a href="/roadmap" class="footer-link"><i class="fas fa-map"></i> Roadmap</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="/blog" class="footer-link"><i class="fas fa-newspaper"></i> Blog</a></li>
+                    <li><a href="/webinars" class="footer-link"><i class="fas fa-video"></i> Webinars</a></li>
+                    <li><a href="/guides" class="footer-link"><i class="fas fa-book"></i> Guides</a></li>
+                    <li><a href="/research" class="footer-link"><i class="fas fa-flask"></i> Research</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="/about" class="footer-link"><i class="fas fa-info-circle"></i> About Us</a></li>
+                    <li><a href="/careers" class="footer-link"><i class="fas fa-briefcase"></i> Careers</a></li>
+                    <li><a href="/privacy" class="footer-link"><i class="fas fa-lock"></i> Privacy</a></li>
+                    <li><a href="/terms" class="footer-link"><i class="fas fa-file-alt"></i> Terms</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 StressGuard Pro. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Chat Interface -->
+    <div id="chat-button" class="chat-button">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+    <div id="chat-container" class="chat-container">
+        <div class="chat-header">
+            <div class="chat-title">
+                <i class="fas fa-robot"></i>
+                StressGuard Assistant
+            </div>
+            <div class="chat-controls">
+                <button id="minimize-chat" aria-label="Minimize chat">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button id="close-chat" aria-label="Close chat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div id="chat-messages" class="chat-messages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    Hello! I'm your StressGuard Assistant. How can Ihelp you today?
+                </div>
+                <div class="message-time">Just now</div>
+            </div>
+        </div>
+        <div class="chat-input-container">
+            <input type="text" id="chat-input" placeholder="Type your message..." aria-label="Chat input" />
+            <button id="send-message" aria-label="Send message">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+            <button id="voice-input" class="voice-btn" title="Voice input" aria-label="Voice input">
+                <i class="fas fa-microphone"></i>
+            </button>
+        </div>
+    </div>
+
+<!-- JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initialize alerts from Django context
+        const alerts = JSON.parse('{{ alerts|escapejs }}');
+
+        // Mobile menu
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+            hamburger.innerHTML = navMenu.classList.contains('show') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Navbar scroll
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 10);
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = anchor.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    if (navMenu.classList.contains('show')) {
+                        navMenu.classList.remove('show');
+                        hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                }
+            });
+        });
+
+        // Notifications
+        const notifications = alerts.map(alert => ({
+            id: alert.id,
+            title: alert.title,
+            description: alert.description,
+            timestamp: new Date(alert.timestamp),
+            read: alert.read
+        }));
+
+        const notificationBtn = document.getElementById("notification-btn");
+        const notificationPopover = document.getElementById("notification-popover");
+        const notificationList = document.getElementById("notification-list");
+        const markAllReadBtn = document.getElementById("mark-all-read");
+        const unreadCountEl = document.getElementById("unread-count");
+
+        function renderNotifications() {
+            notificationList.innerHTML = "";
+            if (notifications.length === 0) {
+                const item = document.createElement("div");
+                item.className = "notification-item";
+                item.innerHTML = `
+                    <div class="notification-item-content">No new notifications</div>
+                `;
+                notificationList.appendChild(item);
+                setTimeout(() => item.classList.add("visible"), 100);
+            } else {
+                notifications.forEach((notification, index) => {
+                    const item = document.createElement("div");
+                    item.className = `notification-item ${notification.read ? '' : 'unread'}`;
+                    item.innerHTML = `
+                        <div class="notification-item-header">
+                            <div class="notification-item-title">
+                                ${!notification.read ? '<span class="notification-unread"></span>' : ''}
+                                ${notification.title}
+                            </div>
+                            <div class="notification-time">${formatTime(notification.timestamp)}</div>
+                        </div>
+                        <div class="notification-item-content">${notification.description}</div>
+                    `;
+                    item.addEventListener("click", () => markAsRead(notification.id));
+                    notificationList.appendChild(item);
+                    setTimeout(() => item.classList.add("visible"), index * 100);
+                });
+            }
+
+            const unreadCount = notifications.filter(n => !n.read).length;
+            unreadCountEl.textContent = unreadCount;
+            unreadCountEl.style.display = unreadCount > 0 ? "flex" : "none";
+        }
+
+        function formatTime(date) {
+            const diff = (new Date() - date) / (1000 * 60);
+            if (diff < 60) return `${Math.floor(diff)}m ago`;
+            if (diff < 1440) return `${Math.floor(diff / 60)}h ago`;
+            if (diff < 2880) return "Yesterday";
+            return `${Math.floor(diff / 1440)}d ago`;
+        }
+
+        async function markAsRead(id) {
+            const notification = notifications.find(n => n.id === id);
+            if (notification && !notification.read) {
+                try {
+                    const response = await fetch(`/acknowledge_alert/${id}/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrftoken
+                        }
+                    });
+                    if (response.ok) {
+                        notification.read = true;
+                        renderNotifications();
+                    } else {
+                        console.error('Failed to acknowledge alert');
+                    }
+                } catch (error) {
+                    console.error('Error acknowledging alert:', error);
+                }
+            }
+        }
+
+        notificationBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            notificationPopover.classList.toggle("visible");
+        });
+
+        markAllReadBtn.addEventListener("click", async () => {
+            for (const notification of notifications) {
+                if (!notification.read) {
+                    await markAsRead(notification.id);
+                }
+            }
+            renderNotifications();
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!notificationBtn.contains(e.target) && !notificationPopover.contains(e.target)) {
+                notificationPopover.classList.remove("visible");
+            }
+        });
+
+        renderNotifications();
+
+        // Chat system
+        const chatButton = document.getElementById('chat-button');
+        const chatContainer = document.getElementById('chat-container');
+        const minimizeChat = document.getElementById('minimize-chat');
+        const closeChat = document.getElementById('close-chat');
+        const chatInput = document.getElementById('chat-input');
+        const sendMessage = document.getElementById('send-message');
+        const voiceButton = document.getElementById('voice-input');
+        const chatMessages = document.getElementById('chat-messages');
+        const rasaURL = 'http://localhost:5005/webhooks/rest/webhook';
+
+        chatButton.addEventListener('click', () => chatContainer.classList.toggle('open'));
+        minimizeChat.addEventListener('click', () => chatContainer.classList.remove('open'));
+        closeChat.addEventListener('click', () => chatContainer.classList.remove('open'));
+
+        function sendMessageToRasa() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            displayMessage(message, 'user');
+            chatInput.value = '';
+
+            fetch(rasaURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ sender: 'user', message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data?.length) {
+                    data.forEach(response => response.text && displayMessage(response.text, 'bot'));
+                } else {
+                    displayMessage("I didn't understand. Could you rephrase?", 'bot');
+                }
+            })
+            .catch(() => displayMessage("Connection issue. Please try again.", 'bot'));
+        }
+
+        function speak(text) {
+            const synth = window.speechSynthesis;
+            if (!synth) return;
+
+            const utter = new SpeechSynthesisUtterance(text);
+            utter.lang = 'en-US';
+            synth.speak(utter);
+        }
+
+        function displayMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
+            messageDiv.innerHTML = `
+                <div class="message-content">${text}</div>
+                <div class="message-time">${formatTime(new Date())}</div>
+            `;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            if (sender === 'bot') speak(text);
+        }
+
+        sendMessage.addEventListener('click', sendMessageToRasa);
+        chatInput.addEventListener('keypress', e => e.key === 'Enter' && sendMessageToRasa());
+
+        // Voice recognition
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = SpeechRecognition ? new SpeechRecognition() : null;
+
+        if (recognition) {
+            recognition.lang = 'en-US';
+            recognition.continuous = false;
+
+            voiceButton.addEventListener('click', () => {
+                if (!voiceButton.classList.contains('recording')) {
+                    recognition.start();
+                    voiceButton.classList.add('recording');
+                }
+            });
+
+            recognition.onresult = (event) => {
+                chatInput.value = event.results[0][0].transcript;
+                sendMessageToRasa();
+            };
+
+            recognition.onend = () => voiceButton.classList.remove('recording');
+
+            recognition.onerror = (event) => {
+                voiceButton.classList.remove('recording');
+                if (event.error === 'no-speech') {
+                    displayMessage("No speech detected. Try again.", 'bot');
+                }
+            };
+        } else {
+            voiceButton.disabled = true;
+            voiceButton.title = "Voice input not supported.";
+        }
+
+        // Fade-in animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    });
+</script>
+</body>
+</html>

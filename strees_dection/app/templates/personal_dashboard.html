@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StressGuard Pro | Personal Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1E88E5;
+            --dark-blue: #0D47A1;
+            --accent-teal: #26A69A;
+            --light-gray: #F5F7FA;
+            --dark-gray: #263238;
+            --white: #FFFFFF;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --error-red: #EF5350;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark-gray), #37474F);
+            color: var(--white);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .dashboard-container {
+            padding: 2rem;
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px var(--shadow-color);
+        }
+
+        .logo-container {
+            margin-bottom: 1rem;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .header-accent {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-teal));
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        .btn-generate-report, .btn-usershome {
+            display: inline-block;
+            margin: 1rem 0.5rem;
+            padding: 0.8rem 2rem;
+            background: var(--primary-blue);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            border-radius: 25px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-generate-report:hover, .btn-usershome:hover {
+            background: var(--accent-teal);
+            transform: translateY(-2px);
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px var(--shadow-color);
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-card i {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .metric-card h4 {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--white);
+        }
+
+        .metric-card p {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-teal);
+            margin-top: 0.5rem;
+        }
+
+        .user-info, .recommendations-container, .alerts-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px var(--shadow-color);
+            margin-bottom: 2rem;
+        }
+
+        .user-info p {
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            color: var(--white);
+        }
+
+        .recommendations-list, .alerts-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .recommendation-item, .alert-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.3s ease;
+        }
+
+        .recommendation-item:hover, .alert-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .recommendation-item:last-child, .alert-item:last-child {
+            border-bottom: none;
+        }
+
+        .recommendation-item i, .alert-item i {
+            font-size: 1.2rem;
+            color: var(--primary-blue);
+            margin-right: 1rem;
+        }
+
+        .rec-content, .alert-content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .rec-text, .alert-text {
+            font-size: 1rem;
+            color: var(--white);
+        }
+
+        .rec-category, .alert-threshold {
+            font-size: 0.9rem;
+            color: var(--accent-teal);
+            font-weight: 500;
+        }
+
+        .no-recs, .no-alerts {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .error-message {
+            font-size: 1rem;
+            color: var(--error-red);
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .debug-message {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 1rem;
+        }
+
+        .btn-acknowledge {
+            padding: 0.5rem 1rem;
+            background: var(--accent-teal);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-acknowledge:hover {
+            background: var(--primary-blue);
+        }
+
+        @media (max-width: 1024px) {
+            .metrics-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 1.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            h3 {
+                font-size: 1.4rem;
+            }
+
+            .btn-generate-report, .btn-usershome {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .metric-card p {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .logo {
+                width: 80px;
+                height: 80px;
+            }
+
+            .rec-text, .alert-text {
+                font-size: 0.9rem;
+            }
+
+            .rec-category, .alert-threshold {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <div class="logo-container">
+                <svg class="logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="var(--primary-blue)" stroke-width="4"/>
+                    <path d="M30,50 C30,30 70,30 70,50 C70,70 30,70 30,50" fill="none" stroke="var(--accent-teal)" stroke-width="3"/>
+                    <circle cx="50" cy="50" r="10" fill="var(--dark-blue)"/>
+                    <path d="M50,30 V20 M50,70 V80 M30,50 H20 M70,50 H80" stroke="var(--primary-blue)" stroke-width="2"/>
+                </svg>
+            </div>
+            <h2>StressGuard Pro Dashboard</h2>
+            <div class="header-accent"></div>
+            <a href="{% url 'generate_report' %}" class="btn-generate-report">Generate Report</a>
+            <a href="{% url 'usershome' %}" class="btn-usershome">Go to Users Home</a>
+        </div>
+
+        <!-- User Information -->
+        <div class="user-info">
+            <h3>User Profile</h3>
+            <p><i class="fas fa-user"></i> Name: {{ user.first_name }} {{ user.last_name }}</p>
+            <p><i class="fas fa-envelope"></i> Email: {{ user.email_id }}</p>
+            <p><i class="fas fa-building"></i> Department: {{ user.department|default:"Not specified" }}</p>
+            <p><i class="fas fa-briefcase"></i> Work Role: {{ user.work_role|default:"Not specified" }}</p>
+            <p><i class="fas fa-clock"></i> Years of Experience: {{ user.years_of_experience|default:"Not specified" }}</p>
+            {% if user.image %}
+                <img src="{{ user.image.url }}" alt="Profile Image" style="max-width: 100px; border-radius: 10px; margin-top: 1rem;">
+            {% endif %}
+        </div>
+
+        <!-- Metrics Section -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <i class="fas fa-chart-bar"></i>
+                <h4>Average Stress Score</h4>
+                <p>{{ avg_score|floatformat:1 }}</p>
+            </div>
+            <div class="metric-card">
+                <i class="fas fa-arrow-trend-up"></i>
+                <h4>Recent Stress Trend</h4>
+                <p>{{ recent_trend }}</p>
+            </div>
+            <div class="metric-card">
+                <i class="fas fa-keyboard"></i>
+                <h4>Avg Keystrokes/Min</h4>
+                <p>{{ keyboard_avg|floatformat:0 }}</p>
+            </div>
+            <div class="metric-card">
+                <i class="fas fa-tv"></i>
+                <h4>Total Screen Time</h4>
+                <p>{{ screen_time_hours|floatformat:2 }} hrs</p>
+            </div>
+            <div class="metric-card">
+                <i class="fas fa-heartbeat"></i>
+                <h4>Avg Heart Rate</h4>
+                <p>{{ wearable_metrics.avg_heart_rate|floatformat:1 }} bpm</p>
+            </div>
+            <div class="metric-card">
+                <i class="fas fa-walking"></i>
+                <h4>Total Steps</h4>
+                <p>{{ wearable_metrics.total_steps }}</p>
+            </div>
+            <div class="metric-card">
+                <i class="fas fa-headphones"></i>
+                <h4>Voice Stress Level</h4>
+                <p>{{ voice_stress_avg|floatformat:1 }}</p>
+            </div>
+            <div class="metric-card">
+                <i class="fas fa-comment"></i>
+                <h4>Feedback Submitted</h4>
+                <p>{{ feedback_count }}</p>
+            </div>
+        </div>
+
+        <!-- Recommendations Section -->
+        <div class="recommendations-container">
+            <h3>Current Recommendations</h3>
+            <p class="debug-message">Debug: {{ recommendations|length }} recommendation(s) found.</p>
+            {% if recommendations %}
+                <ul class="recommendations-list">
+                    {% for rec in recommendations %}
+                        <li class="recommendation-item">
+                            <i class="fas fa-lightbulb"></i>
+                            <div class="rec-content">
+                                <span class="rec-text">{{ rec.recommendation_text }}</span>
+                                <span class="rec-category">({{ rec.get_category_display }})</span>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="no-recs">No recommendations available at this time. Complete a stress assessment to receive personalized suggestions.</p>
+            {% endif %}
+        </div>
+
+        <!-- Alerts Section -->
+        <div class="alerts-container">
+            <h3>Active Alerts</h3>
+            <p class="debug-message">Debug: {{ alerts|length }} alert(s) found.</p>
+            {% if alerts %}
+                <ul class="alerts-list">
+                    {% for alert in alerts %}
+                        <li class="alert-item">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <div class="alert-content">
+                                <span class="alert-text">{{ alert.message }}</span>
+                                <span class="alert-threshold">(Threshold: {{ alert.threshold }})</span>
+                                <form method="POST" action="{% url 'acknowledge_alert' alert.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-acknowledge">Acknowledge</button>
+                                </form>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="no-alerts">
+                    No active alerts at this time. Alerts will appear when stress levels or other metrics exceed safe thresholds.
+                    <a href="{% url 'stress_assessment' %}" style="color: var(--primary-blue);">Take a Stress Assessment</a>
+                </p>
+            {% endif %}
+            {% if error_message %}
+                <p class="error-message">{{ error_message }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

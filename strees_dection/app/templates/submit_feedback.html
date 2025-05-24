@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Submit feedback for StressGuard Pro - Stress Detection for IT Professionals">
+    <title>Submit Feedback - StressGuard Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb; /* Modern blue */
+            --primary-dark: #1d4ed8;
+            --secondary-color: #7c3aed; /* Tech purple */
+            --accent-color: #f59e0b; /* Stress indicator color */
+            --background-color: #f8fafc; /* Light background */
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --slider-color: #f59e0b;
+            --slider-hover: #fbbf24;
+            --slider-bg: #e2e8f0;
+            --border-color: #e2e8f0;
+            --glow-color: rgba(245, 158, 11, 0.3);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            font-size: 16px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.25rem 2rem;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-size: 1.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: var(--transition);
+            text-decoration: none;
+            color: white;
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo-pulse {
+            display: inline-block;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .navbar-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .navbar-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        .navbar-links a:hover::after {
+            width: 70%;
+        }
+
+        .container {
+            flex: 1;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-container {
+            max-width: 720px;
+            margin: 2rem auto;
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .form-container:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .form-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.025em;
+        }
+
+        .form-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .messages {
+            margin-bottom: 2rem;
+        }
+
+        .messages .success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+            padding: 1.25rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--success-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.9rem;
+            animation: slideIn 0.5s ease;
+        }
+
+        .messages .error {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--error-color);
+            padding: 1.25rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--error-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.9rem;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateY(-10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.02em;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--text-color);
+            background-color: white;
+            transition: var(--transition);
+            resize: vertical;
+            min-height: 140px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        textarea::placeholder {
+            color: var(--text-muted);
+            opacity: 0.7;
+        }
+
+        .errorlist {
+            color: var(--error-color);
+            list-style: none;
+            padding: 0;
+            margin-top: 0.75rem;
+            font-size: 0.85rem;
+        }
+
+        .rating-section {
+            margin: 2rem 0;
+        }
+
+        .slider-container {
+            padding: 1.5rem;
+            border-radius: 16px;
+            background: white;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+
+        .slider-container input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            background: var(--slider-bg);
+            border-radius: 4px;
+            outline: none;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: var(--slider-color);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 8px var(--glow-color);
+            transition: var(--transition);
+        }
+
+        .slider-container input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: var(--slider-color);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 8px var(--glow-color);
+            transition: var(--transition);
+        }
+
+        .slider-container input[type="range"]:hover::-webkit-slider-thumb,
+        .slider-container input[type="range"]:hover::-moz-range-thumb {
+            background: var(--slider-hover);
+            transform: scale(1.1);
+        }
+
+        .slider-container input[type="range"]::-webkit-slider-runnable-track {
+            background: linear-gradient(to right, var(--slider-color) 0%, var(--slider-color) calc((var(--value) - 1) * 25%), var(--slider-bg) calc((var(--value) - 1) * 25%), var(--slider-bg) 100%);
+            height: 8px;
+            border-radius: 4px;
+        }
+
+        .slider-container input[type="range"]::-moz-range-track {
+            background: linear-gradient(to right, var(--slider-color) 0%, var(--slider-color) calc((var(--value) - 1) * 25%), var(--slider-bg) calc((var(--value) - 1) * 25%), var(--slider-bg) 100%);
+            height: 8px;
+            border-radius: 4px;
+        }
+
+        .rating-label {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .rating-scale {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem 1.75rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-submit::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            transition: var(--transition);
+        }
+
+        .btn-submit:hover::after {
+            left: 100%;
+        }
+
+        .btn-submit:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            background: white;
+        }
+
+        /* Stress wave animation in navbar */
+        .stress-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            animation: wave 3s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1.5rem;
+                gap: 1rem;
+            }
+
+            .navbar-links {
+                margin-top: 1rem;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .form-container {
+                padding: 2rem 1.5rem;
+                margin: 1.5rem auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slider-container {
+                padding: 1rem;
+            }
+
+            .form-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .btn-submit {
+                padding: 0.875rem 1.25rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="stress-wave"></div>
+        <a href="/" class="navbar-brand">
+            <span class="logo-pulse"><i class="fas fa-brain" aria-hidden="true"></i></span>
+            <span>StressGuard Pro</span>
+        </a>
+        <div class="navbar-links">
+            <a href="/usershome" aria-label="Home"><i class="fas fa-home"></i> Home</a>
+            <a href="/settings" aria-label="Settings"><i class="fas fa-cog"></i> Settings</a>
+            <a href="/userprofile" aria-label="Profile"><i class="fas fa-user"></i> Profile</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="form-container" role="main">
+            <div class="form-header">
+                <h1>We Value Your Feedback</h1>
+                <p>Help us improve StressGuard Pro by sharing your thoughts below. Your input helps us better serve IT professionals like you.</p>
+            </div>
+
+            {% if messages %}
+                <div class="messages" role="alert">
+                    {% for msg in messages %}
+                        <div class="{{ msg.tags }}">
+                            <i class="fas fa-{% if msg.tags == 'success' %}check-circle{% else %}exclamation-circle{% endif %}" aria-hidden="true"></i>
+                            {{ msg.message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="post" aria-label="Feedback form">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+
+                <div class="form-group">
+                    <label for="{{ form.feedback_text.id_for_label }}">Your Feedback</label>
+                    {{ form.feedback_text }}
+                    {% if form.feedback_text.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.feedback_text.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.rating.id_for_label }}">Your Rating</label>
+                    <div class="slider-container" role="slider" aria-label="Rating (1 to 5)">
+                        <input type="range" name="{{ form.rating.name }}" id="{{ form.rating.id_for_label }}"
+                               min="1" max="5" step="1" value="{{ form.rating.value|default:'3' }}"
+                               aria-valuemin="1" aria-valuemax="5" aria-valuenow="{{ form.rating.value|default:'3' }}"
+                               oninput="updateSlider(this)">
+                    </div>
+                    <div class="rating-label" id="rating-label">3 - Average</div>
+                    <div class="rating-scale">
+                        <span>1 - Needs Work</span>
+                        <span>5 - Excellent</span>
+                    </div>
+                    {% if form.rating.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.rating.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn-submit" aria-label="Submit feedback">
+                    <i class="fas fa-paper-plane" aria-hidden="true"></i> Submit Feedback
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer" role="contentinfo">
+        <p>© <span id="current-year">2025</span> StressGuard Pro. Empowering IT Professionals with Stress Detection.</p>
+    </footer>
+
+    <script>
+        // Function to update slider visuals and rating label
+        function updateSlider(slider) {
+            const value = parseInt(slider.value);
+            const ratingLabel = document.getElementById('rating-label');
+            const ratingTexts = {
+                1: '1 - Very Poor',
+                2: '2 - Poor',
+                3: '3 - Average',
+                4: '4 - Good',
+                5: '5 - Excellent'
+            };
+
+            // Update aria-valuenow for accessibility
+            slider.setAttribute('aria-valuenow', value);
+
+            // Update label text and style
+            ratingLabel.textContent = ratingTexts[value];
+            ratingLabel.style.color = 'var(--text-color)';
+            ratingLabel.style.fontWeight = '600';
+
+            // Update track background dynamically
+            slider.style.setProperty('--value', value);
+        }
+
+        // Initialize slider on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const slider = document.querySelector('.slider-container input[type="range"]');
+            if (slider) {
+                updateSlider(slider);
+            }
+
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // Add form submission loading state
+            const form = document.querySelector('form');
+            if (form) {
+                form.addEventListener('submit', function() {
+                    const btn = this.querySelector('button[type="submit"]');
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Processing...';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

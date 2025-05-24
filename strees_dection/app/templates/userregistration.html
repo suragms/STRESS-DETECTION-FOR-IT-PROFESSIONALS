@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StressDetect - Register</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://media.licdn.com/dms/image/v2/D5603AQGIV1rv-n7MKg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730176568676?e=1752710400&v=beta&t=0qF98hpu_-1tqTWKEBakZGxwZiYsdlpucu0Uhf8VSUo">
+    <link rel="apple-touch-icon" href="https://media.licdn.com/dms/image/v2/D5603AQGIV1rv-n7MKg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730176568676?e=1752710400&v=beta&t=0qF98hpu_-1tqTWKEBakZGxwZiYsdlpucu0Uhf8VSUo">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --secondary-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            --accent-color: #06b6d4;
+            --dark-color: #0f172a;
+            --light-color: #f8fafc;
+            --white: #ffffff;
+            --shadow-color: rgba(15, 23, 42, 0.1);
+            --grey-color: #64748b;
+            --success-color: #22c55e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--light-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Dynamic Wave Background */
+        .wave-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%);
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 200px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%234f46e5" fill-opacity="0.1" d="M0,128L48,138.7C96,149,192,171,288,181.3C384,192,480,192,576,186.7C672,181,768,171,864,149.3C960,128,1056,96,1152,96C1248,96,1344,128,1392,144L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,0,320Z"></path></svg>');
+            animation: wave 10s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-1440px); }
+        }
+
+        /* Modern Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--dark-color);
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            color: #6366f1;
+            font-size: 1.8rem;
+        }
+
+        .logo:hover {
+            color: #a855f7;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--dark-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            min-height: 44px; /* Accessible touch target */
+        }
+
+        .nav-link i {
+            margin-right: 0.5rem;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-link.active {
+            color: #6366f1;
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* Registration Container - Modern Glassmorphism */
+        .registration-container {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 12px 40px rgba(15, 23, 42, 0.15),
+                        inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 900px;
+            margin: 6rem 2rem 2rem;
+            overflow: hidden;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animated Gradient Header */
+        .registration-header {
+            background: var(--primary-gradient);
+            padding: 3rem;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .registration-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                rgba(255,255,255,0.15) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba(255,255,255,0.15) 50%,
+                rgba(255,255,255,0.15) 75%,
+                transparent 75%,
+                transparent
+            );
+            background-size: 60px 60px;
+            animation: animateStripes 4s linear infinite;
+        }
+
+        @keyframes animateStripes {
+            0% { transform: rotate(0deg) translate(-5%, -5%); }
+            100% { transform: rotate(360deg) translate(-5%, -5%); }
+        }
+
+        .sparkles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: sparkle 2s infinite;
+        }
+
+        .sparkle:nth-child(1) { top: 20%; left: 30%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 50%; left: 70%; animation-delay: 0.5s; }
+        .sparkle:nth-child(3) { top: 80%; left: 20%; animation-delay: 1s; }
+
+        @keyframes sparkle {
+            0% { transform: scale(0); opacity: 1; }
+            50% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .registration-logo {
+            width: 80px;
+            height: 80px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+
+        .registration-logo:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .registration-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .registration-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .registration-form {
+            padding: 3rem;
+        }
+
+        .form-progress {
+            height: 8px;
+            background: rgba(15, 23, 42, 0.05);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-gradient);
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--grey-color);
+            font-size: 1.2rem;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--grey-color);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 1.2rem 1.2rem 1.2rem 3.5rem;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: var(--white);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
+            outline: none;
+        }
+
+        .file-input-container {
+            width: 100%;
+            min-height: 60px;
+            border: 2px dashed rgba(15, 23, 42, 0.2);
+            border-radius: 12px;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--white);
+            transition: all 0.3s ease;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .file-input-container:hover {
+            border-color: var(--accent-color);
+            background: rgba(6, 182, 212, 0.05);
+        }
+
+        .file-input-container input[type="file"] {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-input-label {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--grey-color);
+            font-size: 1rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .file-input-label i {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+        }
+
+        .file-input-label span {
+            font-weight: 500;
+        }
+
+        .file-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--grey-color);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Animated Checkbox */
+        .terms-container {
+            display: flex;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--grey-color);
+            border-radius: 6px;
+            margin-right: 1rem;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .custom-checkbox.checked {
+            background: var(--primary-gradient);
+            border-color: transparent;
+        }
+
+        .checkmark {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .custom-checkbox.checked .checkmark {
+            opacity: 1;
+        }
+
+        button[type="submit"] {
+            position: relative;
+            overflow: hidden;
+            background: var(--primary-gradient);
+            color: var(--white);
+            width: 100%;
+            padding: 1.3rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            background-size: 300% 100%;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+            min-height: 48px; /* Accessible touch target */
+        }
+
+        button[type="submit"]:hover {
+            background-position: 100% 0;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(99, 102, 241, 0.35);
+        }
+
+        .error {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .shake {
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+            border-color: #ef4444 !important;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translateX(-2px); }
+            20%, 80% { transform: translateX(4px); }
+            30%, 50%, 70% { transform: translateX(-6px); }
+            40%, 60% { transform: translateX(6px); }
+        }
+
+        /* Resources Section */
+        .resources-section {
+            max-width: 900px;
+            width: 100%;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .resources-title {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+            margin-bottom: 2rem;
+            font-weight: 700;
+            text-align: center;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .resource-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+
+        .resource-image {
+            height: 160px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .resource-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .resource-card:hover .resource-image img {
+            transform: scale(1.08);
+        }
+
+        .hover-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .resource-card:hover .hover-overlay {
+            opacity: 1;
+        }
+
+        .resource-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            padding: 1rem;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .resource-content {
+            padding: 1.8rem;
+        }
+
+        .resource-title {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .resource-description {
+            font-size: 0.9rem;
+            color: var(--grey-color);
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .resource-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            min-height: 44px; /* Accessible touch target */
+        }
+
+        .resource-link i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .resource-link:hover {
+            color: #8b5cf6;
+        }
+
+        .resource-link:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Login Suggestion */
+        .login-suggestion {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 3rem auto;
+            max-width: 900px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .login-suggestion p {
+            color: var(--grey-color);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .login-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-gradient);
+            color: var(--white);
+            padding: 0.9rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            min-height: 48px; /* Accessible touch target */
+        }
+
+        .login-btn i {
+            margin-right: 0.5rem;
+        }
+
+        .login-btn:hover {
+            background-position: 100% 0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (min-width: 1200px) {
+            .registration-container {
+                max-width: 1000px;
+                margin: 7rem 3rem 3rem;
+            }
+            .resources-section {
+                max-width: 1000px;
+            }
+            .login-suggestion {
+                max-width: 1000px;
+            }
+            .registration-header {
+                padding: 3.5rem;
+            }
+            .registration-header h1 {
+                font-size: 2.8rem;
+            }
+            .registration-form {
+                padding: 3.5rem;
+            }
+            .form-row {
+                gap: 2.5rem;
+            }
+            .resources-grid {
+                gap: 2.5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none; /* Hide login link on smaller screens */
+            }
+            .navbar {
+                padding: 0.8rem 1.5rem;
+            }
+            .logo {
+                font-size: 1.4rem;
+            }
+            .logo i {
+                font-size: 1.6rem;
+            }
+            .registration-container {
+                max-width: 95%;
+                margin: 5rem 1.5rem 1.5rem;
+                border-radius: 24px;
+            }
+            .registration-form {
+                padding: 2.5rem;
+            }
+            .resources-section {
+                padding: 0 1.5rem;
+                margin: 2.5rem auto;
+            }
+            .login-suggestion {
+                margin: 2.5rem 1.5rem;
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .registration-container {
+                margin: 4rem 1rem;
+                border-radius: 20px;
+            }
+            .registration-header {
+                padding: 2rem;
+            }
+            .registration-header h1 {
+                font-size: 2rem;
+            }
+            .registration-header p {
+                font-size: 1rem;
+            }
+            .registration-logo {
+                width: 70px;
+                height: 70px;
+            }
+            .registration-logo svg {
+                width: 40px;
+                height: 40px;
+            }
+            .registration-form {
+                padding: 2rem;
+            }
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+            input, select {
+                padding: 1rem 1rem 1rem 3rem;
+                font-size: 0.95rem;
+            }
+            .input-icon {
+                font-size: 1.1rem;
+                left: 0.8rem;
+            }
+            .file-input-container {
+                min-height: 50px;
+                padding: 0.8rem;
+            }
+            .file-input-label {
+                font-size: 0.95rem;
+            }
+            .file-input-label i {
+                font-size: 1.3rem;
+            }
+            button[type="submit"] {
+                padding: 1.1rem;
+                font-size: 1rem;
+            }
+            .terms-container p {
+                font-size: 0.95rem;
+            }
+            .resources-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .resources-title {
+                font-size: 1.6rem;
+            }
+            .resource-image {
+                height: 140px;
+            }
+            .resource-content {
+                padding: 1.5rem;
+            }
+            .resource-title {
+                font-size: 1.1rem;
+            }
+            .resource-description {
+                font-size: 0.85rem;
+            }
+            .resource-link {
+                font-size: 0.85rem;
+            }
+            .login-suggestion p {
+                font-size: 0.95rem;
+            }
+            .login-btn {
+                padding: 0.8rem 1.8rem;
+                font-size: 0.95rem;
+            }
+            .wave {
+                height: 150px;
+            }
+            .sparkle {
+                width: 8px;
+                height: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0.7rem 1rem;
+            }
+            .logo {
+                font-size: 1.3rem;
+            }
+            .logo i {
+                font-size: 1.5rem;
+            }
+            .registration-container {
+                margin: 3.5rem 0.8rem;
+                border-radius: 16px;
+            }
+            .registration-header {
+                padding: 1.5rem;
+            }
+            .registration-header h1 {
+                font-size: 1.8rem;
+            }
+            .registration-header p {
+                font-size: 0.9rem;
+            }
+            .registration-logo {
+                width: 60px;
+                height: 60px;
+            }
+            .registration-logo svg {
+                width: 35px;
+                height: 35px;
+            }
+            .registration-form {
+                padding: 1.5rem;
+            }
+            .form-progress {
+                height: 6px;
+            }
+            .form-group {
+                margin-bottom: 1.2rem;
+            }
+            label {
+                font-size: 0.9rem;
+            }
+            input, select {
+                padding: 0.9rem 0.9rem 0.9rem 2.8rem;
+                font-size: 0.9rem;
+                border-radius: 10px;
+            }
+            .input-icon {
+                font-size: 1rem;
+                left: 0.7rem;
+            }
+            .file-input-container {
+                min-height: 48px;
+                padding: 0.7rem;
+            }
+            .file-input-label {
+                font-size: 0.9rem;
+            }
+            .file-input-label i {
+                font-size: 1.2rem;
+            }
+            .terms-container {
+                margin: 1.5rem 0;
+            }
+            .custom-checkbox {
+                width: 20px;
+                height: 20px;
+            }
+            .terms-container p {
+                font-size: 0.9rem;
+            }
+            button[type="submit"] {
+                padding: 1rem;
+                font-size: 0.95rem;
+                border-radius: 10px;
+            }
+            .error {
+                font-size: 0.8rem;
+            }
+            .resources-section {
+                padding: 0 1rem;
+                margin: 2rem auto;
+            }
+            .resources-title {
+                font-size: 1.4rem;
+            }
+            .resource-image {
+                height: 120px;
+            }
+            .resource-content {
+                padding: 1.2rem;
+            }
+            .resource-title {
+                font-size: 1rem;
+            }
+            .resource-description {
+                font-size: 0.8rem;
+            }
+            .resource-link {
+                font-size: 0.8rem;
+            }
+            .login-suggestion {
+                margin: 2rem 1rem;
+                padding: 1.5rem;
+            }
+            .login-suggestion p {
+                font-size: 0.9rem;
+            }
+            .login-btn {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            .wave {
+                height: 120px;
+            }
+            .sparkle {
+                width: 6px;
+                height: 6px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .registration-container {
+                margin: 3rem 0.5rem;
+                border-radius: 12px;
+            }
+            .registration-header h1 {
+                font-size: 1.6rem;
+            }
+            .registration-header p {
+                font-size: 0.85rem;
+            }
+            .registration-logo {
+                width: 50px;
+                height: 50px;
+            }
+            .registration-logo svg {
+                width: 30px;
+                height: 30px;
+            }
+            .registration-form {
+                padding: 1.2rem;
+            }
+            label {
+                font-size: 0.85rem;
+            }
+            input, select {
+                padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+                font-size: 0.85rem;
+                border-radius: 8px;
+            }
+            .input-icon {
+                font-size: 0.9rem;
+                left: 0.6rem;
+            }
+            .file-input-container {
+                min-height: 44px;
+                padding: 0.6rem;
+            }
+            .file-input-label {
+                font-size: 0.85rem;
+            }
+            .file-input-label i {
+                font-size: 1.1rem;
+            }
+            .terms-container p {
+                font-size: 0.85rem;
+            }
+            button[type="submit"] {
+                padding: 0.9rem;
+                font-size: 0.9rem;
+            }
+            .error {
+                font-size: 0.75rem;
+            }
+            .resources-title {
+                font-size: 1.3rem;
+            }
+            .resource-image {
+                height: 100px;
+            }
+            .resource-content {
+                padding: 1rem;
+            }
+            .resource-title {
+                font-size: 0.95rem;
+            }
+            .resource-description {
+                font-size: 0.75rem;
+            }
+            .resource-link {
+                font-size: 0.75rem;
+            }
+            .login-suggestion p {
+                font-size: 0.85rem;
+            }
+            .login-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Motion Reduction for Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .wave {
+                animation: none;
+            }
+            .sparkle {
+                animation: none;
+            }
+            .registration-header::after {
+                animation: none;
+            }
+            .registration-container {
+                animation: none;
+            }
+            .shake {
+                animation: none;
+            }
+            button[type="submit"], .login-btn, .resource-card, .registration-logo {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Wave Background -->
+    <div class="wave-bg">
+        <div class="wave"></div>
+    </div>
+
+    <!-- Modern Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{% url 'home' %}" class="logo">
+                <i class="fas fa-brain"></i>
+                <span class="gradient-text">StressDetect</span>
+            </a>
+            <div class="nav-links">
+                <a href="{% url 'login' %}" class="nav-link active">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Login</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Registration Form -->
+    <div class="registration-container">
+        <div class="registration-header">
+            <div class="sparkles-container">
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+            </div>
+            <div class="logo-container">
+                <div class="registration-logo">
+                    <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="#6366f1"/>
+                    </svg>
+                </div>
+                <h1>Create Your Account</h1>
+            </div>
+            <p>Join the leading platform for professional stress monitoring</p>
+        </div>
+
+        <form id="registrationForm" method="POST" enctype="multipart/form-data" class="registration-form">
+            {% csrf_token %}
+            <div class="form-progress">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="first_name">First Name</label>
+                    <div style="position: relative;">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="first_name" name="first_name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name</label>
+                    <div style="position: relative;">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="last_name" name="last_name" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email_id">Email Address</label>
+                <div style="position: relative;">
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input type="email" id="email_id" name="email_id" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div style="position: relative;">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="password" name="password" required
+                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}"
+                               title="Password must be at least 8 characters and include one number, one uppercase, one lowercase, and one special character.">
+                    </div>
+                    <div id="passwordError" class="error hidden">Password must meet complexity requirements.</div>
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <div style="position: relative;">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="confirm_password" name="confirm_password" required>
+                    </div>
+                    <div id="confirmPasswordError" class="error hidden">Passwords do not match.</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Profile Picture</label>
+                <div class="file-input-container">
+                    <input type="file" id="image" name="image" accept="image/*">
+                    <label class="file-input-label" for="image">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Choose profile photo...</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="department">Department</label>
+                <div style="position: relative;">
+                    <i class="fas fa-building input-icon"></i>
+                    <select id="department" name="department" required>
+                        <option value="" disabled selected></option>
+                        <option value="IT">IT</option>
+                        <option value="HR">HR</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="BMW Car world">BMW Car world</option>
+                        <option value="Production/Operations">Production/Operations</option>
+                        <option value="Human Resources">Human Resources</option>
+                        <option value="Administration">Administration</option>
+                        <option value="Legal">Legal</option>
+                        <option value="Research and Development">Research and Development</option>
+                        <option value="Project department">Project department</option>
+                        <option value="Leadership">Leadership</option>
+                        <option value="Designing department">Designing department</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="years_of_experience">Experience (Years)</label>
+                    <div style="position: relative;">
+                        <i class="fas fa-briefcase input-icon"></i>
+                        <input type="number" id="years_of_experience" name="years_of_experience" min="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="work_role">Work Role</label>
+                    <div style="position: relative;">
+                        <i class="fas fa-user-tie input-icon"></i>
+                        <input type="text" id="work_role" name="work_role" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="terms-container">
+                <div class="custom-checkbox">
+                    <i class="fas fa-check checkmark"></i>
+                </div>
+                <p>I agree to the <a href="#" class="resource-link">Terms of Service</a> and <a href="#" class="resource-link">Privacy Policy</a></p>
+            </div>
+
+            <button type="submit">Complete Registration</button>
+        </form>
+    </div>
+
+    <!-- Stress Detection Resources Section -->
+    <div class="resources-section">
+        <h2 class="resources-title">Stress Detection Resources</h2>
+        <div class="resources-grid">
+            <div class="resource-card">
+                <div class="resource-image">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxzaI-OIjyY27GFIaYRyE9wknIJZNdsItEXw37oo3X1cFY8c078g&s=10&ec=72940544" alt="IT Stress Management">
+                    <div class="hover-overlay"></div>
+                    <div class="resource-overlay">YouTube Video</div>
+                </div>
+                <div class="resource-content">
+                    <h3 class="resource-title">Stress Management for IT Professionals</h3>
+                    <p class="resource-description">Learn techniques to manage stress specifically tailored for IT workers dealing with tight deadlines and complex problems.</p>
+                    <a href="https://youtu.be/XTgbQl73dos" class="resource-link" target="_blank">Watch Now <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-image">
+                    <img src="https://miro.medium.com/v2/resize:fit:750/format:webp/1*fJSamWfe1tvWtnL5coy1Bg.jpeg" alt="Stress Analysis Trends">
+                    <div class="hover-overlay"></div>
+                    <div class="resource-overlay">Article</div>
+                </div>
+                <div class="resource-content">
+                    <h3 class="resource-title">2023 Workplace Stress Analysis Trends</h3>
+                    <p class="resource-description">Latest research on workplace stress patterns and how modern companies are addressing employee mental health.</p>
+                    <a href="https://medium.com/swlh/workplace-stress-trends-2023" class="resource-link" target="_blank">Read Article <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-image">
+                    <img src="https://www.verywellmind.com/thmb/Y4Ik6HXVNNdYCGKo8up6xx2qsr0=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/that-s-it--i-m-done--936117884-30b9067edcac4976a48d006a4f0f88b7.jpg" alt="Stress Impact">
+                    <div class="hover-overlay"></div>
+                    <div class="resource-overlay">Infographic</div>
+                </div>
+                <div class="resource-content">
+                    <h3 class="resource-title">How Stress Affects Your Body</h3>
+                    <p class="resource-description">Visual guide showing the physiological impacts of chronic stress on different body systems.</p>
+                    <a href="https://www.verywellmind.com/stress-and-health-4157211" class="resource-link" target="_blank">View Guide <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Suggestion -->
+    <div class="login-suggestion">
+        <p>Already have an account? Access your personalized stress analytics dashboard.</p>
+        <a href="{% url 'login' %}" class="login-btn">
+            <i class="fas fa-sign-in-alt"></i> Login to Your Account
+        </a>
+    </div>
+
+    <script>
+        // Input Validation Animation
+        document.querySelectorAll('input, select').forEach(input => {
+            input.addEventListener('invalid', () => {
+                input.classList.add('shake');
+                setTimeout(() => input.classList.remove('shake'), 400);
+            });
+        });
+
+        // Custom Checkbox Interaction
+        document.querySelectorAll('.custom-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('click', () => {
+                checkbox.classList.toggle('checked');
+            });
+        });
+
+        // Dynamic Input Validation
+        function validateField(field) {
+            if (!field.checkValidity()) {
+                field.parentElement.classList.add('invalid');
+            } else {
+                field.parentElement.classList.remove('invalid');
+            }
+        }
+
+        // Real-time Validation
+        document.querySelectorAll('input, select').forEach(field => {
+            field.addEventListener('input', () => validateField(field));
+        });
+
+        // Password Validation
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirm_password');
+        const passwordError = document.getElementById('passwordError');
+        const confirmPasswordError = document.getElementById('confirmPasswordError');
+
+        passwordInput.addEventListener('input', validatePassword);
+        confirmPasswordInput.addEventListener('input', validateConfirmPassword);
+
+        function validatePassword() {
+            const password = passwordInput.value;
+            const pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
+            if (!pattern.test(password)) {
+                passwordError.classList.remove('hidden');
+            } else {
+                passwordError.classList.add('hidden');
+            }
+            updateProgress();
+            validateField(passwordInput);
+        }
+
+        function validateConfirmPassword() {
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+            if (password !== confirmPassword) {
+                confirmPasswordError.classList.remove('hidden');
+            } else {
+                confirmPasswordError.classList.add('hidden');
+            }
+            updateProgress();
+            validateField(confirmPasswordInput);
+        }
+
+        // Form Progress Indicator
+        const form = document.getElementById('registrationForm');
+        const requiredInputs = form.querySelectorAll('input[required], select[required]');
+        const progressFill = document.getElementById('progressFill');
+
+        function updateProgress() {
+            const filledInputs = Array.from(requiredInputs).filter(input => input.value.trim() !== '').length;
+            const totalInputs = requiredInputs.length;
+            const percentage = (filledInputs / totalInputs) * 100;
+            progressFill.style.width = `${percentage}%`;
+        }
+
+        requiredInputs.forEach(input => {
+            input.addEventListener('input', updateProgress);
+        });
+
+        // Form Submission Validation
+        form.addEventListener('submit', function(event) {
+            if (!passwordInput.value || !confirmPasswordInput.value ||
+                !passwordError.classList.contains('hidden') ||
+                !confirmPasswordError.classList.contains('hidden') ||
+                !document.querySelector('.custom-checkbox').classList.contains('checked')) {
+                event.preventDefault();
+                showToast('Please fix the errors and agree to the terms before submitting.', 'error');
+            }
+        });
+
+        // File Input Preview
+        const fileInput = document.getElementById('image');
+        const fileInputLabel = document.querySelector('.file-input-label span');
+
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                fileInputLabel.textContent = this.files[0].name;
+            } else {
+                fileInputLabel.textContent = 'Choose profile photo...';
+            }
+        });
+
+        // Toast Notification
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.right = '20px';
+            toast.style.padding = '12px 24px';
+            toast.style.background = type === 'error' ? '#ef4444' : '#22c55e';
+            toast.style.color = 'white';
+            toast.style.borderRadius = '8px';
+            toast.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
+            toast.style.zIndex = '1000';
+            toast.style.fontWeight = '500';
+            toast.style.animation = 'fadeIn 0.3s ease-out';
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'fadeOut 0.3s ease-out';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Initial setup
+        updateProgress();
+    </script>
+</body>
+</html>
