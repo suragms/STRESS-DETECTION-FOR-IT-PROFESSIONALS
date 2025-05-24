@@ -1,192 +1,357 @@
- 🧑‍💻 Stress Detection for IT Professionals
+# 🎯 𝕊𝕋ℝ𝔼𝕊𝕊 𝔻𝔼𝕋𝔼ℂ𝕋𝕀𝕆ℕ 𝔽𝕆ℝ 𝕀𝕋 𝔓ℝ𝕆𝔽𝔼𝕊𝕊𝕀𝕆ℕ𝔸𝕃𝕊 🧠
 
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![Version](https://img.shields.io/badge/version-1.0-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
-![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-orange)
-
-A smart AI-powered system to detect and monitor stress levels in IT professionals using behavioral, physiological, and IoT data, featuring a Rasa chatbot for personalized stress management.
+> *A smart AI-powered system to monitor, detect, and manage stress in high-pressure IT environments.
+> Your wellbeing companion in the tech world *
 
 ---
 
-## 📋 Project Description
+## 🚀 **Tech Stack**
 
-This project integrates **AI**, **Machine Learning**, **IoT**, and a **Rasa-based chatbot** to identify stress levels in real-time. It collects data from wearable devices and behavioral patterns (e.g., typing speed, voice tone) to deliver actionable insights and wellness recommendations to users and organizations.
-
----
-
-## 🚀 Features
-
-- 🔹 **Real-time Stress Detection**: AI/ML models assess stress using live input data.
-- 🔹 **Wearable Integration**: Compatible with Fitbit, Google Fit, and Apple HealthKit.
-- 🔹 **Behavioral Analysis**: Typing speed, speech tone, and activity monitoring.
-- 🔹 **Smart Chatbot**: Personalized advice via a Rasa-powered chatbot.
-- 🔹 **HR Dashboards**: Insights into workforce stress trends and analytics.
-- 🔹 **Predictive Analytics**: Anticipates future stress based on trends.
-- 🔹 **Secure Data Handling**: End-to-end encrypted for user data protection.
+* **🌐 Django:** Robust Python web framework for interactive UI
+* **🤖 Rasa:** Conversational AI for real-time stress management chat
+* **📊 Machine Learning:** Scikit-learn, NumPy, Pandas for stress prediction
+* **🎧 Librosa:** Audio feature extraction for voice pattern analysis
+* **📱 Data Inputs:** Screen time, voice recordings, wearable sensor data
 
 ---
 
-## 🛠️ Tech Stack
+## 🧩 **Key Components**
 
-- **Backend**: Python, Django/Flask  
-- **Frontend**: React.js / Angular  
-- **Database**: SQLite (Dev), PostgreSQL / MySQL (Prod)  
-- **AI/ML**: TensorFlow, Keras, PyTorch, Scikit-learn  
-- **Chatbot**: [Rasa](https://rasa.com) – Open Source Conversational AI  
-- **IoT Integration**: Fitbit API, Google Fit, Apple HealthKit  
-- **Cloud**: AWS / Google Cloud  
-- **Testing Tools**: Ngrok, Postman
+### 🔷 **Django Web Application**
+
+* **🔐 User Authentication**
+
+  * `userregistration.html`, `userlogin.html`, `userprofile.html`
+* **📈 Stress Assessment**
+
+  * Form & file uploads via `stress_assessment.html`
+  * Audio to: `strees_dection/media/voice_patterns/`
+* **📊 Dashboards**
+
+  * `user_dashboard.html` – Stress level visualizations
+  * `recommendation_dashboard.html` – Personalized suggestions
+* **🗣️ Feedback System**
+
+  * Submit: `submit_feedback.html`
+  * View: `view_feedback.html`
+* **🎨 Media Handling**
+
+  * Images, `.mp3` files, and wearables for analysis
+* **📝 Templates**
+
+  * `post_screen_time.html`, `post_voice_pattern.html`, `post_wearable_data.html`, `report_view.html`
 
 ---
 
-## 🧠 AI/ML + Rasa Chatbot Configuration
+### 💬 **Rasa Chatbot**
 
-- **Rasa NLU**: Handles intents like `greet`, `stress_report`, `help`, `goodbye`.
-- **Rasa Core**: Dialogue management via `stories.yml` and `rules.yml`.
-- **Custom Actions**: Uses ML models to determine stress levels (`low`, `medium`, `high`) and return recommendations.
-- **ML Models**: Analyze physiological and behavioral features to classify stress level.
+* **✨ Functionality**
+
+  * Converses with users, offers tips like breathing techniques
+* **🧠 Configurations**
+
+  * `nlu.yml`, `rules.yml`, `stories.yml`, `domain.yml`, `config.yml`
+* **📦 Models**
+
+  * Trained models:
+    `20250425-122133-thin-cuisine.tar.gz`
+    `20250425-124518-adiabatic-holder.tar.gz`
+* **🌐 Integration**
+
+  * REST API (`endpoints.yml`) or embedded in `usershome.html`
 
 ---
 
-## 🏗️ Folder Structure
+### 📊 **Data Analysis & Machine Learning**
+
+#### 🔌 **Inputs**
+
+* **⏱️ Screen Time**
+  Uploaded logs or manual entry via `post_screen_time.html`
+* **🎤 Voice Patterns**
+  `.mp3` files like `__Tech_Talk_Tuesday__Must-Know.mp3` for tone/pitch analysis
+* **📶 Wearable Data**
+  Metrics like heart rate & sleep via `post_wearable_data.html`
+
+#### ⚙️ **Processing**
+
+* ML models classify stress levels
+* Tools: Scikit-learn, Librosa, Pandas
+* Algorithms: `Logistic Regression`, `Random Forest`, `Neural Networks`
+
+#### 📢 **Outputs**
+
+* **stress\_result.html** – Stress level classification
+* **recommendation\_view\.html** – Suggested interventions
+* **Chatbot** – Delivers real-time guidance
+
+---
+
+## 🧱 **Database**
+
+* **🗂 SQLite** (`db.sqlite3`) stores:
+
+  * User data
+  * Assessment records
+  * Feedback logs
+* **🛡️ .gitignore** excludes `db.sqlite3.backup` for data safety
+
+---
+
+## 📁 **Media & Resources**
+
+* **Images**: e.g., `face1.jpg`, `pexels-pixabay-270408.jpg`
+* **Audio**: Voice samples in `media/voice_patterns/`
+* **Resources**: Stress guides in `media/resources/` → Displayed on `resources.html`
+
+---
+
+## 🔄 **Workflow**
+
+1. ✅ **Login/Register**
+2. 📥 **Submit stress data**
+3. 🧠 **ML Analysis**
+4. 📊 **Dashboard displays results**
+5. 💬 **Chatbot provides real-time support**
+
+---
+
+## 🧠 **Stress Detection Logic**
+
+* **Extracted features** from voice (e.g., pitch, rate) + wearables (e.g., HRV, sleep)
+* **Classification models** provide:
+
+  * 🔵 Low Stress
+  * 🟡 Medium Stress
+  * 🔴 High Stress
+
+---
+
+## 🌿 **Personalized Recommendations**
+
+> Based on user’s stress level:
+
+* 🧘 Mindfulness or meditation
+* 🛑 Scheduled breaks
+* 👩‍⚕️ Referrals to professional support
+* 🤖 Chatbot tips & exercises
+
+---
+
+## 🧪 **Assumptions & Future Work**
+
+* ✅ **ML Models:** Assumed Scikit-learn-based (pending confirmation)
+* ✅ **Data Sources:** Manual uploads / simulated inputs (e.g., `data.json`)
+* 🎵 **Voice Analysis:** Librosa or custom scripts
+* 🚀 **Deployment:** Currently local, scalable to Heroku or AWS
+
+
+---
+
+## 📑 Table of Contents
+
+- [📘 Project Overview](#project-overview)
+- [✨ Features](#features)
+- [🧰 Technologies Used](#technologies-used)
+- [⚙️ Installation](#installation)
+- [📁 Project Structure](#project-structure)
+- [🚀 Usage](#usage)
+- [🤖 Running the Rasa Chatbot](#running-the-rasa-chatbot)
+- [🤝 Contributing](#contributing)
+- [🪪 License](#license)
+- [📬 Contact](#contact)
+
+---
+
+## 📘 Project Overview
+
+This system provides a stress monitoring and management solution for IT professionals by analyzing behavioral and biometric data. It supports:
+
+- Daily stress logging
+- Screen time/voice input analysis
+- Chatbot-based recommendations
+- Visualization dashboards for stress trends
+
+The AI chatbot, built with Rasa, interacts with users to assess and alleviate stress in real-time.
+
+---
+
+## ✨ Features
+
+- ✅ **User Authentication** (Register/Login)
+- 📊 **Stress Assessment Dashboard**
+- 🧠 **AI-Powered Rasa Chatbot** for mental health support
+- 📷 **Voice/Image/Wearable Data Upload**
+- 💬 **Feedback System**
+- 🌐 **Responsive Django Templates**
+- 🧾 **Detailed Recommendations and Reports**
+
+---
+
+## 🧰 Technologies Used
+
+| Layer       | Technologies |
+|-------------|--------------|
+| Backend     | Django 5.0.7, Python 3.10.2 |
+| Chatbot     | Rasa 3.6.20 |
+| ML/AI       | Scikit-learn, NumPy, Pandas |
+| Frontend    | HTML, CSS, Bootstrap |
+| Database    | SQLite |
+| Media       | Images, Audio (.mp3), JSON |
+| VCS         | Git, Git LFS |
+
+---
+
+## ⚙️ Installation
+
+### 🔧 Prerequisites
+
+- Python 3.8+
+- Git
+- Virtualenv
+- Git LFS
+- Rasa CLI
+
+### 🔨 Setup
 
 ```bash
-.
-├── .rasa/                # Rasa internal files
-├── actions/              # Custom Rasa actions (Python)
-├── app/                  # Django or Flask backend app
-├── data/                 # NLU training data and stories
-├── media/                # Optional file uploads
-├── models/               # Trained ML and Rasa models
-├── static/               # Frontend static assets
-├── tests/                # Unit and integration tests
-├── config.yml            # Rasa pipeline config
-├── credentials.yml       # Rasa messaging credentials
-├── domain.yml            # Intents, responses, slots, actions
-├── endpoints.yml         # API endpoints and webhook settings
-├── manage.py             # Django runner
-├── db.sqlite3            # Development database
-└── README.md             # Project overview
-```
+git clone https://github.com/suragsunil/STRESS-DETECTION-FOR-IT-PROFESSIONALS.git
+cd "Stress Detection for IT Professionals"
 
----
-
-## ⚙️ Installation and Setup
-
-### 🔄 Clone the Repository
-
-```bash
-git clone https://github.com/yourusername/stress-detection-for-it.git
-cd stress-detection-for-it
-```
-
-### 🧪 Create Virtual Environment
-
-```bash
 python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-```
+.\venv\Scripts\activate  # Windows
+# source venv/bin/activate  # Linux/Mac
 
-### 📦 Install Dependencies
-
-```bash
 pip install -r requirements.txt
+
+git lfs install
+git lfs pull
+
+python manage.py migrate
+# Optional: Load demo data
+# python manage.py loaddata data.json
+
+python manage.py runserver
+````
+
+> 📍 Access at `http://127.0.0.1:8000`
+
+---
+
+## 📁 Project Structure
+
+```
+Stress Detection for IT Professionals/
+├── strees_dection/
+│   ├── app/
+│   │   ├── templates/
+│   │   │   ├── user_dashboard.html
+│   │   │   ├── post_voice_pattern.html
+│   │   │   ├── post_screen_time.html
+│   │   │   └── ... (forms, feedback, recommendations)
+│   │   ├── views.py
+│   │   ├── urls.py
+│   │   └── tests.py
+│   ├── media/
+│   │   ├── media/
+│   │   ├── resources/
+│   │   └── voice_patterns/
+│   ├── models/
+│   │   ├── *.tar.gz (Rasa trained models)
+│   ├── data/
+│   │   ├── nlu.yml, stories.yml, rules.yml
+│   ├── settings.py, urls.py, wsgi.py, asgi.py
+│   └── manage.py
+├── config.yml
+├── domain.yml
+├── endpoints.yml
+├── requirements.txt
+├── README.md
+└── .gitignore
 ```
 
-### 🧠 Train Rasa Model
+---
+
+## 🚀 Usage
+
+* 🔐 **Login/Register**: Navigate to `userlogin.html` / `userregistration.html`
+* 📈 **Submit Data**: Enter screen time, voice uploads via forms
+* 🧠 **Chatbot**: Chat with AI bot for instant support
+* 📊 **View Dashboard**: See stress trends, reports, and suggestions
+* 📝 **Submit Feedback**: Via `submit_feedback.html`
+
+---
+
+## 🤖 Running the Rasa Chatbot
+
+### 1️⃣ Train the Model
 
 ```bash
 rasa train
 ```
 
-### ▶️ Run Servers
+This will create models in `strees_dection/models/`.
+
+### 2️⃣ Start Rasa Server
 
 ```bash
-rasa run actions        # Start action server
-rasa run --enable-api   # Start Rasa server
+rasa run --enable-api --cors "*"
 ```
 
-### 🌐 (Optional) Start Web App
+> Runs at: `http://localhost:5005`
+
+### 3️⃣ Start Actions Server
 
 ```bash
-python manage.py runserver
+rasa run actions
 ```
 
-### 🌍 (Optional) Ngrok for Webhook Testing
+### 4️⃣ (Optional) Test in CLI
 
 ```bash
-ngrok http 5005
+rasa shell
 ```
 
 ---
 
-## 🧠 How to Use
-
-1. Launch chatbot (terminal, web, or integrated UI).
-2. Greet the bot (e.g., "Hi", "I'm stressed").
-3. Bot collects data, invokes ML model, suggests coping strategies.
-4. Admin users can view analytics via dashboard (if enabled).
-
----
-
-## 💡 Future Enhancements
-
-- 🎮 Gamified stress relief tasks and rewards
-- 🗣️ Voice sentiment analysis in meetings
-- 📊 Live stress heatmap for dashboards
-- 🌐 Multi-language chatbot support
-- 📱 Mobile app integration
-
----
-
-## 🤝 Contribution Guide
-
-We welcome contributions! 🚀
+## 🤝 Contributing
 
 ```bash
-# Steps
-1. Fork the repo
-2. Create a branch: git checkout -b new-feature
-3. Commit: git commit -m "Add new feature"
-4. Push: git push origin new-feature
-5. Submit a Pull Request
+# Fork the repo and clone locally
+git checkout -b feature/your-feature-name
+
+# Make changes, then commit
+git commit -m "Add: new feature"
+
+# Push to GitHub
+git push origin feature/your-feature-name
+
+# Create a pull request
 ```
 
-🛠️ Need help? Open an [issue](https://github.com/yourusername/stress-detection-for-it/issues)
+---
+
+## 🪪 License
+
+This project is licensed under the **MIT License**. See the `LICENSE` file for details.
 
 ---
 
-## 🔗 Useful Links
 
-- [Rasa Documentation](https://rasa.com/docs/)
-- [Fitbit API](https://dev.fitbit.com/build/reference/web-api/)
-- [Google Fit API](https://developers.google.com/fit)
-- [Apple HealthKit Docs](https://developer.apple.com/healthkit/)
+## 📬 Contact
 
----
-
-## 📄 License
-
-This project is licensed under the MIT License. See [`LICENSE`](LICENSE) file.
-
----
-
-## 🔥 Project Status
-
-🚧 Under Active Development  
-📌 Working on: Real-time analytics, IoT integrations, multilingual support.
+* **Author**: Surag
+* **Email**: [suraagms@gmail.com](mailto:suraagms@gmail.com)
+* **GitHub**: [@suragsunil](https://github.com/suragsunil)
+* **LinkedIn**: [linkedin.com/in/suragsunil](https://www.linkedin.com/in/suragsunil)
+* **Twitter/X**: [@suragsunil](https://twitter.com/suragsunil)
+* **Instagram**: [@suragsunil](https://instagram.com/suragsunil)
+* **Facebook**: [facebook.com/suragsunil](https://www.facebook.com/suragsunil)
+* **YouTube**: [youtube.com/@suragsunil](https://www.youtube.com/@suragsunil)
+* **Portfolio / Website**: [suragsunil.github.io](https://suragsunil.github.io)
 
 ---
 
-```
+> 💡 *“Helping IT professionals stay mentally healthy — one insight at a time.”*
 
-Let me know if you'd like:
-
-- A `CONTRIBUTING.md` file
-- Demo GIFs or screenshots
-- Architecture diagram
-- GitHub actions CI/CD badge
-- A setup video guide section
-
-Happy building, Surag! 🚀
+````
