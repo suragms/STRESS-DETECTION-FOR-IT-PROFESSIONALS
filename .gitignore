@@ -20,7 +20,21 @@ venv/
 ENV/
 *.egg-info/
 
-# OS Files
+# OS FilesThe conflict is due to redundant entries and invalid `:.` lines. Here’s the resolved `.gitignore`:
+```gitignore
+venv/
+__pycache__/
+*.pyc
+*.db
+*.sqlite3
+.env
+strees_dection/media/*
+!strees_dection/media/.gitkeep
+strees_dection/models/*
+!strees_dection/models/.gitkeep
+strees_dection/.rasa/
+credentials.yml
+db.sqlite3.backup
 .DS_Store
 
 # SQLite and logs
