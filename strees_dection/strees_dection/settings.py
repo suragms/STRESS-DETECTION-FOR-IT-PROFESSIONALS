@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ALLOWED_HOSTS = ['*']  # or use Render's domain name once deployed
 
 # Application definition
 
