@@ -17,10 +17,9 @@ services:
         value: 3.10
       - key: DB_PATH
         value: /opt/render/project/data/db.sqlite3
-      # 🔒 Add these manually in Render dashboard under Environment:
-      # - key: SECRET_KEY
-      #   value: your-secret-key
-      # - key: DEBUG
-      #   value: False
-      # - key: ALLOWED_HOSTS
-      #   value: stress-detection-for-it-professionals.onrender.com
+      - key: SECRET_KEY
+        generateValue: true  # Render generates a secure key
+      - key: DEBUG
+        value: False
+      - key: ALLOWED_HOSTS
+        value: stress-detection-for-it-professionals.onrender.com
