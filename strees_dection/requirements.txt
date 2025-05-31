@@ -50,7 +50,6 @@ google-auth-oauthlib==1.0.0
 google-pasta==0.2.0
 greenlet==3.2.1
 grpcio==1.71.0
-gunicorn==22.0.0
 h11==0.16.0
 h5py==3.13.0
 httptools==0.6.4
@@ -83,7 +82,7 @@ packaging==20.9
 pamqp==3.2.1
 pandas==2.0.3
 partd==1.4.2
-pillow==10.3.0
+pillow==10.4.0
 pluggy==1.5.0
 portalocker==2.10.1
 prompt-toolkit==3.0.28
@@ -106,6 +105,7 @@ python-dateutil==2.8.2
 python-engineio==4.12.0
 python-socketio==5.13.0
 pytz==2022.7.1
+pywin32==310; platform_system == "Windows"
 PyYAML==6.0.2
 questionary==1.10.0
 randomname==0.1.5
@@ -146,7 +146,7 @@ tensorflow==2.12.0
 tensorflow-estimator==2.12.0
 tensorflow-hub==0.13.0
 tensorflow==2.12.0
-tensorflow-io-gcs-filesystem==0.31.0
+tensorflow-io-gcs-filesystem==0.32.0
 termcolor==3.0.1
 terminaltables==3.1.10
 threadpoolctl==3.5.0
@@ -163,8 +163,10 @@ wcwidth==0.2.13
 webexteamssdk==1.6.1
 websockets==10.4
 Werkzeug==3.1.3
-whitenoise==6.9.0
 wrapt==1.14.1
 wsproto==1.2.0
 yarl==1.20.0
 zipp==3.20.2
+gunicorn==21.2.0
+whitenoise
+psycopg2-binary==2.9.10
