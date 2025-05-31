@@ -1,49 +1,44 @@
-<<<<<<< HEAD
-venv/
+# Byte-compiled / cache files
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# SQLite and database files
 *.db
 *.sqlite3
-.env
-=======
-# Byte-compiled / cache
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
+db.sqlite3.backup
 
 # Virtual environments
+venv/
 env/
-venv/
 ENV/
-*.egg-info/
 
-# OS FilesThe conflict is due to redundant entries and invalid `:.` lines. Here’s the resolved `.gitignore`:
-```gitignore
-venv/
-__pycache__/
-*.pyc
-*.db
-*.sqlite3
+# Environment variables
 .env
-strees_dection/media/*
-!strees_dection/media/.gitkeep
-strees_dection/models/*
-!strees_dection/models/.gitkeep
-strees_dection/.rasa/
-credentials.yml
-db.sqlite3.backup
-.DS_Store
 
-# SQLite and logs
-*.db
-*.sqlite3
+# Logs
 *.log
 
-# IDE configs
+# IDE/configuration files
 .vscode/
 .idea/
 
->>>>>>> b402b1f (Initial project commit with requirements and .gitignore)
+# Egg info
+*.egg-info/
+
+# macOS files
+.DS_Store
+
+# Media and models (exclude folders but keep .gitkeep files)
+strees_dection/media/*
+!strees_dection/media/.gitkeep
+
+strees_dection/models/*
+!strees_dection/models/.gitkeep
+
+# Rasa cache
+strees_dection/.rasa/
+
+# Rasa credentials
+credentials.yml
