@@ -9,7 +9,7 @@ services:
       python manage.py makemigrations
       python manage.py migrate                     # ✅ Apply migrations
       python manage.py collectstatic --noinput      # ✅ Collect static files
-    startCommand: gunicorn strees_dection.wsgi:application
+    startCommand: startCommand: gunicorn stress_detection.wsgi:application
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: strees_dection.settings
