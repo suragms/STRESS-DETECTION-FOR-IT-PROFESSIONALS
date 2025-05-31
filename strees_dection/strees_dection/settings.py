@@ -26,8 +26,6 @@ SECRET_KEY = 'django-insecure-q49j6y^aneab^v&6)gyt(z^)him_f&x4)wwgl*jb!@%26s9)k$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
 ALLOWED_HOSTS = ['*']  # or use Render's domain name once deployed
 
 # Application definition
