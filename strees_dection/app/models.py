@@ -40,6 +40,7 @@ class StressAssessment(models.Model):
 from django.db import models
 from django.utils.timezone import now
 from django.core.validators import MinValueValidator, MaxValueValidator
+
 class Feedback(models.Model):
     user = models.ForeignKey('UsersRegister', on_delete=models.CASCADE, related_name='feedbacks')
     feedback_text = models.TextField()
@@ -49,8 +50,6 @@ class Feedback(models.Model):
     class Meta:
         indexes = [models.Index(fields=['user', 'date'])]
         ordering = ['-date']
-
-# Models for Data Collection Module
 
 # Behavioral Data Collector Models
 class KeyboardActivity(models.Model):
