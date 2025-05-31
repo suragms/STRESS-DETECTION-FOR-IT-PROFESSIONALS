@@ -4,13 +4,14 @@ services:
     env: python
     plan: free
     buildCommand: |
-      pip install -r requirements.txt
-      python manage.py migrate
-      python manage.py collectstatic --noinput
+      pip install --upgrade pip                     # ✅ Upgrade pip (optional but good)
+      pip install -r requirements.txt               # ✅ Install dependencies
+      python manage.py migrate                      # ✅ Apply migrations
+      python manage.py collectstatic --noinput      # ✅ Collect static files
     startCommand: gunicorn strees_dection.wsgi:application
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: strees_dection.settings
       - key: PYTHON_VERSION
         value: 3.10
-      # Add any other secret keys here
+      # 🔒 Add secret keys like DEBUG=False, SECRET_KEY, ALLOWED_HOSTS, etc.
