@@ -6,7 +6,8 @@ services:
     buildCommand: |
       pip install --upgrade pip                     # ✅ Upgrade pip (optional but good)
       pip install -r requirements.txt               # ✅ Install dependencies
-      python manage.py migrate                      # ✅ Apply migrations
+      python manage.py makemigrations
+      python manage.py migrate                     # ✅ Apply migrations
       python manage.py collectstatic --noinput      # ✅ Collect static files
     startCommand: gunicorn strees_dection.wsgi:application
     envVars:
