@@ -43,3 +43,4 @@ strees_dection/.rasa/
 
 # Rasa credentials
 credentials.yml
+.env
