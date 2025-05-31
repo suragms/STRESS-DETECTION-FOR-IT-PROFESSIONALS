@@ -11,6 +11,7 @@ db.sqlite3.backup
 
 # Virtual environments
 venv/
+vnv/
 env/
 ENV/
 
