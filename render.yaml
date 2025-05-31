@@ -4,15 +4,21 @@ services:
     env: python
     plan: free
     buildCommand: |
-      pip install --upgrade pip                     # ✅ Upgrade pip (optional but good)
-      pip install -r requirements.txt               # ✅ Install dependencies
-      python manage.py makemigrations
-      python manage.py migrate                     # ✅ Apply migrations
-      python manage.py collectstatic --noinput      # ✅ Collect static files
-    startCommand: startCommand: gunicorn stress_detection.wsgi:application
+      pip install --upgrade pip
+      pip install -r requirements.txt
+      python manage.py makemigrations --noinput
+      python manage.py migrate --noinput
+      python manage.py collectstatic --noinput
+    startCommand: gunicorn strees_dection.wsgi:application
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: strees_dection.settings
       - key: PYTHON_VERSION
         value: 3.10
-      # 🔒 Add secret keys like DEBUG=False, SECRET_KEY, ALLOWED_HOSTS, etc.
+      # 🔒 Add these manually in Render dashboard under Environment:
+      # - key: SECRET_KEY
+      #   value: your-secret-key
+      # - key: DEBUG
+      #   value: False
+      # - key: ALLOWED_HOSTS
+      #   value: stress-detection-for-it-professionals.onrender.com
