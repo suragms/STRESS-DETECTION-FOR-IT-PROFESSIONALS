@@ -18,8 +18,12 @@ services:
       - key: DB_PATH
         value: /opt/render/project/data/db.sqlite3
       - key: SECRET_KEY
-        generateValue: true  # Render generates a secure key
+        generateValue: true
       - key: DEBUG
         value: False
       - key: ALLOWED_HOSTS
         value: stress-detection-for-it-professionals.onrender.com
+      - key: EMAIL_HOST_USER
+        value: suragms2000@gmail.com
+      - key: EMAIL_HOST_PASSWORD
+        value: jwsv cemy mkkt mwcd

@@ -1210,7 +1210,95 @@
             </div>
         </div>
     </section>
-
+<!-- Feedback Section -->
+    <section class="feedback" id="feedback">
+        <div class="feedback-container">
+            <h2>What Our Users Say</h2>
+            <p>Hear from developers, engineers, and IT managers about how StressDetect transformed their work-life balance</p>
+            <div class="feedback-carousel">
+                <div class="feedback-slides">
+                    {% if feedbacks %}
+                    {% for feedback in feedbacks %}
+                    <div class="feedback-card {% if forloop.first %}active{% endif %}">
+                        <div class="rating">
+                            {% for i in "12345"|make_list %}
+                            <i class="fas fa-star {% if forloop.counter <= feedback.rating %}filled{% endif %}"></i>
+                            {% endfor %}
+                        </div>
+                        <p>"{{ feedback.feedback_text }}"</p>
+                        <div class="user">
+                            <img src="https://randomuser.me/api/portraits/men/{{ forloop.counter }}.jpg" alt="User" class="user-avatar">
+                            <div class="user-info">
+                                <div class="user-name">{{ feedback.user.first_name }} {{ feedback.user.last_name|first }}.</div>
+                                <div class="user-title">User</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="feedback-card active">
+                        <div class="rating">
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                        </div>
+                        <p>"StressDetect helped our team identify burnout patterns before they became critical. The real-time alerts have been invaluable for maintaining team health during crunch periods."</p>
+                        <div class="user">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="user-avatar">
+                            <div class="user-info">
+                                <div class="user-name">Michael R.</div>
+                                <div class="user-title">CTO at TechStart</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feedback-card">
+                        <div class="rating">
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"As a developer, I was skeptical at first, but the accuracy in detecting my stress patterns during debugging sessions was uncanny. The breathing exercises it suggests actually work!"</p>
+                        <div class="user">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="user-avatar">
+                            <div class="user-info">
+                                <div class="user-name">Sarah L.</div>
+                                <div class="user-title">Full Stack Developer</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feedback-card">
+                        <div class="rating">
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                        </div>
+                        <p>"The team analytics dashboard has transformed how we manage workloads. We've reduced overtime by 35% while maintaining productivity thanks to StressDetect's insights."</p>
+                        <div class="user">
+                            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="User" class="user-avatar">
+                            <div class="user-info">
+                                <div class="user-name">David K.</div>
+                                <div class="user-title">Engineering Manager</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="carousel-btn next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="carousel-indicators">
+                    <!-- Indicators will be dynamically generated in JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
     
 
     <!-- Newsletter Section -->
