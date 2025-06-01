@@ -9,30 +9,17 @@ services:
       python manage.py makemigrations --noinput
       python manage.py migrate --noinput
       python manage.py collectstatic --noinput
-    startCommand: gunicorn strees_dection.wsgi:application
+    startCommand: gunicorn stress_detection.wsgi:application
     envVars:
       - key: DJANGO_SETTINGS_MODULE
-        value: strees_dection.settings
+        value: stress_detection.settings
       - key: PYTHON_VERSION
         value: 3.10
+      - key: DB_PATH
+        value: /opt/render/project/data/db.sqlite3
       - key: SECRET_KEY
-        generateValue: true  # Render generates a secure key, or set manually
+        generateValue: true  # Render generates a secure key
       - key: DEBUG
         value: False
       - key: ALLOWED_HOSTS
         value: stress-detection-for-it-professionals.onrender.com
-      - key: DB_NAME
-        sync: false
-      - key: DB_USER
-        sync: false
-      - key: DB_PASSWORD
-        sync: false
-      - key: DB_HOST
-        sync: false
-      - key: DB_PORT
-        value: 5432
-      - key: EMAIL_HOST_USER
-        value: suragms2000@gmail.com
-      - key: EMAIL_HOST_PASSWORD
-        value: jwsv cemy mkkt mwcd
-        sync: false
