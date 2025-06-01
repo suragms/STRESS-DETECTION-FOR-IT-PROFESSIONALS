@@ -161,6 +161,31 @@
             letter-spacing: 2px;
         }
 
+        /* Go to Home Button */
+        .home-btn {
+            background: #6c757d;
+            color: white;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .home-btn:hover {
+            background: #5a6268;
+            letter-spacing: 2px;
+        }
+
         /* Enhanced Error Message */
         .messages {
             list-style-type: none;
@@ -250,6 +275,7 @@
 
             <button type="submit" class="submit-btn">Secure Login</button>
         </form>
+        <a href="{% url 'home' %}" class="home-btn"><i class="fas fa-home"></i> Go to Home</a>
     </div>
 
     <script>

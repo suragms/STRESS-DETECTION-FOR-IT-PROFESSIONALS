@@ -55,7 +55,7 @@
             position: absolute;
             list-style: none;
             color: rgba(255, 255, 255, 0.1);
-            font-size: 1.5rem; /* Reduced for smaller screens */
+            font-size: 1.5rem;
             animation: floatFade 20s infinite linear;
             opacity: 0;
         }
@@ -297,7 +297,7 @@
         /* Animations */
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
-            50% { background-position: 100% W50%; }
+            50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
@@ -607,6 +607,7 @@
         <div class="additional-links">
             <a href="{% url 'signup' %}"><i class="fas fa-user-plus"></i> Create Account</a>
             <a href="{% url 'forget_password' %}"><i class="fas fa-question-circle"></i> Forgot Password?</a>
+            <a href="{% url 'admin_login' %}"><i class="fas fa-user-shield"></i> Admin Login</a>
         </div>
     </div>
 
@@ -633,7 +634,8 @@
         logoIcon.addEventListener('mouseenter', () => {
             logoIcon.classList.add('animate__animated', 'animate__pulse');
         });
-        logoIcon.addEventListener('animationend', () =>/logosIcon.classList.remove('animate__animated', 'animate__pulse');
+        logoIcon.addEventListener('animationend', () => {
+            logoIcon.classList.remove('animate__animated', 'animate__pulse');
         });
     </script>
 </body>

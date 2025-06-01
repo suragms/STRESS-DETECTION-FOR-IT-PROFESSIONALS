@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: stress-detection-app
+    name: stress-detection-django
     env: python
     plan: free
     buildCommand: |
@@ -27,3 +27,27 @@ services:
         value: suragms2000@gmail.com
       - key: EMAIL_HOST_PASSWORD
         value: jwsv cemy mkkt mwcd
+
+  - type: web
+    name: rasa-server
+    env: python
+    plan: free
+    buildCommand: |
+      pip install --upgrade pip
+      pip install rasa
+    startCommand: rasa run --cors "*" --enable-api
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10
+
+  - type: worker
+    name: rasa-actions
+    env: python
+    plan: free
+    buildCommand: |
+      pip install --upgrade pip
+      pip install rasa-sdk
+    startCommand: rasa run actions
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10
