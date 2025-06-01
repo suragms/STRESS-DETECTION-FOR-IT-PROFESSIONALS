@@ -9,10 +9,10 @@ services:
       python manage.py makemigrations --noinput
       python manage.py migrate --noinput
       python manage.py collectstatic --noinput
-    startCommand: gunicorn strees_dection.wsgi:application
+    startCommand: gunicorn stress_detection.wsgi:application
     envVars:
       - key: DJANGO_SETTINGS_MODULE
-        value: strees_dection.settings
+        value: stress_detection.settings
       - key: PYTHON_VERSION
         value: 3.10
       - key: DB_PATH
