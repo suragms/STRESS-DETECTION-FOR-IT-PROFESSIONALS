@@ -72,6 +72,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'strees_dection.wsgi.application'
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Database

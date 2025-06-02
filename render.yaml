@@ -35,7 +35,7 @@ services:
     buildCommand: |
       pip install --upgrade pip
       pip install rasa
-    startCommand: rasa run --cors "*" --enable-api
+    startCommand: rasa run --enable-api --cors "*" --port 5005
     envVars:
       - key: PYTHON_VERSION
         value: 3.10
@@ -47,7 +47,7 @@ services:
     buildCommand: |
       pip install --upgrade pip
       pip install rasa-sdk
-    startCommand: rasa run actions
+    startCommand: rasa run actions --port 5055
     envVars:
       - key: PYTHON_VERSION
         value: 3.10
