@@ -153,7 +153,3 @@ REST_FRAMEWORK = {
 }
 
 INSTALLED_APPS += ['rest_framework_simplejwt']
-INSTALLED_APPS += ['corsheaders']
-MIDDLEWARE = ['corsheaders.middleware.CorsMiddleware'] + MIDDLEWARE
-
-CORS_ALLOW_ALL_ORIGINS = True  # or specify the exact domain
