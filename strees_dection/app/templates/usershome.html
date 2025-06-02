@@ -2376,7 +2376,8 @@
         const sendMessage = document.getElementById('send-message');
         const voiceButton = document.getElementById('voice-input');
         const chatMessages = document.getElementById('chat-messages');
-        const rasaURL = 'https://rasa-server-xyz.onrender.com/webhooks/rest/webhook';
+        const rasaURL = 'http://localhost:5005/webhooks/rest/webhook';
+
 
 
         chatButton.addEventListener('click', () => chatContainer.classList.toggle('open'));

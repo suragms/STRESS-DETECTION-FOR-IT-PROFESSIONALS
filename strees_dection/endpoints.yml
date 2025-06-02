@@ -13,6 +13,7 @@
 action_endpoint:
   url: https://rasa-actions.onrender.com/webhook
 
+rasa run --enable-api --cors "*" --debug
 
 # Tracker store which is used to store the conversations.
 # By default the conversations are stored in memory.
