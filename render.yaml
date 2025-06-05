@@ -40,7 +40,7 @@ services:
       - key: PYTHON_VERSION
         value: 3.10
 
-  - type: worker
+  - type: web  # ✅ Changed from `worker` to `web`
     name: rasa-actions
     env: python
     plan: free

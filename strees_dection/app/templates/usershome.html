@@ -2224,265 +2224,273 @@
 
 <!-- JavaScript -->
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Initialize alerts from Django context
-        const alerts = JSON.parse('{{ alerts|escapejs }}');
+document.addEventListener('DOMContentLoaded', () => {
+    // Safely parse alerts from Django context
+    let alerts = [];
+    try {
+        alerts = JSON.parse('{{ alerts|default:"[]"|escapejs }}');
+    } catch (e) {
+        console.error('Failed to parse alerts:', e);
+    }
 
-        // Mobile menu
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
+    // CSRF Token for POST requests
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || '';
+
+    // Mobile menu
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    if (hamburger && navMenu) {
         hamburger.addEventListener('click', () => {
             navMenu.classList.toggle('show');
-            hamburger.innerHTML = navMenu.classList.contains('show') 
-                ? '<i class="fas fa-times"></i>' 
+            hamburger.innerHTML = navMenu.classList.contains('show')
+                ? '<i class="fas fa-times"></i>'
                 : '<i class="fas fa-bars"></i>';
         });
+    }
 
-        // Navbar scroll
-        const navbar = document.querySelector('.navbar');
+    // Navbar scroll
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
         window.addEventListener('scroll', () => {
             navbar.classList.toggle('scrolled', window.scrollY > 10);
         });
+    }
 
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = anchor.getAttribute('href');
-                if (targetId === '#') return;
-                const target = document.querySelector(targetId);
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    if (navMenu.classList.contains('show')) {
-                        navMenu.classList.remove('show');
-                        hamburger.innerHTML = '<i class="fas fa-bars"></i>';
-                    }
-                }
-            });
-        });
-
-        // Notifications
-        const notifications = alerts.map(alert => ({
-            id: alert.id,
-            title: alert.title,
-            description: alert.description,
-            timestamp: new Date(alert.timestamp),
-            read: alert.read
-        }));
-
-        const notificationBtn = document.getElementById("notification-btn");
-        const notificationPopover = document.getElementById("notification-popover");
-        const notificationList = document.getElementById("notification-list");
-        const markAllReadBtn = document.getElementById("mark-all-read");
-        const unreadCountEl = document.getElementById("unread-count");
-
-        function renderNotifications() {
-            notificationList.innerHTML = "";
-            if (notifications.length === 0) {
-                const item = document.createElement("div");
-                item.className = "notification-item";
-                item.innerHTML = `
-                    <div class="notification-item-content">No new notifications</div>
-                `;
-                notificationList.appendChild(item);
-                setTimeout(() => item.classList.add("visible"), 100);
-            } else {
-                notifications.forEach((notification, index) => {
-                    const item = document.createElement("div");
-                    item.className = `notification-item ${notification.read ? '' : 'unread'}`;
-                    item.innerHTML = `
-                        <div class="notification-item-header">
-                            <div class="notification-item-title">
-                                ${!notification.read ? '<span class="notification-unread"></span>' : ''}
-                                ${notification.title}
-                            </div>
-                            <div class="notification-time">${formatTime(notification.timestamp)}</div>
-                        </div>
-                        <div class="notification-item-content">${notification.description}</div>
-                    `;
-                    item.addEventListener("click", () => markAsRead(notification.id));
-                    notificationList.appendChild(item);
-                    setTimeout(() => item.classList.add("visible"), index * 100);
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = anchor.getAttribute('href');
+            if (targetId === '#') return;
+            const target = document.querySelector(targetId);
+            if (target) {
+                window.scrollTo({
+                    top: target.offsetTop - 80,
+                    behavior: 'smooth'
                 });
-            }
-
-            const unreadCount = notifications.filter(n => !n.read).length;
-            unreadCountEl.textContent = unreadCount;
-            unreadCountEl.style.display = unreadCount > 0 ? "flex" : "none";
-        }
-
-        function formatTime(date) {
-            const diff = (new Date() - date) / (1000 * 60);
-            if (diff < 60) return `${Math.floor(diff)}m ago`;
-            if (diff < 1440) return `${Math.floor(diff / 60)}h ago`;
-            if (diff < 2880) return "Yesterday";
-            return `${Math.floor(diff / 1440)}d ago`;
-        }
-
-        async function markAsRead(id) {
-            const notification = notifications.find(n => n.id === id);
-            if (notification && !notification.read) {
-                try {
-                    const response = await fetch(`/acknowledge_alert/${id}/`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': csrftoken
-                        }
-                    });
-                    if (response.ok) {
-                        notification.read = true;
-                        renderNotifications();
-                    } else {
-                        console.error('Failed to acknowledge alert');
-                    }
-                } catch (error) {
-                    console.error('Error acknowledging alert:', error);
+                if (navMenu?.classList.contains('show')) {
+                    navMenu.classList.remove('show');
+                    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
                 }
             }
-        }
-
-        notificationBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            notificationPopover.classList.toggle("visible");
-        });
-
-        markAllReadBtn.addEventListener("click", async () => {
-            for (const notification of notifications) {
-                if (!notification.read) {
-                    await markAsRead(notification.id);
-                }
-            }
-            renderNotifications();
-        });
-
-        document.addEventListener("click", (e) => {
-            if (!notificationBtn.contains(e.target) && !notificationPopover.contains(e.target)) {
-                notificationPopover.classList.remove("visible");
-            }
-        });
-
-        renderNotifications();
-
-        // Chat system
-        const chatButton = document.getElementById('chat-button');
-        const chatContainer = document.getElementById('chat-container');
-        const minimizeChat = document.getElementById('minimize-chat');
-        const closeChat = document.getElementById('close-chat');
-        const chatInput = document.getElementById('chat-input');
-        const sendMessage = document.getElementById('send-message');
-        const voiceButton = document.getElementById('voice-input');
-        const chatMessages = document.getElementById('chat-messages');
-        const rasaURL = 'http://localhost:5005/webhooks/rest/webhook';
-
-
-
-        chatButton.addEventListener('click', () => chatContainer.classList.toggle('open'));
-        minimizeChat.addEventListener('click', () => chatContainer.classList.remove('open'));
-        closeChat.addEventListener('click', () => chatContainer.classList.remove('open'));
-
-        function sendMessageToRasa() {
-            const message = chatInput.value.trim();
-            if (!message) return;
-
-            displayMessage(message, 'user');
-            chatInput.value = '';
-
-            fetch(rasaURL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ sender: 'user', message })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data?.length) {
-                    data.forEach(response => response.text && displayMessage(response.text, 'bot'));
-                } else {
-                    displayMessage("I didn't understand. Could you rephrase?", 'bot');
-                }
-            })
-            .catch(() => displayMessage("Connection issue. Please try again.", 'bot'));
-        }
-
-        function speak(text) {
-            const synth = window.speechSynthesis;
-            if (!synth) return;
-
-            const utter = new SpeechSynthesisUtterance(text);
-            utter.lang = 'en-US';
-            synth.speak(utter);
-        }
-
-        function displayMessage(text, sender) {
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
-            messageDiv.innerHTML = `
-                <div class="message-content">${text}</div>
-                <div class="message-time">${formatTime(new Date())}</div>
-            `;
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            if (sender === 'bot') speak(text);
-        }
-
-        sendMessage.addEventListener('click', sendMessageToRasa);
-        chatInput.addEventListener('keypress', e => e.key === 'Enter' && sendMessageToRasa());
-
-        // Voice recognition
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        const recognition = SpeechRecognition ? new SpeechRecognition() : null;
-
-        if (recognition) {
-            recognition.lang = 'en-US';
-            recognition.continuous = false;
-
-            voiceButton.addEventListener('click', () => {
-                if (!voiceButton.classList.contains('recording')) {
-                    recognition.start();
-                    voiceButton.classList.add('recording');
-                }
-            });
-
-            recognition.onresult = (event) => {
-                chatInput.value = event.results[0][0].transcript;
-                sendMessageToRasa();
-            };
-
-            recognition.onend = () => voiceButton.classList.remove('recording');
-
-            recognition.onerror = (event) => {
-                voiceButton.classList.remove('recording');
-                if (event.error === 'no-speech') {
-                    displayMessage("No speech detected. Try again.", 'bot');
-                }
-            };
-        } else {
-            voiceButton.disabled = true;
-            voiceButton.title = "Voice input not supported.";
-        }
-
-        // Fade-in animations
-        const fadeElements = document.querySelectorAll('.fade-in');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        fadeElements.forEach(el => {
-            el.style.opacity = 0;
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
         });
     });
+
+    // Notifications
+    const notifications = alerts.map(alert => ({
+        id: alert.id,
+        title: alert.title,
+        description: alert.description,
+        timestamp: new Date(alert.timestamp),
+        read: alert.read
+    }));
+
+    const notificationBtn = document.getElementById("notification-btn");
+    const notificationPopover = document.getElementById("notification-popover");
+    const notificationList = document.getElementById("notification-list");
+    const markAllReadBtn = document.getElementById("mark-all-read");
+    const unreadCountEl = document.getElementById("unread-count");
+
+    function renderNotifications() {
+        notificationList.innerHTML = "";
+        if (notifications.length === 0) {
+            const item = document.createElement("div");
+            item.className = "notification-item";
+            item.innerHTML = `<div class="notification-item-content">No new notifications</div>`;
+            notificationList.appendChild(item);
+            setTimeout(() => item.classList.add("visible"), 100);
+        } else {
+            notifications.forEach((notification, index) => {
+                const item = document.createElement("div");
+                item.className = `notification-item ${notification.read ? '' : 'unread'}`;
+                item.innerHTML = `
+                    <div class="notification-item-header">
+                        <div class="notification-item-title">
+                            ${!notification.read ? '<span class="notification-unread"></span>' : ''}
+                            ${notification.title}
+                        </div>
+                        <div class="notification-time">${formatTime(notification.timestamp)}</div>
+                    </div>
+                    <div class="notification-item-content">${notification.description}</div>
+                `;
+                item.addEventListener("click", () => markAsRead(notification.id));
+                notificationList.appendChild(item);
+                setTimeout(() => item.classList.add("visible"), index * 100);
+            });
+        }
+
+        const unreadCount = notifications.filter(n => !n.read).length;
+        unreadCountEl.textContent = unreadCount;
+        unreadCountEl.style.display = unreadCount > 0 ? "flex" : "none";
+    }
+
+    function formatTime(date) {
+        const diff = (new Date() - date) / (1000 * 60);
+        if (diff < 60) return `${Math.floor(diff)}m ago`;
+        if (diff < 1440) return `${Math.floor(diff / 60)}h ago`;
+        if (diff < 2880) return "Yesterday";
+        return `${Math.floor(diff / 1440)}d ago`;
+    }
+
+    async function markAsRead(id) {
+        const notification = notifications.find(n => n.id === id);
+        if (notification && !notification.read) {
+            try {
+                const response = await fetch(`/acknowledge_alert/${id}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken
+                    }
+                });
+                if (response.ok) {
+                    notification.read = true;
+                    renderNotifications();
+                } else {
+                    console.error('Failed to acknowledge alert');
+                }
+            } catch (error) {
+                console.error('Error acknowledging alert:', error);
+            }
+        }
+    }
+
+    notificationBtn?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        notificationPopover.classList.toggle("visible");
+    });
+
+    markAllReadBtn?.addEventListener("click", async () => {
+        for (const notification of notifications) {
+            if (!notification.read) await markAsRead(notification.id);
+        }
+        renderNotifications();
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!notificationBtn.contains(e.target) && !notificationPopover.contains(e.target)) {
+            notificationPopover.classList.remove("visible");
+        }
+    });
+
+    renderNotifications();
+
+    // Chat system
+    const chatButton = document.getElementById('chat-button');
+    const chatContainer = document.getElementById('chat-container');
+    const minimizeChat = document.getElementById('minimize-chat');
+    const closeChat = document.getElementById('close-chat');
+    const chatInput = document.getElementById('chat-input');
+    const sendMessage = document.getElementById('send-message');
+    const voiceButton = document.getElementById('voice-input');
+    const chatMessages = document.getElementById('chat-messages');
+
+    // 🔁 Correct Render URL for production Rasa server
+    const rasaURL = 'https://rasa-server.onrender.com/webhooks/rest/webhook';
+
+    chatButton?.addEventListener('click', () => chatContainer.classList.toggle('open'));
+    minimizeChat?.addEventListener('click', () => chatContainer.classList.remove('open'));
+    closeChat?.addEventListener('click', () => chatContainer.classList.remove('open'));
+
+    function sendMessageToRasa() {
+        const message = chatInput.value.trim();
+        if (!message) return;
+
+        displayMessage(message, 'user');
+        chatInput.value = '';
+
+        fetch(rasaURL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sender: 'user', message })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data?.length) {
+                data.forEach(response => response.text && displayMessage(response.text, 'bot'));
+            } else {
+                displayMessage("I didn't understand. Could you rephrase?", 'bot');
+            }
+        })
+        .catch(() => displayMessage("Connection issue. Please try again.", 'bot'));
+    }
+
+    function speak(text) {
+        const synth = window.speechSynthesis;
+        if (!synth) return;
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'en-US';
+        synth.speak(utter);
+    }
+
+    function displayMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
+        messageDiv.innerHTML = `
+            <div class="message-content">${text}</div>
+            <div class="message-time">${formatTime(new Date())}</div>
+        `;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        if (sender === 'bot') speak(text);
+    }
+
+    sendMessage?.addEventListener('click', sendMessageToRasa);
+    chatInput?.addEventListener('keypress', e => e.key === 'Enter' && sendMessageToRasa());
+
+    // Voice recognition
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = SpeechRecognition ? new SpeechRecognition() : null;
+
+    if (recognition) {
+        recognition.lang = 'en-US';
+        recognition.continuous = false;
+
+        voiceButton?.addEventListener('click', () => {
+            if (!voiceButton.classList.contains('recording')) {
+                recognition.start();
+                voiceButton.classList.add('recording');
+            }
+        });
+
+        recognition.onresult = (event) => {
+            chatInput.value = event.results[0][0].transcript;
+            sendMessageToRasa();
+        };
+
+        recognition.onend = () => voiceButton.classList.remove('recording');
+
+        recognition.onerror = (event) => {
+            voiceButton.classList.remove('recording');
+            if (event.error === 'no-speech') {
+                displayMessage("No speech detected. Try again.", 'bot');
+            }
+        };
+    } else {
+        voiceButton.disabled = true;
+        voiceButton.title = "Voice input not supported.";
+    }
+
+    // Fade-in animations
+    const fadeElements = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = 1;
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    fadeElements.forEach(el => {
+        el.style.opacity = 0;
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+    });
+});
 </script>
+
 </body>
 </html>
