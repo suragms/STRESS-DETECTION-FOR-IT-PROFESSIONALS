@@ -1,0 +1,10 @@
+{
+  "0": "affirm",
+  "1": "ask_motivation",
+  "2": "ask_who_you_are",
+  "3": "deny",
+  "4": "goodbye",
+  "5": "greet",
+  "6": "provide_response",
+  "7": "start_assessment"
+}

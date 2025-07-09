@@ -2,6 +2,23 @@
 
 {% block title %}FAQ - My Website{% endblock %}
 
+{% block extra_style %}
+<style>
+@media (max-width: 600px) {
+  .container.mt-4 {
+    padding: 0.5rem;
+  }
+  h2 {
+    font-size: 1.3rem;
+  }
+  .accordion-button {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+  }
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container mt-4">
     <h2>Frequently Asked Questions</h2>

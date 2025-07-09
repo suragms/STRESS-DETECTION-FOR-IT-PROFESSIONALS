@@ -44,3 +44,17 @@ stories:
   - action: action_mental_health_assessment
   - intent: goodbye
   - action: utter_goodbye
+
+- story: user affirms assessment after greeting
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: affirm
+  - action: action_mental_health_assessment
+
+- story: user denies assessment after greeting
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: deny
+  - action: utter_goodbye

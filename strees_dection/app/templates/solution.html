@@ -34,3 +34,29 @@
     </div>
 </div>
 {% endblock %}
+
+{% block extra_style %}
+<style>
+@media (max-width: 600px) {
+  .container {
+    padding: 0.5rem;
+  }
+  .technique-grid {
+    display: block !important;
+  }
+  .technique-card {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  h1, h2 {
+    font-size: 1.3rem;
+  }
+  .cta-button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+  }
+}
+</style>
+{% endblock %}

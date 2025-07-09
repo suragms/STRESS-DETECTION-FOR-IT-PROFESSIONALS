@@ -42,6 +42,8 @@ intents:
   - provide_response
   - ask_who_you_are
   - ask_motivation
+  - affirm
+  - deny
 
 slots:
   assessment_responses:
@@ -79,7 +81,7 @@ responses:
     - text: "Goodbye! Take care of yourself."
 
   utter_youtube_video:
-    - text: "Here’s a helpful video for you: [Link to video]."
+    - text: "Here's a helpful video for you: [Link to video]."
   utter_consult_doctor:
     - text: "Immediate professional help is strongly recommended. Please consult a doctor."
 

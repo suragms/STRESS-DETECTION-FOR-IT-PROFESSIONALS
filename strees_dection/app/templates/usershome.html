@@ -381,6 +381,205 @@
             background-color: rgba(79, 70, 229, 0.05);
         }
 
+        /* Professional Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 6rem 2rem 4rem;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+
+        .hero-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+            opacity: 0.6;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            color: white;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 2rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .hero-badge i {
+            color: var(--accent);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #fff, #e0e7ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            max-width: 90%;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            min-height: 52px;
+        }
+
+        .hero-btn.primary {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+
+        .hero-btn.secondary {
+            background: transparent;
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .hero-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image-container {
+            position: relative;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image-container:hover {
+            transform: perspective(1000px) rotateY(-2deg) rotateX(2deg) scale(1.02);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hero-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(79, 70, 229, 0.1), rgba(245, 158, 11, 0.1));
+            pointer-events: none;
+        }
+
         /* Hero Section */
         .hero {
             min-height: 100vh;
@@ -1266,6 +1465,49 @@
         }
 
         @media (max-width: 768px) {
+            .hero-section {
+                padding: 4rem 1.5rem 3rem;
+                min-height: auto;
+            }
+            
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-description {
+                font-size: 1.1rem;
+                max-width: 100%;
+            }
+            
+            .hero-actions {
+                justify-content: center;
+            }
+            
+            .hero-stats {
+                justify-content: center;
+                gap: 1.5rem;
+            }
+            
+            .hero-visual {
+                order: -1;
+            }
+            
+            .hero-image-container {
+                transform: none;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            
+            .hero-image-container:hover {
+                transform: scale(1.02);
+            }
+            
             .hamburger {
                 display: flex;
             }
@@ -1395,6 +1637,46 @@
         }
 
         @media (max-width: 480px) {
+            .hero-section {
+                padding: 3rem 1rem 2rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+            }
+            
+            .hero-badge {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            
+            .hero-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.95rem;
+                justify-content: center;
+            }
+            
+            .hero-stats {
+                gap: 1rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+            }
+            
             .navbar {
                 padding: 0.75rem 1rem;
             }
@@ -1647,6 +1929,36 @@
         }
 
         @media (max-width: 360px) {
+            .welcome-section {
+                padding: 1.2rem 0.8rem;
+            }
+            
+            .welcome-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .welcome-content p {
+                font-size: 0.9rem;
+            }
+            
+            .welcome-greeting {
+                font-size: 1rem;
+            }
+            
+            .welcome-stat {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.85rem;
+            }
+            
+            .welcome-glow {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .welcome-wave {
+                height: 30px;
+            }
+            
             .navbar {
                 padding: 0.6rem 0.8rem;
             }
@@ -1863,6 +2175,244 @@
             .hero-image img, .resource-thumbnail img {
                 transition: none;
             }
+            .welcome-particle, .welcome-wave, .welcome-glow, .welcome-greeting i {
+                animation: none;
+            }
+        }
+
+        /* --- Notification Bell --- */
+        .welcome-notification-btn {
+            position: fixed;
+            top: 100px;
+            left: 24px;
+            width: 48px;
+            height: 48px;
+            background: #fff;
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 16px rgba(60, 60, 130, 0.10), 0 1.5px 4px rgba(60,60,130,0.08);
+            cursor: pointer;
+            z-index: 1200;
+            font-size: 1.45rem;
+            border: 1.5px solid var(--primary-light);
+            transition: box-shadow 0.2s, color 0.2s, border 0.2s, background 0.2s;
+        }
+        .welcome-notification-btn:hover, .welcome-notification-btn:focus {
+            color: var(--primary-dark);
+            background: var(--primary-light);
+            border: 1.5px solid var(--primary);
+            box-shadow: 0 8px 32px rgba(60, 60, 130, 0.16);
+            outline: none;
+        }
+        .welcome-notification-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--danger);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 4px rgba(60,60,130,0.10);
+            border: 2px solid #fff;
+        }
+
+        /* --- Welcome Panel --- */
+        .welcome-panel {
+            position: fixed;
+            top: 80px;
+            left: 90px;
+            width: 410px;
+            max-width: 95vw;
+            background: #fff;
+            border-radius: 1.25rem;
+            box-shadow: 0 8px 32px rgba(60, 60, 130, 0.18), 0 2px 8px rgba(60,60,130,0.10);
+            z-index: 1300;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(-32px) scale(0.98);
+            transition: opacity 0.35s cubic-bezier(.4,0,.2,1), transform 0.35s cubic-bezier(.4,0,.2,1);
+        }
+        .welcome-panel.open {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateX(0) scale(1);
+        }
+        .welcome-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.1rem 1.5rem 1rem 1.5rem;
+            border-bottom: 1px solid var(--gray-light);
+            background: linear-gradient(90deg, var(--primary), var(--primary-light) 80%);
+            color: #fff;
+            border-radius: 1.25rem 1.25rem 0 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+        }
+        .close-welcome-panel {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.5rem;
+            transition: background 0.2s, color 0.2s;
+        }
+        .close-welcome-panel:hover, .close-welcome-panel:focus {
+            background: rgba(255,255,255,0.12);
+            color: var(--accent);
+            outline: none;
+        }
+        .welcome-panel-content {
+            padding: 1.5rem 1.5rem 1.2rem 1.5rem;
+            background: #fff;
+            border-radius: 0 0 1.25rem 1.25rem;
+        }
+        .welcome-greeting {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--primary-dark);
+            margin-bottom: 0.7rem;
+        }
+        .welcome-panel-content h2 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            letter-spacing: 0.01em;
+        }
+        .welcome-panel-content p {
+            color: var(--gray);
+            font-size: 1.02rem;
+            margin-bottom: 1.2rem;
+        }
+        .welcome-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.1rem 1.2rem;
+        }
+        .welcome-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--light);
+            border-radius: 0.7rem;
+            padding: 0.7rem 1rem;
+            font-size: 0.98rem;
+            color: var(--dark);
+            box-shadow: 0 1px 4px rgba(60,60,130,0.04);
+            border: 1px solid var(--gray-light);
+            font-weight: 500;
+        }
+        .welcome-stat i {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        @media (max-width: 600px) {
+            .welcome-panel {
+                left: 6px;
+                width: 97vw;
+            }
+            .welcome-notification-btn {
+                left: 6px;
+                top: 70px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+            .welcome-panel-content {
+                padding: 1.1rem 0.7rem 1rem 0.7rem;
+            }
+            .welcome-panel-header {
+                padding: 0.8rem 1rem 0.7rem 1rem;
+                font-size: 1rem;
+            }
+            .welcome-stats {
+                grid-template-columns: 1fr;
+                gap: 0.7rem;
+            }
+        }
+        .cta-card {
+            background: #fff;
+            border-radius: 1.25rem;
+            box-shadow: 0 8px 32px rgba(60, 60, 130, 0.13), 0 2px 8px rgba(60,60,130,0.08);
+            max-width: 540px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem 2rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+        .cta-card h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark, #4338CA);
+            margin-bottom: 1.1rem;
+        }
+        .cta-card p {
+            color: var(--gray, #6B7280);
+            font-size: 1.13rem;
+            margin-bottom: 2rem;
+        }
+        .cta-gmail-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            background: linear-gradient(90deg, #ea4335 0%, #fbbc05 100%);
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.08rem;
+            border: none;
+            border-radius: 2rem;
+            padding: 0.95rem 2.1rem;
+            box-shadow: 0 4px 16px rgba(234,67,53,0.10);
+            transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+            text-decoration: none;
+            margin-bottom: 0.7rem;
+        }
+        .cta-gmail-btn i {
+            font-size: 1.25rem;
+        }
+        .cta-gmail-btn:hover, .cta-gmail-btn:focus {
+            background: linear-gradient(90deg, #d93025 0%, #fbbc05 100%);
+            box-shadow: 0 8px 32px rgba(234,67,53,0.13);
+            transform: translateY(-2px) scale(1.03);
+            color: #fff;
+        }
+        .cta-note {
+            color: var(--gray, #6B7280);
+            font-size: 0.98rem;
+            margin-top: 0.5rem;
+        }
+        @media (max-width: 600px) {
+            .cta-card {
+                padding: 1.3rem 0.7rem 1.1rem 0.7rem;
+            }
+            .cta-card h2 {
+                font-size: 1.25rem;
+            }
+            .cta-card p {
+                font-size: 0.98rem;
+            }
+            .cta-gmail-btn {
+                font-size: 0.98rem;
+                padding: 0.8rem 1.2rem;
+            }
         }
     </style>
 </head>
@@ -1884,6 +2434,25 @@
             return cookieValue;
         }
         const csrftoken = getCookie('csrftoken');
+        
+        // Get user data from data attributes
+        function getCurrentUser() {
+            const welcomeSection = document.querySelector('.welcome-section');
+            if (welcomeSection) {
+                return {
+                    first_name: welcomeSection.dataset.userFirstName || '',
+                    last_name: welcomeSection.dataset.userLastName || '',
+                    username: welcomeSection.dataset.userUsername || '',
+                    is_authenticated: welcomeSection.dataset.userAuthenticated === 'true'
+                };
+            }
+            return {
+                first_name: '',
+                last_name: '',
+                username: '',
+                is_authenticated: false
+            };
+        }
     </script>
 
     <!-- Navbar -->
@@ -1934,6 +2503,98 @@
             </div>
         </div>
     </nav>
+
+    <!-- Notification Bell Icon (fixed left) -->
+    <div id="welcome-notification-btn" class="welcome-notification-btn" title="Show Welcome Message" tabindex="0">
+        <i class="fas fa-bell"></i>
+        <span class="welcome-notification-badge" id="welcome-badge" style="display:none;">1</span>
+    </div>
+
+    <!-- Welcome Message Panel (hidden by default) -->
+    <div id="welcome-panel" class="welcome-panel" role="dialog" aria-modal="true" aria-labelledby="welcome-message">
+        <div class="welcome-panel-header">
+            <span>Welcome</span>
+            <button id="close-welcome-panel" class="close-welcome-panel" aria-label="Close welcome message"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="welcome-panel-content">
+            <div class="welcome-greeting">
+                <i class="fas fa-sun"></i>
+                <span id="time-greeting">Good Morning</span>
+            </div>
+            <h2 id="welcome-message">Welcome to StressGuard Pro, <span>{{ user.first_name }} {{ user.last_name }}</span>!</h2>
+            <p>Your AI-powered companion for stress management and wellness tracking.</p>
+            <div class="welcome-stats">
+                <div class="welcome-stat">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Last login: <span id="last-login">Today</span></span>
+                </div>
+                <div class="welcome-stat">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Stress level: <span id="stress-level">Low</span></span>
+                </div>
+                <div class="welcome-stat">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Status: <span id="user-status">Active</span></span>
+                </div>
+                <div class="welcome-stat">
+                    <i class="fas fa-clock"></i>
+                    <span>Time: <span id="current-time">Loading...</span></span>
+                </div>
+                <div class="welcome-stat">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Date: <span id="current-date">Loading...</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Professional Hero Section -->
+    <section class="hero-section">
+        <div class="hero-background">
+            <div class="hero-pattern"></div>
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>AI-Powered Stress Management</span>
+                </div>
+                <h1 class="hero-title">Empower Your Tech Team with Intelligent Wellness Solutions</h1>
+                <p class="hero-description">Monitor, analyze, and optimize workplace stress for IT professionals with our comprehensive AI-driven platform designed for modern development teams.</p>
+                <div class="hero-actions">
+                    <a href="/stress_assessment" class="hero-btn primary">
+                        <i class="fas fa-play"></i>
+                        Start Assessment
+                    </a>
+                    <a href="/user_dashboard" class="hero-btn secondary">
+                        <i class="fas fa-chart-line"></i>
+                        View Dashboard
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="stat-number">89%</div>
+                        <div class="stat-label">Stress Reduction</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-number">3.2x</div>
+                        <div class="stat-label">Productivity Boost</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-number">92%</div>
+                        <div class="stat-label">User Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image-container">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=2070&q=80" alt="StressGuard Pro Dashboard Preview" class="hero-image">
+                    <div class="hero-image-overlay"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -2124,11 +2785,11 @@
     <!-- CTA Section -->
     <section class="section cta">
         <div class="cta-container">
-            <h2>Transform Your Team's Wellbeing</h2>
-            <p>Join tech companies prioritizing developer health with our AI-powered platform.</p>
-            <div class="cta-buttons">
-                <a href="/pricing" class="btn btn-primary">View Pricing</a>
-                <a href="/contact" class="btn btn-outline">Contact Sales</a>
+            <div class="cta-card">
+                <h2>Currently under open development for educational and research purposes.</h2>
+                <p>Commercial licensing and tiered pricing model (Free, Pro, Enterprise) coming soon.</p>
+                <a href="https://mail.google.com/mail/?view=cm&to=officialsurag@gmail.com&su=Inquiry%20from%20StressGuard%20Pro%20Website&body=Hi%20Surag%2C%0A%0AI%20would%20like%20to%20know%20more%20about%20StressGuard%20Pro..." target="_blank" class="cta-gmail-btn"><i class="fab fa-google"></i>Contact Now</a>
+                <div class="cta-note">Opens Gmail compose in a new tab</div>
             </div>
         </div>
     </section>
@@ -2144,43 +2805,48 @@
                 <div class="footer-about">
                     <p>Empowering tech professionals with intelligent stress management since 2020.</p>
                     <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="mailto:officialsurag@gmail.com" class="social-link" title="Email: officialsurag@gmail.com"><i class="fas fa-envelope"></i></a>
+                        <a href="https://linkedin.com/in/suragsunil" class="social-link" title="LinkedIn: linkedin.com/in/suragsunil" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/suragms" class="social-link" title="GitHub: github.com/suragms" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+                        <a href="https://instagram.com/surag_sunil" class="social-link" title="Instagram: instagram.com/surag_sunil" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linktr.ee/suragdevstudio" class="social-link" title="Linktree: linktr.ee/suragdevstudio" target="_blank" rel="noopener noreferrer"><i class="fas fa-link"></i></a>
                     </div>
                 </div>
             </div>
             <div class="footer-col">
-                <h4>Product</h4>
+                <h4>Product Features</h4>
                 <ul class="footer-links">
-                    <li><a href="/features" class="footer-link"><i class="fas fa-star"></i> Features</a></li>
-                    <li><a href="/integrations" class="footer-link"><i class="fas fa-plug"></i> Integrations</a></li>
-                    <li><a href="/pricing" class="footer-link"><i class="fas fa-tag"></i> Pricing</a></li>
-                    <li><a href="/roadmap" class="footer-link"><i class="fas fa-map"></i> Roadmap</a></li>
+                    <li><span class="footer-link"><i class="fas fa-brain"></i> Smart Stress Level Detection</span></li>
+                    <li><span class="footer-link"><i class="fas fa-lightbulb"></i> Personalized Feedback & Recommendations</span></li>
+                    <li><span class="footer-link"><i class="fas fa-robot"></i> Conversational AI Chatbot</span></li>
+                    <li><span class="footer-link"><i class="fas fa-tachometer-alt"></i> User & Admin Dashboards</span></li>
+                    <li><span class="footer-link"><i class="fas fa-chart-line"></i> Real-time Analytics</span></li>
+                    <li><span class="footer-link"><i class="fas fa-file-alt"></i> Weekly Report Generation</span></li>
+                    <li><span class="footer-link"><i class="fas fa-shield-alt"></i> Secure User Authentication</span></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Resources</h4>
+                <h4>Integrations</h4>
                 <ul class="footer-links">
-                    <li><a href="/blog" class="footer-link"><i class="fas fa-newspaper"></i> Blog</a></li>
-                    <li><a href="/webinars" class="footer-link"><i class="fas fa-video"></i> Webinars</a></li>
-                    <li><a href="/guides" class="footer-link"><i class="fas fa-book"></i> Guides</a></li>
-                    <li><a href="/research" class="footer-link"><i class="fas fa-flask"></i> Research</a></li>
+                    <li><span class="footer-link"><i class="fas fa-comments"></i> Rasa for NLP-powered chatbot</span></li>
+                    <li><span class="footer-link"><i class="fas fa-brain"></i> Scikit-learn for stress prediction</span></li>
+                    <li><span class="footer-link"><i class="fas fa-database"></i> SQLite/PostgreSQL database</span></li>
+                    <li><span class="footer-link"><i class="fas fa-cloud-upload-alt"></i> Deployment via Render</span></li>
+                    <li><span class="footer-link"><i class="fab fa-github"></i> GitHub Actions for CI/CD</span></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>Company</h4>
                 <ul class="footer-links">
-                    <li><a href="/about" class="footer-link"><i class="fas fa-info-circle"></i> About Us</a></li>
-                    <li><a href="/careers" class="footer-link"><i class="fas fa-briefcase"></i> Careers</a></li>
-                    <li><a href="/privacy" class="footer-link"><i class="fas fa-lock"></i> Privacy</a></li>
-                    <li><a href="/terms" class="footer-link"><i class="fas fa-file-alt"></i> Terms</a></li>
+                    <li><a href="#" class="footer-link"><i class="fas fa-info-circle"></i> About Us</a></li>
+                    <li><a href="#" class="footer-link"><i class="fas fa-briefcase"></i> Careers (coming soon)</a></li>
+                    <li><a href="#" class="footer-link"><i class="fas fa-lock"></i> Privacy</a></li>
+                    <li><a href="" class="footer-link"><i class="fas fa-file-alt"></i> Terms</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2025 StressGuard Pro. All rights reserved.</p>
+            <p>© 2025 StressGuard Pro™ by Surag M S — Founder of Surag Dev Studio. All rights reserved.</p>
         </div>
     </footer>
 
@@ -2224,273 +2890,499 @@
 
 <!-- JavaScript -->
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    // Safely parse alerts from Django context
-    let alerts = [];
-    try {
-        alerts = JSON.parse('{{ alerts|default:"[]"|escapejs }}');
-    } catch (e) {
-        console.error('Failed to parse alerts:', e);
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initialize alerts from Django context
+        const alerts = JSON.parse('{{ alerts|escapejs }}');
 
-    // CSRF Token for POST requests
-    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || '';
+        // Time-based greeting functionality
+        function updateGreeting() {
+            const now = new Date();
+            const hour = now.getHours();
+            const greetingElement = document.getElementById('time-greeting');
+            const greetingIcon = document.querySelector('.welcome-greeting i');
+            
+            let greeting = '';
+            let icon = '';
+            
+            if (hour >= 5 && hour < 12) {
+                greeting = 'Good Morning';
+                icon = 'fas fa-sun';
+            } else if (hour >= 12 && hour < 17) {
+                greeting = 'Good Afternoon';
+                icon = 'fas fa-sun';
+            } else if (hour >= 17 && hour < 21) {
+                greeting = 'Good Evening';
+                icon = 'fas fa-moon';
+            } else {
+                greeting = 'Good Night';
+                icon = 'fas fa-moon';
+            }
+            
+            if (greetingElement) {
+                greetingElement.textContent = greeting;
+            }
+            
+            if (greetingIcon) {
+                greetingIcon.className = icon;
+            }
+        }
 
-    // Mobile menu
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-    if (hamburger && navMenu) {
+        // Update greeting on page load
+        updateGreeting();
+        
+        // Update greeting every minute
+        setInterval(updateGreeting, 60000);
+
+        // Update time and date
+        function updateTimeAndDate() {
+            const now = new Date();
+            
+            // Update time
+            const timeElement = document.getElementById('current-time');
+            if (timeElement) {
+                const timeString = now.toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: true
+                });
+                timeElement.textContent = timeString;
+            }
+            
+            // Update date
+            const dateElement = document.getElementById('current-date');
+            if (dateElement) {
+                const dateString = now.toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                dateElement.textContent = dateString;
+            }
+        }
+
+        // Update time and date immediately and then every second
+        updateTimeAndDate();
+        setInterval(updateTimeAndDate, 1000);
+
+        // Fetch and display user data
+        async function fetchUserData() {
+            try {
+                const currentUser = getCurrentUser();
+                
+                // Use current user data from Django context
+                if (currentUser && currentUser.is_authenticated) {
+                    const userData = {
+                        first_name: currentUser.first_name || currentUser.username,
+                        last_name: currentUser.last_name || '',
+                        last_login: 'Today',
+                        stress_level: 'Low',
+                        status: 'Active'
+                    };
+                    updateUserDisplay(userData);
+                } else {
+                    // Try to fetch additional data from API
+                    const response = await fetch('/api/user-profile/', {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrftoken
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const apiUserData = await response.json();
+                        // Merge with current user data
+                        const userData = {
+                            first_name: currentUser.first_name || currentUser.username || apiUserData.first_name,
+                            last_name: currentUser.last_name || apiUserData.last_name || '',
+                            last_login: apiUserData.last_login || 'Today',
+                            stress_level: apiUserData.stress_level || 'Low',
+                            status: apiUserData.status || 'Active'
+                        };
+                        updateUserDisplay(userData);
+                    } else {
+                        // Use current user data as fallback
+                        const userData = {
+                            first_name: currentUser.first_name || currentUser.username || 'Welcome',
+                            last_name: currentUser.last_name || 'User',
+                            last_login: 'Today',
+                            stress_level: 'Low',
+                            status: 'Active'
+                        };
+                        updateUserDisplay(userData);
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+                // Fallback to current user data or default values
+                const currentUser = getCurrentUser();
+                const userData = {
+                    first_name: currentUser.first_name || currentUser.username || 'Welcome',
+                    last_name: currentUser.last_name || 'User',
+                    last_login: 'Today',
+                    stress_level: 'Low',
+                    status: 'Active'
+                };
+                updateUserDisplay(userData);
+            }
+        }
+
+        function updateUserDisplay(userData) {
+            const userNameElement = document.getElementById('user-name');
+            const lastLoginElement = document.getElementById('last-login');
+            const stressLevelElement = document.getElementById('stress-level');
+            const userStatusElement = document.getElementById('user-status');
+
+            if (userNameElement) {
+                // Prefer first name + last name, then first name, then username, then fallback to 'there'
+                let displayName = '';
+                if (userData.first_name && userData.first_name.trim() && userData.last_name && userData.last_name.trim()) {
+                    displayName = userData.first_name + ' ' + userData.last_name;
+                } else if (userData.first_name && userData.first_name.trim()) {
+                    displayName = userData.first_name;
+                } else if (userData.username && userData.username.trim()) {
+                    displayName = userData.username;
+                } else {
+                    displayName = 'there';
+                }
+                userNameElement.textContent = displayName;
+                // Add a subtle animation when the name loads
+                userNameElement.style.opacity = '0';
+                userNameElement.style.transform = 'translateY(10px)';
+                setTimeout(() => {
+                    userNameElement.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    userNameElement.style.opacity = '1';
+                    userNameElement.style.transform = 'translateY(0)';
+                }, 100);
+            }
+
+            if (lastLoginElement && userData.last_login) {
+                lastLoginElement.textContent = userData.last_login;
+            }
+
+            if (stressLevelElement && userData.stress_level) {
+                stressLevelElement.textContent = userData.stress_level;
+                // Add color coding based on stress level
+                const stressLevel = userData.stress_level.toLowerCase();
+                if (stressLevel === 'low') {
+                    stressLevelElement.style.color = '#10B981';
+                } else if (stressLevel === 'medium') {
+                    stressLevelElement.style.color = '#F59E0B';
+                } else if (stressLevel === 'high') {
+                    stressLevelElement.style.color = '#EF4444';
+                }
+            }
+
+            if (userStatusElement && userData.status) {
+                userStatusElement.textContent = userData.status;
+                // Add color coding based on status
+                const status = userData.status.toLowerCase();
+                if (status === 'active') {
+                    userStatusElement.style.color = '#10B981';
+                } else if (status === 'inactive') {
+                    userStatusElement.style.color = '#6B7280';
+                } else if (status === 'guest') {
+                    userStatusElement.style.color = '#F59E0B';
+                }
+            }
+        }
+
+        // Fetch user data on page load
+        fetchUserData();
+
+        // Mobile menu
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
         hamburger.addEventListener('click', () => {
             navMenu.classList.toggle('show');
-            hamburger.innerHTML = navMenu.classList.contains('show')
-                ? '<i class="fas fa-times"></i>'
+            hamburger.innerHTML = navMenu.classList.contains('show') 
+                ? '<i class="fas fa-times"></i>' 
                 : '<i class="fas fa-bars"></i>';
         });
-    }
 
-    // Navbar scroll
-    const navbar = document.querySelector('.navbar');
-    if (navbar) {
+        // Navbar scroll
+        const navbar = document.querySelector('.navbar');
         window.addEventListener('scroll', () => {
             navbar.classList.toggle('scrolled', window.scrollY > 10);
         });
-    }
 
-    // Smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = anchor.getAttribute('href');
-            if (targetId === '#') return;
-            const target = document.querySelector(targetId);
-            if (target) {
-                window.scrollTo({
-                    top: target.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-                if (navMenu?.classList.contains('show')) {
-                    navMenu.classList.remove('show');
-                    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
-                }
-            }
-        });
-    });
-
-    // Notifications
-    const notifications = alerts.map(alert => ({
-        id: alert.id,
-        title: alert.title,
-        description: alert.description,
-        timestamp: new Date(alert.timestamp),
-        read: alert.read
-    }));
-
-    const notificationBtn = document.getElementById("notification-btn");
-    const notificationPopover = document.getElementById("notification-popover");
-    const notificationList = document.getElementById("notification-list");
-    const markAllReadBtn = document.getElementById("mark-all-read");
-    const unreadCountEl = document.getElementById("unread-count");
-
-    function renderNotifications() {
-        notificationList.innerHTML = "";
-        if (notifications.length === 0) {
-            const item = document.createElement("div");
-            item.className = "notification-item";
-            item.innerHTML = `<div class="notification-item-content">No new notifications</div>`;
-            notificationList.appendChild(item);
-            setTimeout(() => item.classList.add("visible"), 100);
-        } else {
-            notifications.forEach((notification, index) => {
-                const item = document.createElement("div");
-                item.className = `notification-item ${notification.read ? '' : 'unread'}`;
-                item.innerHTML = `
-                    <div class="notification-item-header">
-                        <div class="notification-item-title">
-                            ${!notification.read ? '<span class="notification-unread"></span>' : ''}
-                            ${notification.title}
-                        </div>
-                        <div class="notification-time">${formatTime(notification.timestamp)}</div>
-                    </div>
-                    <div class="notification-item-content">${notification.description}</div>
-                `;
-                item.addEventListener("click", () => markAsRead(notification.id));
-                notificationList.appendChild(item);
-                setTimeout(() => item.classList.add("visible"), index * 100);
-            });
-        }
-
-        const unreadCount = notifications.filter(n => !n.read).length;
-        unreadCountEl.textContent = unreadCount;
-        unreadCountEl.style.display = unreadCount > 0 ? "flex" : "none";
-    }
-
-    function formatTime(date) {
-        const diff = (new Date() - date) / (1000 * 60);
-        if (diff < 60) return `${Math.floor(diff)}m ago`;
-        if (diff < 1440) return `${Math.floor(diff / 60)}h ago`;
-        if (diff < 2880) return "Yesterday";
-        return `${Math.floor(diff / 1440)}d ago`;
-    }
-
-    async function markAsRead(id) {
-        const notification = notifications.find(n => n.id === id);
-        if (notification && !notification.read) {
-            try {
-                const response = await fetch(`/acknowledge_alert/${id}/`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': csrftoken
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = anchor.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    if (navMenu.classList.contains('show')) {
+                        navMenu.classList.remove('show');
+                        hamburger.innerHTML = '<i class="fas fa-bars"></i>';
                     }
-                });
-                if (response.ok) {
-                    notification.read = true;
-                    renderNotifications();
-                } else {
-                    console.error('Failed to acknowledge alert');
                 }
-            } catch (error) {
-                console.error('Error acknowledging alert:', error);
-            }
-        }
-    }
+            });
+        });
 
-    notificationBtn?.addEventListener("click", (e) => {
-        e.stopPropagation();
-        notificationPopover.classList.toggle("visible");
-    });
+        // Notifications
+        const notifications = alerts.map(alert => ({
+            id: alert.id,
+            title: alert.title,
+            description: alert.description,
+            timestamp: new Date(alert.timestamp),
+            read: alert.read
+        }));
 
-    markAllReadBtn?.addEventListener("click", async () => {
-        for (const notification of notifications) {
-            if (!notification.read) await markAsRead(notification.id);
-        }
-        renderNotifications();
-    });
+        const notificationBtn = document.getElementById("notification-btn");
+        const notificationPopover = document.getElementById("notification-popover");
+        const notificationList = document.getElementById("notification-list");
+        const markAllReadBtn = document.getElementById("mark-all-read");
+        const unreadCountEl = document.getElementById("unread-count");
 
-    document.addEventListener("click", (e) => {
-        if (!notificationBtn.contains(e.target) && !notificationPopover.contains(e.target)) {
-            notificationPopover.classList.remove("visible");
-        }
-    });
-
-    renderNotifications();
-
-    // Chat system
-    const chatButton = document.getElementById('chat-button');
-    const chatContainer = document.getElementById('chat-container');
-    const minimizeChat = document.getElementById('minimize-chat');
-    const closeChat = document.getElementById('close-chat');
-    const chatInput = document.getElementById('chat-input');
-    const sendMessage = document.getElementById('send-message');
-    const voiceButton = document.getElementById('voice-input');
-    const chatMessages = document.getElementById('chat-messages');
-
-    // 🔁 Correct Render URL for production Rasa server
-    const rasaURL = 'https://rasa-server.onrender.com/webhooks/rest/webhook';
-
-    chatButton?.addEventListener('click', () => chatContainer.classList.toggle('open'));
-    minimizeChat?.addEventListener('click', () => chatContainer.classList.remove('open'));
-    closeChat?.addEventListener('click', () => chatContainer.classList.remove('open'));
-
-    function sendMessageToRasa() {
-        const message = chatInput.value.trim();
-        if (!message) return;
-
-        displayMessage(message, 'user');
-        chatInput.value = '';
-
-        fetch(rasaURL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ sender: 'user', message })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data?.length) {
-                data.forEach(response => response.text && displayMessage(response.text, 'bot'));
+        function renderNotifications() {
+            notificationList.innerHTML = "";
+            if (notifications.length === 0) {
+                const item = document.createElement("div");
+                item.className = "notification-item";
+                item.innerHTML = `
+                    <div class="notification-item-content">No new notifications</div>
+                `;
+                notificationList.appendChild(item);
+                setTimeout(() => item.classList.add("visible"), 100);
             } else {
-                displayMessage("I didn't understand. Could you rephrase?", 'bot');
+                notifications.forEach((notification, index) => {
+                    const item = document.createElement("div");
+                    item.className = `notification-item ${notification.read ? '' : 'unread'}`;
+                    item.innerHTML = `
+                        <div class="notification-item-header">
+                            <div class="notification-item-title">
+                                ${!notification.read ? '<span class="notification-unread"></span>' : ''}
+                                ${notification.title}
+                            </div>
+                            <div class="notification-time">${formatTime(notification.timestamp)}</div>
+                        </div>
+                        <div class="notification-item-content">${notification.description}</div>
+                    `;
+                    item.addEventListener("click", () => markAsRead(notification.id));
+                    notificationList.appendChild(item);
+                    setTimeout(() => item.classList.add("visible"), index * 100);
+                });
             }
-        })
-        .catch(() => displayMessage("Connection issue. Please try again.", 'bot'));
-    }
 
-    function speak(text) {
-        const synth = window.speechSynthesis;
-        if (!synth) return;
-        const utter = new SpeechSynthesisUtterance(text);
-        utter.lang = 'en-US';
-        synth.speak(utter);
-    }
+            const unreadCount = notifications.filter(n => !n.read).length;
+            unreadCountEl.textContent = unreadCount;
+            unreadCountEl.style.display = unreadCount > 0 ? "flex" : "none";
+        }
 
-    function displayMessage(text, sender) {
-        const messageDiv = document.createElement('div');
-        messageDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
-        messageDiv.innerHTML = `
-            <div class="message-content">${text}</div>
-            <div class="message-time">${formatTime(new Date())}</div>
-        `;
-        chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-        if (sender === 'bot') speak(text);
-    }
+        function formatTime(date) {
+            const diff = (new Date() - date) / (1000 * 60);
+            if (diff < 60) return `${Math.floor(diff)}m ago`;
+            if (diff < 1440) return `${Math.floor(diff / 60)}h ago`;
+            if (diff < 2880) return "Yesterday";
+            return `${Math.floor(diff / 1440)}d ago`;
+        }
 
-    sendMessage?.addEventListener('click', sendMessageToRasa);
-    chatInput?.addEventListener('keypress', e => e.key === 'Enter' && sendMessageToRasa());
+        async function markAsRead(id) {
+            const notification = notifications.find(n => n.id === id);
+            if (notification && !notification.read) {
+                try {
+                    const response = await fetch(`/acknowledge_alert/${id}/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrftoken
+                        }
+                    });
+                    if (response.ok) {
+                        notification.read = true;
+                        renderNotifications();
+                    } else {
+                        console.error('Failed to acknowledge alert');
+                    }
+                } catch (error) {
+                    console.error('Error acknowledging alert:', error);
+                }
+            }
+        }
 
-    // Voice recognition
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const recognition = SpeechRecognition ? new SpeechRecognition() : null;
+        notificationBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            notificationPopover.classList.toggle("visible");
+        });
 
-    if (recognition) {
-        recognition.lang = 'en-US';
-        recognition.continuous = false;
+        markAllReadBtn.addEventListener("click", async () => {
+            for (const notification of notifications) {
+                if (!notification.read) {
+                    await markAsRead(notification.id);
+                }
+            }
+            renderNotifications();
+        });
 
-        voiceButton?.addEventListener('click', () => {
-            if (!voiceButton.classList.contains('recording')) {
-                recognition.start();
-                voiceButton.classList.add('recording');
+        document.addEventListener("click", (e) => {
+            if (!notificationBtn.contains(e.target) && !notificationPopover.contains(e.target)) {
+                notificationPopover.classList.remove("visible");
             }
         });
 
-        recognition.onresult = (event) => {
-            chatInput.value = event.results[0][0].transcript;
-            sendMessageToRasa();
-        };
+        renderNotifications();
 
-        recognition.onend = () => voiceButton.classList.remove('recording');
+        // Chat system
+        const chatButton = document.getElementById('chat-button');
+        const chatContainer = document.getElementById('chat-container');
+        const minimizeChat = document.getElementById('minimize-chat');
+        const closeChat = document.getElementById('close-chat');
+        const chatInput = document.getElementById('chat-input');
+        const sendMessage = document.getElementById('send-message');
+        const voiceButton = document.getElementById('voice-input');
+        const chatMessages = document.getElementById('chat-messages');
+        const rasaURL = 'http://localhost:5005/webhooks/rest/webhook';
 
-        recognition.onerror = (event) => {
-            voiceButton.classList.remove('recording');
-            if (event.error === 'no-speech') {
-                displayMessage("No speech detected. Try again.", 'bot');
-            }
-        };
-    } else {
-        voiceButton.disabled = true;
-        voiceButton.title = "Voice input not supported.";
-    }
+        chatButton.addEventListener('click', () => chatContainer.classList.toggle('open'));
+        minimizeChat.addEventListener('click', () => chatContainer.classList.remove('open'));
+        closeChat.addEventListener('click', () => chatContainer.classList.remove('open'));
 
-    // Fade-in animations
-    const fadeElements = document.querySelectorAll('.fade-in');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = 1;
-                entry.target.style.transform = 'translateY(0)';
-                observer.unobserve(entry.target);
-            }
+        function sendMessageToRasa() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            displayMessage(message, 'user');
+            chatInput.value = '';
+
+            fetch(rasaURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ sender: 'user', message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data?.length) {
+                    data.forEach(response => response.text && displayMessage(response.text, 'bot'));
+                } else {
+                    displayMessage("I didn't understand. Could you rephrase?", 'bot');
+                }
+            })
+            .catch(() => displayMessage("Connection issue. Please try again.", 'bot'));
+        }
+
+        function speak(text) {
+            const synth = window.speechSynthesis;
+            if (!synth) return;
+
+            const utter = new SpeechSynthesisUtterance(text);
+            utter.lang = 'en-US';
+            synth.speak(utter);
+        }
+
+        function displayMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
+            messageDiv.innerHTML = `
+                <div class="message-content">${text}</div>
+                <div class="message-time">${formatTime(new Date())}</div>
+            `;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            if (sender === 'bot') speak(text);
+        }
+
+        sendMessage.addEventListener('click', sendMessageToRasa);
+        chatInput.addEventListener('keypress', e => e.key === 'Enter' && sendMessageToRasa());
+
+        // Voice recognition
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = SpeechRecognition ? new SpeechRecognition() : null;
+
+        if (recognition) {
+            recognition.lang = 'en-US';
+            recognition.continuous = false;
+
+            voiceButton.addEventListener('click', () => {
+                if (!voiceButton.classList.contains('recording')) {
+                    recognition.start();
+                    voiceButton.classList.add('recording');
+                }
+            });
+
+            recognition.onresult = (event) => {
+                chatInput.value = event.results[0][0].transcript;
+                sendMessageToRasa();
+            };
+
+            recognition.onend = () => voiceButton.classList.remove('recording');
+
+            recognition.onerror = (event) => {
+                voiceButton.classList.remove('recording');
+                if (event.error === 'no-speech') {
+                    displayMessage("No speech detected. Try again.", 'bot');
+                }
+            };
+        } else {
+            voiceButton.disabled = true;
+            voiceButton.title = "Voice input not supported.";
+        }
+
+        // Fade-in animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
         });
-    }, { threshold: 0.1 });
-
-    fadeElements.forEach(el => {
-        el.style.opacity = 0;
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
     });
-});
-</script>
 
+    document.addEventListener('DOMContentLoaded', function() {
+        const bellBtn = document.getElementById('welcome-notification-btn');
+        const panel = document.getElementById('welcome-panel');
+        const closeBtn = document.getElementById('close-welcome-panel');
+        const badge = document.getElementById('welcome-badge');
+        let hasOpened = false;
+
+        bellBtn.addEventListener('click', function() {
+            panel.classList.add('open');
+            panel.focus();
+            if (!hasOpened) {
+                badge.style.display = 'none';
+                hasOpened = true;
+            }
+        });
+        closeBtn.addEventListener('click', function() {
+            panel.classList.remove('open');
+            bellBtn.focus();
+        });
+        // Optional: close panel when clicking outside
+        document.addEventListener('mousedown', function(e) {
+            if (panel.classList.contains('open') && !panel.contains(e.target) && !bellBtn.contains(e.target)) {
+                panel.classList.remove('open');
+            }
+        });
+        // Show badge if not opened yet
+        if (!hasOpened) {
+            badge.style.display = 'flex';
+        }
+        // Accessibility: close on Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && panel.classList.contains('open')) {
+                panel.classList.remove('open');
+                bellBtn.focus();
+            }
+        });
+    });
+</script>
 </body>
 </html>

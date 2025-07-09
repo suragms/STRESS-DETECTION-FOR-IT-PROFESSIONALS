@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponse
 from django.utils.timezone import now, timedelta
-from .models import UsersRegister, StressAssessment, Feedback, KeyboardActivity, ScreenTime, ApplicationUsage, VoicePattern, WearableData, Recommendation, Alert, Resource
+from .models import UsersRegister, StressAssessment, Feedback, KeyboardActivity, ScreenTime, ApplicationUsage, VoicePattern, WearableData, Recommendation, Alert, Resource, ProcessedData, ExtractedFeature, StressPattern, Anomaly, MLPrediction
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -45,9 +45,16 @@ def usershome(request):
                     'read': alert['fields']['is_acknowledged']
                 } for alert in alerts_data
             ]
+            user_data = {
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'username': user.email_id,  # using email_id as username
+                'is_authenticated': True,
+            }
             return render(request, 'usershome.html', {
                 'user': user,
-                'alerts': json.dumps(alerts_formatted)  # Pass JSON string to template
+                'alerts': json.dumps(alerts_formatted),  # Pass JSON string to template
+                'user_data': user_data,
             })
         except UsersRegister.DoesNotExist:
             logger.error(f"User with email {mail} not found in usershome")
@@ -129,7 +136,6 @@ def login(request):
             user = UsersRegister.objects.get(email_id=email, password=password)
             request.session['email'] = user.email_id
             logger.info(f"User {user.email_id} logged in successfully, session set")
-            messages.success(request, 'Login successful.')
             return redirect('/usershome/')
         except UsersRegister.DoesNotExist:
             logger.warning(f"Login failed for email {email}: Invalid credentials")
@@ -182,16 +188,158 @@ def user_logout(request):
     request.session.flush()
     return redirect('home')
 
+def create_sample_data_for_user(user):
+    """Create sample data for demonstration purposes"""
+    from datetime import timedelta
+    
+    # Create sample stress assessment
+    if not StressAssessment.objects.filter(user=user).exists():
+        StressAssessment.objects.create(
+            user=user,
+            stress_score=75,
+            responses='{"question1": "Sometimes", "question2": "Often"}',
+            recommendations='Take regular breaks and practice mindfulness'
+        )
+    
+    # Create sample wearable data for the last 7 days
+    for i in range(7):
+        date = now() - timedelta(days=i)
+        WearableData.objects.get_or_create(
+            user=user,
+            timestamp=date,
+            defaults={
+                'device_type': 'FITBIT',
+                'heart_rate': 72 + (i * 2),
+                'steps': 8000 + (i * 500),
+                'sleep_duration': timedelta(hours=7.5 - (i * 0.2)),
+                'stress_indicator': 0.6 + (i * 0.05)
+            }
+        )
+
 def settings_view(request):
     if 'email' in request.session:
         mail = request.session['email']
         try:
             user = UsersRegister.objects.get(email_id=mail)
-            return render(request, 'settings.html', {'user': user})
+            
+            # Uncomment the line below to create sample data for testing
+            # create_sample_data_for_user(user)
+            
+            # Fetch data from models for stats
+            context = {'user': user}
+            
+            # 1. Stress Level - Get latest stress assessment
+            try:
+                latest_stress = StressAssessment.objects.filter(user=user).order_by('-date').first()
+                if latest_stress:
+                    context['stress_level'] = latest_stress.stress_score
+                else:
+                    context['stress_level'] = None
+            except Exception as e:
+                logger.error(f"Error fetching stress level for user {user.email_id}: {str(e)}")
+                context['stress_level'] = None
+            
+            # 2. Average Sleep - Get from wearable data
+            try:
+                # Get sleep data from the last 7 days
+                week_ago = now() - timedelta(days=7)
+                sleep_data = WearableData.objects.filter(
+                    user=user,
+                    sleep_duration__isnull=False,
+                    timestamp__gte=week_ago
+                ).aggregate(avg_sleep=Avg('sleep_duration'))
+                
+                if sleep_data['avg_sleep']:
+                    # Convert timedelta to hours
+                    total_seconds = sleep_data['avg_sleep'].total_seconds()
+                    context['avg_sleep'] = round(total_seconds / 3600, 1)
+                else:
+                    context['avg_sleep'] = None
+            except Exception as e:
+                logger.error(f"Error fetching sleep data for user {user.email_id}: {str(e)}")
+                context['avg_sleep'] = None
+            
+            # 3. Daily Steps - Get from wearable data
+            try:
+                # Get steps from today
+                today = now().date()
+                today_steps = WearableData.objects.filter(
+                    user=user,
+                    steps__isnull=False,
+                    timestamp__date=today
+                ).aggregate(total_steps=Sum('steps'))
+                
+                if today_steps['total_steps']:
+                    context['daily_steps'] = today_steps['total_steps']
+                else:
+                    context['daily_steps'] = None
+            except Exception as e:
+                logger.error(f"Error fetching steps data for user {user.email_id}: {str(e)}")
+                context['daily_steps'] = None
+            
+            # 4. Current Streak - Calculate from stress assessments or daily activities
+            try:
+                # Calculate streak based on consecutive days with stress assessments
+                stress_dates = StressAssessment.objects.filter(
+                    user=user
+                ).values_list('date__date', flat=True).distinct().order_by('-date__date')
+                
+                if stress_dates:
+                    current_date = now().date()
+                    streak = 0
+                    check_date = current_date
+                    
+                    for stress_date in stress_dates:
+                        if stress_date == check_date:
+                            streak += 1
+                            check_date -= timedelta(days=1)
+                        else:
+                            break
+                    
+                    context['current_streak'] = streak if streak > 0 else None
+                else:
+                    context['current_streak'] = None
+            except Exception as e:
+                logger.error(f"Error calculating streak for user {user.email_id}: {str(e)}")
+                context['current_streak'] = None
+            
+            return render(request, 'settings.html', context)
+            
         except UsersRegister.DoesNotExist:
-            logger.error(f"User with email {mail} not found in userprofile")
+            logger.error(f"User with email {mail} not found in settings")
             request.session.flush()
-    return render(request, 'settings.html',{'user': user})
+            return redirect('login')
+    return redirect('login')
+
+def debug_user_data(request):
+    """Debug endpoint to check user data (for development only)"""
+    if 'email' in request.session:
+        mail = request.session['email']
+        try:
+            user = UsersRegister.objects.get(email_id=mail)
+            
+            # Get all data for the user
+            stress_assessments = StressAssessment.objects.filter(user=user).count()
+            wearable_data = WearableData.objects.filter(user=user).count()
+            keyboard_activity = KeyboardActivity.objects.filter(user=user).count()
+            screen_time = ScreenTime.objects.filter(user=user).count()
+            
+            context = {
+                'user': user,
+                'stress_assessments_count': stress_assessments,
+                'wearable_data_count': wearable_data,
+                'keyboard_activity_count': keyboard_activity,
+                'screen_time_count': screen_time,
+                'latest_stress': StressAssessment.objects.filter(user=user).order_by('-date').first(),
+                'latest_wearable': WearableData.objects.filter(user=user).order_by('-timestamp').first(),
+            }
+            
+            return render(request, 'debug_data.html', context)
+            
+        except UsersRegister.DoesNotExist:
+            return JsonResponse({'error': 'User not found'})
+    
+    return JsonResponse({'error': 'Not authenticated'})
 
 def faq_view(request):
     return render(request, 'faq.html')
@@ -1738,6 +1886,20 @@ def process_raw_data(request):
         else:
             messages.warning(request, 'No data available to process.')
         
+        # For testing purposes, create a sample anomaly if none exist
+        if not Anomaly.objects.filter(user=user).exists():
+            try:
+                Anomaly.objects.create(
+                    user=user,
+                    processed_data=ProcessedData.objects.filter(user=user).first(),
+                    anomaly_type="test_anomaly",
+                    severity="MEDIUM",
+                    description="This is a test anomaly to verify the system is working correctly."
+                )
+                logger.info(f"Created test anomaly for user {user.email_id}")
+            except Exception as e:
+                logger.error(f"Error creating test anomaly: {str(e)}")
+        
         return redirect('analytics_dashboard')
     except UsersRegister.DoesNotExist:
         logger.error(f"User with email {request.session.get('email')} not found")
@@ -1748,28 +1910,251 @@ def process_raw_data(request):
 # Analytics Dashboard View
 def analytics_dashboard(request):
     if 'email' not in request.session:
+        logger.warning("Analytics dashboard accessed without session email")
         return redirect('login')
     
     try:
+        logger.info(f"Loading analytics dashboard for user: {request.session['email']}")
         user = UsersRegister.objects.get(email_id=request.session['email'])
-        processed_data = ProcessedData.objects.filter(user=user).order_by('-processed_at')[:10]
-        features = ExtractedFeature.objects.filter(user=user).order_by('-extracted_at')[:10]
-        patterns = StressPattern.objects.filter(user=user).order_by('-recognized_at')[:5]
-        anomalies = Anomaly.objects.filter(user=user, is_reviewed=False).order_by('-detected_at')[:5]
-        predictions = MLPrediction.objects.filter(user=user).order_by('-predicted_at')[:5]
+        logger.info(f"User found: {user.email_id}")
         
+        # Test database connectivity
+        try:
+            from django.db import connection
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name IN ('app_processeddata', 'app_extractedfeature', 'app_stresspattern', 'app_anomaly', 'app_mlprediction')")
+                tables = [row[0] for row in cursor.fetchall()]
+                logger.info(f"Available tables: {tables}")
+        except Exception as e:
+            logger.error(f"Database connectivity test failed: {str(e)}")
+        
+        # Initialize empty data structures
+        processed_data = []
+        features = []
+        patterns = []
+        anomalies = []
+        predictions = []
+        total_features = 0
+        feature_types = {}
+        avg_keyboard = 0
+        avg_screen = 0
+        avg_wearable = 0
+        total_anomalies = 0
+        high_severity = 0
+        medium_severity = 0
+        low_severity = 0
+        anomaly_types = {}
+        
+        # Fetch data with error handling
+        try:
+            logger.info("Fetching processed data...")
+            processed_data = list(ProcessedData.objects.filter(user=user).order_by('-processed_at')[:10])
+            logger.info(f"Found {len(processed_data)} processed data records")
+        except Exception as e:
+            logger.error(f"Error fetching processed data for user {user.email_id}: {str(e)}")
+            logger.error(f"Processed data error type: {type(e).__name__}")
+            processed_data = []
+        
+        try:
+            logger.info("Fetching extracted features...")
+            features = list(ExtractedFeature.objects.filter(user=user).order_by('-extracted_at')[:20])
+            logger.info(f"Found {len(features)} features for user {user.email_id}")
+            
+            # Calculate feature statistics
+            try:
+                total_features = ExtractedFeature.objects.filter(user=user).count()
+                logger.info(f"Total features count: {total_features}")
+            except Exception as e:
+                logger.error(f"Error counting total features: {str(e)}")
+                total_features = len(features)
+            
+            # Feature type distribution
+            try:
+                feature_types = {}
+                all_features = ExtractedFeature.objects.filter(user=user)
+                for feature in all_features:
+                    base_type = feature.feature_type.split('_')[0] if '_' in feature.feature_type else feature.feature_type
+                    feature_types[base_type] = feature_types.get(base_type, 0) + 1
+                logger.info(f"Feature types: {feature_types}")
+            except Exception as e:
+                logger.error(f"Error calculating feature types: {str(e)}")
+                feature_types = {}
+            
+            # Average feature values by category
+            try:
+                keyboard_features = ExtractedFeature.objects.filter(user=user, feature_type__icontains='keystroke')
+                screen_features = ExtractedFeature.objects.filter(user=user, feature_type__icontains='screen')
+                wearable_features = ExtractedFeature.objects.filter(user=user, feature_type__icontains='heart')
+                
+                avg_keyboard = keyboard_features.aggregate(Avg('feature_value'))['feature_value__avg'] or 0
+                avg_screen = screen_features.aggregate(Avg('feature_value'))['feature_value__avg'] or 0
+                avg_wearable = wearable_features.aggregate(Avg('feature_value'))['feature_value__avg'] or 0
+                logger.info(f"Averages - Keyboard: {avg_keyboard}, Screen: {avg_screen}, Wearable: {avg_wearable}")
+            except Exception as e:
+                logger.error(f"Error calculating averages: {str(e)}")
+                avg_keyboard = 0
+                avg_screen = 0
+                avg_wearable = 0
+            
+        except Exception as e:
+            logger.error(f"Error fetching features for user {user.email_id}: {str(e)}")
+            features = []
+            total_features = 0
+            feature_types = {}
+            avg_keyboard = 0
+            avg_screen = 0
+            avg_wearable = 0
+        
+        try:
+            logger.info("Fetching stress patterns...")
+            patterns = list(StressPattern.objects.filter(user=user).order_by('-recognized_at')[:5])
+            logger.info(f"Found {len(patterns)} patterns")
+        except Exception as e:
+            logger.error(f"Error fetching patterns for user {user.email_id}: {str(e)}")
+            patterns = []
+        
+        try:
+            logger.info("Fetching anomalies...")
+            anomalies = list(Anomaly.objects.filter(user=user, is_reviewed=False).order_by('-detected_at')[:10])
+            logger.info(f"Found {len(anomalies)} anomalies for user {user.email_id}")
+            
+            # Calculate anomaly statistics
+            try:
+                total_anomalies = Anomaly.objects.filter(user=user).count()
+                high_severity = Anomaly.objects.filter(user=user, severity='HIGH').count()
+                medium_severity = Anomaly.objects.filter(user=user, severity='MEDIUM').count()
+                low_severity = Anomaly.objects.filter(user=user, severity='LOW').count()
+                logger.info(f"Anomaly stats - Total: {total_anomalies}, High: {high_severity}, Medium: {medium_severity}, Low: {low_severity}")
+            except Exception as e:
+                logger.error(f"Error calculating anomaly statistics: {str(e)}")
+                total_anomalies = len(anomalies)
+                high_severity = 0
+                medium_severity = 0
+                low_severity = 0
+            
+            # Get anomaly types distribution
+            try:
+                anomaly_types = {}
+                all_anomalies = Anomaly.objects.filter(user=user)
+                for anomaly in all_anomalies:
+                    base_type = anomaly.anomaly_type.split('_')[0] if '_' in anomaly.anomaly_type else anomaly.anomaly_type
+                    anomaly_types[base_type] = anomaly_types.get(base_type, 0) + 1
+                logger.info(f"Anomaly types: {anomaly_types}")
+            except Exception as e:
+                logger.error(f"Error calculating anomaly types: {str(e)}")
+                anomaly_types = {}
+            
+        except Exception as e:
+            logger.error(f"Error fetching anomalies for user {user.email_id}: {str(e)}")
+            anomalies = []
+            total_anomalies = 0
+            high_severity = 0
+            medium_severity = 0
+            low_severity = 0
+            anomaly_types = {}
+        
+        try:
+            logger.info("Fetching ML predictions...")
+            predictions = list(MLPrediction.objects.filter(user=user).order_by('-predicted_at')[:5])
+            logger.info(f"Found {len(predictions)} predictions")
+        except Exception as e:
+            logger.error(f"Error fetching predictions for user {user.email_id}: {str(e)}")
+            predictions = []
+        
+        # Create sample data if none exists for testing
+        if not processed_data and not features and not patterns and not anomalies:
+            logger.info("No data found, creating sample data for testing")
+            try:
+                # Create sample processed data
+                sample_processed = ProcessedData.objects.create(
+                    user=user,
+                    data_type='KEYBOARD',
+                    processed_at=now(),
+                    is_valid=True
+                )
+                sample_processed.set_raw_data({'keystrokes_per_minute': 85, 'typing_duration': 300})
+                sample_processed.set_cleaned_data({'keystrokes_per_minute': 85, 'typing_duration': 300})
+                sample_processed.save()
+                
+                # Create sample features
+                sample_features = [
+                    ('keystroke_speed', 85.0),
+                    ('typing_duration', 300.0),
+                    ('typing_efficiency', 0.283),
+                    ('typing_stress_indicator', 0.0),
+                    ('typing_consistency', 0.9375)
+                ]
+                
+                for feature_type, feature_value in sample_features:
+                    ExtractedFeature.objects.create(
+                        user=user,
+                        processed_data=sample_processed,
+                        feature_type=feature_type,
+                        feature_value=feature_value
+                    )
+                
+                # Create sample anomaly
+                Anomaly.objects.create(
+                    user=user,
+                    processed_data=sample_processed,
+                    anomaly_type="test_anomaly",
+                    severity="MEDIUM",
+                    description="Sample anomaly for testing purposes."
+                )
+                
+                # Refresh the data
+                processed_data = ProcessedData.objects.filter(user=user).order_by('-processed_at')[:10]
+                features = ExtractedFeature.objects.filter(user=user).order_by('-extracted_at')[:20]
+                anomalies = Anomaly.objects.filter(user=user, is_reviewed=False).order_by('-detected_at')[:10]
+                
+                logger.info("Sample data created successfully")
+                
+            except Exception as e:
+                logger.error(f"Error creating sample data: {str(e)}")
+        
+        # Ensure all context values are valid
         context = {
             'user': user,
-            'processed_data': processed_data,
-            'features': features,
-            'patterns': patterns,
-            'anomalies': anomalies,
-            'predictions': predictions,
+            'processed_data': processed_data or [],
+            'features': features or [],
+            'patterns': patterns or [],
+            'anomalies': anomalies or [],
+            'predictions': predictions or [],
+            'anomaly_stats': {
+                'total': total_anomalies or 0,
+                'high': high_severity or 0,
+                'medium': medium_severity or 0,
+                'low': low_severity or 0,
+                'types': anomaly_types or {}
+            },
+            'feature_stats': {
+                'total': total_features or 0,
+                'types': feature_types or {},
+                'avg_keyboard': avg_keyboard or 0,
+                'avg_screen': avg_screen or 0,
+                'avg_wearable': avg_wearable or 0
+            }
         }
+        
+        logger.info(f"Rendering analytics dashboard with {len(features)} features, {len(anomalies)} anomalies")
+        
+        # Debug: Print context keys to ensure all data is available
+        logger.info(f"Context keys: {list(context.keys())}")
+        logger.info(f"Features count: {len(context['features'])}")
+        logger.info(f"Anomalies count: {len(context['anomalies'])}")
+        
         return render(request, 'analytics_dashboard.html', context)
     except UsersRegister.DoesNotExist:
         request.session.flush()
         return redirect('login')
+    except Exception as e:
+        logger.error(f"Unexpected error in analytics_dashboard for user {request.session.get('email')}: {str(e)}")
+        logger.error(f"Error type: {type(e).__name__}")
+        logger.error(f"Error details: {e}")
+        import traceback
+        logger.error(f"Full traceback: {traceback.format_exc()}")
+        messages.error(request, f'An error occurred while loading the analytics dashboard: {str(e)}')
+        return redirect('usershome')
 
 # Admin Analytics Management View
 def admin_analytics_management(request):
@@ -1803,3 +2188,32 @@ def review_anomaly(request, anomaly_id):
         return redirect('admin_analytics_management')
     
     return render(request, 'review_anomaly.html', {'anomaly': anomaly})
+
+# Test Analytics View
+def test_analytics(request):
+    """Simple test view to check if analytics components are working"""
+    if 'email' not in request.session:
+        return JsonResponse({'error': 'Not logged in'}, status=401)
+    
+    try:
+        user = UsersRegister.objects.get(email_id=request.session['email'])
+        
+        # Check if models exist
+        models_status = {
+            'ProcessedData': ProcessedData.objects.filter(user=user).count(),
+            'ExtractedFeature': ExtractedFeature.objects.filter(user=user).count(),
+            'StressPattern': StressPattern.objects.filter(user=user).count(),
+            'Anomaly': Anomaly.objects.filter(user=user).count(),
+            'MLPrediction': MLPrediction.objects.filter(user=user).count(),
+        }
+        
+        return JsonResponse({
+            'status': 'success',
+            'user': user.email_id,
+            'models_status': models_status,
+            'session_email': request.session.get('email')
+        })
+        
+    except Exception as e:
+        logger.error(f"Test analytics error: {str(e)}")
+        return JsonResponse({'error': str(e)}, status=500)

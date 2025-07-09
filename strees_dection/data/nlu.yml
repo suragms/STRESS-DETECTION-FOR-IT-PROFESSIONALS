@@ -101,6 +101,9 @@ nlu:
     - Good morning
     - Good evening
     - Hi there
+    - hey there
+    - hello there
+    - greetings
 
 - intent: goodbye
   examples: |
@@ -109,8 +112,39 @@ nlu:
     - See you later
     - Take care
     - Farewell
+    - bye bye
+    - see you
+    - see you soon
+    - have a nice day
 
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+    - yeah
+    - absolutely
+    - sure
+    - definitely
+    - please do
+    - ok
+    - okay
 
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+    - nope
+    - not now
+    - not at this time
 
 - intent: start_assessment
   examples: |
@@ -118,8 +152,8 @@ nlu:
     - Start the assessment
     - Can we do the mental health test?
     - Begin the mental health check
-    - yes
-    - No
+    - I would like to start the assessment
+    - Please start the mental health assessment
 
 - intent: provide_response
   examples: |
@@ -131,3 +165,22 @@ nlu:
     - Several days
     - More than half the days
     - Nearly every day
+
+- intent: ask_who_you_are
+  examples: |
+    - Who are you?
+    - What are you?
+    - Are you a bot?
+    - Are you a human?
+    - Am I talking to a bot?
+    - Am I talking to a human?
+    - Tell me about yourself
+
+- intent: ask_motivation
+  examples: |
+    - Why are you here?
+    - What is your purpose?
+    - Why do you exist?
+    - What can you do?
+    - What is your motivation?
+    - Why were you created?

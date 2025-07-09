@@ -286,14 +286,35 @@
         .current-date {
             background: var(--gradient-primary);
             color: white;
-            padding: 0.75rem 1.5rem;
+            padding: 1rem 1.5rem;
             border-radius: 12px;
             font-weight: 600;
             box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+            text-align: center;
         }
 
         body.dark-mode .current-date {
             background: var(--gradient-accent);
+        }
+
+        .current-time {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            padding-top: 0.25rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            justify-content: center;
+        }
+
+        .current-date i {
+            margin-right: 0.5rem;
         }
 
         /* Stats Cards */
@@ -369,8 +390,33 @@
             color: #b0b0b0;
         }
 
-        /* Quick Actions */
-        .quick-actions {
+        /* No Data Styling */
+        .stat-info h3:contains("No Data"),
+        .stat-info h3:empty {
+            color: var(--gray);
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        body.dark-mode .stat-info h3:contains("No Data"),
+        body.dark-mode .stat-info h3:empty {
+            color: #b0b0b0;
+        }
+
+        .stat-card.no-data {
+            opacity: 0.7;
+        }
+
+        .stat-card.no-data .stat-icon {
+            opacity: 0.5;
+        }
+
+        .stat-card.no-data:hover {
+            opacity: 1;
+        }
+
+        /* Upcoming Events */
+        .upcoming-events {
             margin-bottom: 2.5rem;
         }
 
@@ -392,48 +438,144 @@
             color: var(--secondary);
         }
 
-        .action-buttons {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+        .events-list {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        .action-btn {
+        body.dark-mode .events-list {
+            background: rgba(40, 40, 40, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .event-item {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            padding: 1.25rem 1.5rem;
+            gap: 1.5rem;
+            padding: 1.5rem;
             border-radius: 12px;
-            text-decoration: none;
-            font-weight: 500;
+            background: rgba(255, 255, 255, 0.5);
+            margin-bottom: 1rem;
             transition: var(--transition);
+            border: 1px solid rgba(67, 97, 238, 0.05);
+        }
+
+        body.dark-mode .event-item {
+            background: rgba(50, 50, 50, 0.5);
+            border: 1px solid rgba(247, 37, 133, 0.05);
+        }
+
+        .event-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .event-item:hover {
+            transform: translateY(-2px);
             box-shadow: var(--shadow-sm);
-            background: white;
-            color: var(--primary-dark);
-            border: 1px solid rgba(67, 97, 238, 0.1);
+            background: rgba(255, 255, 255, 0.8);
         }
 
-        body.dark-mode .action-btn {
-            background: rgba(40, 40, 40, 0.9);
-            color: #f5f5f5;
-            border: 1px solid rgba(247, 37, 133, 0.1);
+        body.dark-mode .event-item:hover {
+            background: rgba(60, 60, 60, 0.8);
         }
 
-        .action-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-            background: var(--primary);
+        .event-date {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 60px;
+            padding: 0.75rem;
+            background: var(--gradient-primary);
             color: white;
-            border-color: transparent;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
         }
 
-        body.dark-mode .action-btn:hover {
-            background: var(--secondary);
+        body.dark-mode .event-date {
+            background: var(--gradient-accent);
         }
 
-        .action-btn i {
-            font-size: 1.25rem;
+        .event-day {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .event-month {
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            margin-top: 0.25rem;
+        }
+
+        .event-content {
+            flex: 1;
+        }
+
+        .event-content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        body.dark-mode .event-content h4 {
+            color: #f5f5f5;
+        }
+
+        .event-content p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        body.dark-mode .event-content p {
+            color: #b0b0b0;
+        }
+
+        .event-time {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        body.dark-mode .event-time {
+            color: var(--secondary);
+        }
+
+        .event-status {
+            display: flex;
+            align-items: center;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-badge.upcoming {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(67, 97, 238, 0.2);
+        }
+
+        body.dark-mode .status-badge.upcoming {
+            background: rgba(247, 37, 133, 0.1);
+            color: var(--secondary);
+            border: 1px solid rgba(247, 37, 133, 0.2);
         }
 
         /* Recent Activity */
@@ -704,14 +846,31 @@
             .current-date {
                 width: 100%;
                 text-align: center;
+                padding: 0.75rem 1rem;
+            }
+
+            .current-time {
+                font-size: 0.8rem;
+                padding-top: 0.2rem;
             }
 
             .stats-grid {
                 grid-template-columns: 1fr 1fr;
             }
 
-            .action-buttons {
-                grid-template-columns: 1fr 1fr;
+            .event-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .event-date {
+                min-width: 50px;
+                padding: 0.5rem;
+            }
+
+            .event-status {
+                justify-content: center;
             }
         }
 
@@ -725,8 +884,12 @@
                 grid-template-columns: 1fr;
             }
 
-            .action-buttons {
-                grid-template-columns: 1fr;
+            .event-item {
+                padding: 1rem;
+            }
+
+            .event-content h4 {
+                font-size: 1rem;
             }
 
             .resource-card {
@@ -807,6 +970,10 @@
             <div class="current-date">
                 <i class="far fa-calendar-alt mr-1"></i>
                 <span id="current-date"></span>
+                <div class="current-time">
+                    <i class="far fa-clock mr-1"></i>
+                    <span id="current-time"></span>
+                </div>
             </div>
         </div>
 
@@ -816,7 +983,7 @@
                     <i class="fas fa-heartbeat"></i>
                 </div>
                 <div class="stat-info">
-                    <h3>85%</h3>
+                    <h3 id="stress-level">{% if stress_level %}{{ stress_level }}%{% else %}No Data{% endif %}</h3>
                     <p>Stress Level</p>
                 </div>
             </div>
@@ -825,7 +992,7 @@
                     <i class="fas fa-moon"></i>
                 </div>
                 <div class="stat-info">
-                    <h3>7.5 hrs</h3>
+                    <h3 id="avg-sleep">{% if avg_sleep %}{{ avg_sleep }} hrs{% else %}No Data{% endif %}</h3>
                     <p>Avg. Sleep</p>
                 </div>
             </div>
@@ -834,7 +1001,7 @@
                     <i class="fas fa-walking"></i>
                 </div>
                 <div class="stat-info">
-                    <h3>5,280</h3>
+                    <h3 id="daily-steps">{% if daily_steps %}{{ daily_steps|floatformat:0 }}{% else %}No Data{% endif %}</h3>
                     <p>Daily Steps</p>
                 </div>
             </div>
@@ -843,27 +1010,79 @@
                     <i class="fas fa-medal"></i>
                 </div>
                 <div class="stat-info">
-                    <h3>12 day</h3>
+                    <h3 id="current-streak">{% if current_streak %}{{ current_streak }} day{% if current_streak != 1 %}s{% endif %}{% else %}No Data{% endif %}</h3>
                     <p>Current Streak</p>
                 </div>
             </div>
         </div>
 
-        <div class="quick-actions">
-            <h2 class="section-title"><i class="fas fa-bolt"></i> Quick Actions</h2>
-            <div class="action-buttons">
-                <a href="#" class="action-btn slide-up" style="animation-delay: 0.2s;">
-                    <i class="fas fa-brain"></i> Start Meditation
-                </a>
-                <a href="#" class="action-btn slide-up" style="animation-delay: 0.3s;">
-                    <i class="fas fa-book"></i> Journal Entry
-                </a>
-                <a href="#" class="action-btn slide-up" style="animation-delay: 0.4s;">
-                    <i class="fas fa-heartbeat"></i> Check Stress
-                </a>
-                <a href="#" class="action-btn slide-up" style="animation-delay: 0.5s;">
-                    <i class="fas fa-spa"></i> Breathing Exercise
-                </a>
+        <div class="upcoming-events">
+            <h2 class="section-title"><i class="fas fa-calendar-alt"></i> Upcoming Events</h2>
+            <div class="events-list glass">
+                <div class="event-item slide-up" style="animation-delay: 0.2s;">
+                    <div class="event-date">
+                        <div class="event-day">15</div>
+                        <div class="event-month">July</div>
+                    </div>
+                    <div class="event-content">
+                        <h4>Team Stress Management Workshop</h4>
+                        <p>Join us for a comprehensive workshop on managing workplace stress</p>
+                        <div class="event-time">
+                            <i class="far fa-clock"></i> 2:00 PM - 4:00 PM
+                        </div>
+                    </div>
+                    <div class="event-status">
+                        <span class="status-badge upcoming">Upcoming</span>
+                    </div>
+                </div>
+                <div class="event-item slide-up" style="animation-delay: 0.3s;">
+                    <div class="event-date">
+                        <div class="event-day">18</div>
+                        <div class="event-month">July</div>
+                    </div>
+                    <div class="event-content">
+                        <h4>Mindfulness Meditation Session</h4>
+                        <p>Guided meditation session to improve focus and reduce anxiety</p>
+                        <div class="event-time">
+                            <i class="far fa-clock"></i> 10:00 AM - 11:00 AM
+                        </div>
+                    </div>
+                    <div class="event-status">
+                        <span class="status-badge upcoming">Upcoming</span>
+                    </div>
+                </div>
+                <div class="event-item slide-up" style="animation-delay: 0.4s;">
+                    <div class="event-date">
+                        <div class="event-day">22</div>
+                        <div class="event-month">July</div>
+                    </div>
+                    <div class="event-content">
+                        <h4>Stress Assessment Review</h4>
+                        <p>Monthly review of your stress patterns and personalized recommendations</p>
+                        <div class="event-time">
+                            <i class="far fa-clock"></i> 3:30 PM - 4:30 PM
+                        </div>
+                    </div>
+                    <div class="event-status">
+                        <span class="status-badge upcoming">Upcoming</span>
+                    </div>
+                </div>
+                <div class="event-item slide-up" style="animation-delay: 0.5s;">
+                    <div class="event-date">
+                        <div class="event-day">25</div>
+                        <div class="event-month">Aug</div>
+                    </div>
+                    <div class="event-content">
+                        <h4>Wellness Check-in Meeting</h4>
+                        <p>One-on-one session to discuss your wellness goals and progress</p>
+                        <div class="event-time">
+                            <i class="far fa-clock"></i> 1:00 PM - 2:00 PM
+                        </div>
+                    </div>
+                    <div class="event-status">
+                        <span class="status-badge upcoming">Upcoming</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -990,16 +1209,31 @@
             toggle.classList.add('fa-sun');
         }
 
-        // Display current date
-        function updateCurrentDate() {
+        // Display current date and time
+        function updateCurrentDateTime() {
             const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', options);
+            
+            // Update date
+            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', dateOptions);
+            
+            // Update time
+            const timeOptions = { 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit',
+                hour12: true 
+            };
+            document.getElementById('current-time').textContent = now.toLocaleTimeString('en-US', timeOptions);
         }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            updateCurrentDate();
+            updateCurrentDateTime();
+            updateStatsDisplay();
+            
+            // Update time every second
+            setInterval(updateCurrentDateTime, 1000);
             
             // Add active class to current page link
             const currentPath = window.location.pathname;
@@ -1009,6 +1243,64 @@
                 }
             });
         });
+
+        // Function to update stats display and handle "No Data" styling
+        function updateStatsDisplay() {
+            const statCards = document.querySelectorAll('.stat-card');
+            
+            statCards.forEach(card => {
+                const statValue = card.querySelector('h3');
+                const statText = statValue.textContent.trim();
+                
+                if (statText === 'No Data') {
+                    card.classList.add('no-data');
+                    statValue.style.color = getComputedStyle(document.documentElement).getPropertyValue('--gray');
+                    statValue.style.fontStyle = 'italic';
+                    statValue.style.fontWeight = '400';
+                } else {
+                    card.classList.remove('no-data');
+                    statValue.style.color = '';
+                    statValue.style.fontStyle = '';
+                    statValue.style.fontWeight = '';
+                }
+            });
+        }
+
+        // Function to update stats with real data (for demonstration)
+        function updateStatsWithData(data) {
+            if (data.stress_level !== undefined) {
+                document.getElementById('stress-level').textContent = data.stress_level + '%';
+            }
+            if (data.avg_sleep !== undefined) {
+                document.getElementById('avg-sleep').textContent = data.avg_sleep + ' hrs';
+            }
+            if (data.daily_steps !== undefined) {
+                document.getElementById('daily-steps').textContent = Math.round(data.daily_steps).toLocaleString();
+            }
+            if (data.current_streak !== undefined) {
+                const streakText = data.current_streak + ' day' + (data.current_streak !== 1 ? 's' : '');
+                document.getElementById('current-streak').textContent = streakText;
+            }
+            
+            updateStatsDisplay();
+        }
+
+        // Example: Load sample data (replace with actual API call)
+        function loadSampleData() {
+            // Simulate API call delay
+            setTimeout(() => {
+                const sampleData = {
+                    stress_level: 75,
+                    avg_sleep: 7.2,
+                    daily_steps: 8420,
+                    current_streak: 8
+                };
+                updateStatsWithData(sampleData);
+            }, 1000);
+        }
+
+        // Uncomment the line below to load sample data
+        // loadSampleData();
     </script>
 </body>
 </html>

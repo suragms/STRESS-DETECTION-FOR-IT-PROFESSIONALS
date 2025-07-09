@@ -73,8 +73,10 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('process-raw-data/', views.process_raw_data, name='process_raw_data'),
     path('analytics-dashboard/', views.analytics_dashboard, name='analytics_dashboard'),
+    path('test-analytics/', views.test_analytics, name='test_analytics'),
     path('admin-analytics-management/', views.admin_analytics_management, name='admin_analytics_management'),
     path('review-anomaly/<int:anomaly_id>/', views.review_anomaly, name='review_anomaly'),
+    path('debug-user-data/', views.debug_user_data, name='debug_user_data'),
 ]
 
 from rest_framework_simplejwt.views import (

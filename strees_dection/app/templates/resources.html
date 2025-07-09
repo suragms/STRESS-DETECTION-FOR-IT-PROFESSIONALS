@@ -2,6 +2,27 @@
 
 {% block title %}StressGuard Pro | Resources{% endblock %}
 
+{% block extra_style %}
+<style>
+@media (max-width: 600px) {
+  .resources-section {
+    padding: 0.5rem;
+  }
+  .resources-grid {
+    display: block !important;
+  }
+  .resource-card {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  h2 {
+    font-size: 1.3rem;
+  }
+}
+</style>
+{% endblock %}
+
 {% block content %}
     <section class="resources-section">
         <div class="section-header">
