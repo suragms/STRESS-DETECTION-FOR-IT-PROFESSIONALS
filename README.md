@@ -19,15 +19,19 @@ In the modern IT landscape, chronic stress often leads to burnout. This project 
 
 ### 🗺️ Activity Flow
 Shows the user journey from login to receiving personalized recommendations.
-![Activity Diagram](https://raw.githubusercontent.com/suragsunil/STRESS-DETECTION-FOR-IT-PROFESSIONALS/main/docs/activity_diagram_stress_detect.png)
+![Activity Diagram](activity_diagram_stress_detect_1770214772221.png)
 
 ### 🏗️ Class Architecture
 The core data structure and relationships between users, stress patterns, and AI predictions.
-![Class Diagram](https://raw.githubusercontent.com/suragsunil/STRESS-DETECTION-FOR-IT-PROFESSIONALS/main/docs/class_diagram_stress_detect.png)
+![Class Diagram](class_diagram_stress_detect_1770214801614.png)
+
+### 📈 Communication Flow
+Interaction between system components for stress detection.
+![Communication Diagram](communication_diagram_stress_detect_1770214832120.png)
 
 ### 🌐 Deployment Model
 Physical infrastructure involving Django web servers, Rasa AI servers, and cloud databases.
-![Deployment Diagram](https://raw.githubusercontent.com/suragsunil/STRESS-DETECTION-FOR-IT-PROFESSIONALS/main/docs/deployment_diagram_stress_detect.png)
+![Deployment Diagram](deployment_diagram_stress_detect_1770214879845.png)
 
 ---
 
@@ -104,9 +108,15 @@ This project moves mental health support from reactive to **preventative**. By b
 
 ---
 
-## 📬 8. Contact & Support
+## 👨‍� 8. About the Founder
 
-*   **Author**: Surag M S
+<p align="center">
+  <img src="founder_surag_ms_1770214632000.png" width="200" style="border-radius: 50%;">
+  <br>
+  <b>Surag M S</b><br>
+  Founder of AI-Powered Stress Detection for IT Professionals
+</p>
+
 *   **GitHub**: [@suragms](https://github.com/suragms)
 *   **Portfolio**: [suragsunil.github.io](https://suragsunil.github.io)
 *   **LinkedIn**: [in/suragsunil](https://linkedin.com/in/suragsunil)
