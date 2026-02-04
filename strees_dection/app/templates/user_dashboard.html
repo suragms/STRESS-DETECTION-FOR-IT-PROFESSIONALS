@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StressGuard Pro | Dashboard</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://media.licdn.com/dms/image/v2/D5603AQGIV1rv-n7MKg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730176568676?e=1752710400&v=beta&t=0qF98hpu_-1tqTWKEBakZGxwZiYsdlpucu0Uhf8VSUo">
-    <link rel="apple-touch-icon" href="https://media.licdn.com/dms/image/v2/D5603AQGIV1rv-n7MKg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730176568676?e=1752710400&v=beta&t=0qF98hpu_-1tqTWKEBakZGxwZiYsdlpucu0Uhf8VSUo">
+    <link rel="icon" type="image/png"
+        href="https://media.licdn.com/dms/image/v2/D5603AQGIV1rv-n7MKg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730176568676?e=1752710400&v=beta&t=0qF98hpu_-1tqTWKEBakZGxwZiYsdlpucu0Uhf8VSUo">
+    <link rel="apple-touch-icon"
+        href="https://media.licdn.com/dms/image/v2/D5603AQGIV1rv-n7MKg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730176568676?e=1752710400&v=beta&t=0qF98hpu_-1tqTWKEBakZGxwZiYsdlpucu0Uhf8VSUo">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -79,7 +82,8 @@
             font-weight: 700;
             color: white;
             text-decoration: none;
-            min-height: 44px; /* Accessible touch target */
+            min-height: 44px;
+            /* Accessible touch target */
         }
 
         .logo-icon {
@@ -107,7 +111,8 @@
             padding: 0.5rem 1rem;
             border-radius: 8px;
             transition: var(--transition);
-            min-height: 44px; /* Accessible touch target */
+            min-height: 44px;
+            /* Accessible touch target */
         }
 
         .nav-link:hover {
@@ -134,7 +139,8 @@
             padding: 0.5rem;
             border-radius: 8px;
             transition: var(--transition);
-            min-height: 44px; /* Accessible touch target */
+            min-height: 44px;
+            /* Accessible touch target */
         }
 
         .hamburger:hover {
@@ -179,7 +185,8 @@
             text-decoration: none;
             font-weight: 500;
             transition: var(--transition);
-            min-height: 44px; /* Accessible touch target */
+            min-height: 44px;
+            /* Accessible touch target */
         }
 
         .sidebar-item i {
@@ -188,7 +195,8 @@
             font-size: 1.1rem;
         }
 
-        .sidebar-item:hover, .sidebar-item.active {
+        .sidebar-item:hover,
+        .sidebar-item.active {
             background: var(--primary);
             color: white;
         }
@@ -443,7 +451,8 @@
             font-weight: 500;
             font-size: 0.9rem;
             transition: var(--transition);
-            min-height: 44px; /* Accessible touch target */
+            min-height: 44px;
+            /* Accessible touch target */
             display: flex;
             align-items: center;
         }
@@ -553,7 +562,8 @@
             gap: 1rem;
             color: var(--dark);
             text-decoration: none;
-            min-height: 44px; /* Accessible touch target */
+            min-height: 44px;
+            /* Accessible touch target */
         }
 
         .mobile-menu-item i {
@@ -599,50 +609,65 @@
             border-radius: 50%;
         }
 
-        input:checked + .slider {
+        input:checked+.slider {
             background-color: var(--primary);
         }
 
-        input:checked + .slider:before {
+        input:checked+.slider:before {
             transform: translateX(26px);
         }
 
         /* Responsive Design */
         @media (min-width: 1400px) {
-            .nav-container, .container {
+
+            .nav-container,
+            .container {
                 max-width: 1600px;
             }
+
             .welcome-title {
                 font-size: 2rem;
             }
+
             .welcome-subtitle {
                 font-size: 1.125rem;
             }
+
             .stat-item {
                 min-width: 180px;
             }
+
             .stat-value {
                 font-size: 1.75rem;
             }
+
             .cards-grid {
                 grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
                 gap: 2rem;
             }
-            .card-title, .assessment-title, .section-title {
+
+            .card-title,
+            .assessment-title,
+            .section-title {
                 font-size: 1.375rem;
             }
-            #activityChart, #stressPatternChart {
+
+            #activityChart,
+            #stressPatternChart {
                 min-height: 240px;
             }
+
             #timelineChart {
                 min-height: 340px;
             }
+
             .welcome-card::before {
                 width: 250px;
                 height: 250px;
                 top: -60px;
                 right: -60px;
             }
+
             .welcome-card::after {
                 width: 300px;
                 height: 300px;
@@ -651,29 +676,37 @@
             }
         }
 
-        @media (max-width: 1200px) {
+        @media (max-width: 1024px) {
             .container {
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
+
             .sidebar {
                 display: none;
             }
+
             .welcome-title {
                 font-size: 1.6rem;
             }
+
             .welcome-subtitle {
                 font-size: 0.95rem;
             }
+
             .stat-item {
                 min-width: calc(33.33% - 1rem);
             }
+
             .cards-grid {
                 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             }
-            #activityChart, #stressPatternChart {
+
+            #activityChart,
+            #stressPatternChart {
                 min-height: 180px;
             }
+
             #timelineChart {
                 min-height: 280px;
             }
@@ -683,90 +716,123 @@
             nav {
                 padding: 0.75rem 1rem;
             }
+
             .logo {
                 font-size: 1.3rem;
             }
+
             .logo-icon {
                 font-size: 1.6rem;
             }
+
             .logo-text {
                 display: none;
             }
+
             .nav-menu {
                 display: none;
             }
+
             .hamburger {
                 display: block;
             }
+
             .mobile-menu {
                 top: 60px;
             }
+
             .container {
                 margin-top: 70px;
                 padding: 1rem;
             }
+
             .welcome-card {
                 padding: 1.5rem;
             }
+
             .welcome-title {
                 font-size: 1.5rem;
             }
+
             .welcome-subtitle {
                 font-size: 0.9rem;
                 margin-bottom: 1rem;
             }
+
             .stat-item {
                 min-width: calc(50% - 0.75rem);
                 padding: 0.75rem;
             }
+
             .stat-value {
                 font-size: 1.3rem;
             }
+
             .stat-label {
                 font-size: 0.8rem;
             }
+
             .cards-grid {
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
-            .card, .assessment-card, .data-section {
+
+            .card,
+            .assessment-card,
+            .data-section {
                 padding: 1.2rem;
             }
-            .card-title, .assessment-title, .section-title {
+
+            .card-title,
+            .assessment-title,
+            .section-title {
                 font-size: 1.1rem;
             }
-            .assessment-date, .view-all {
+
+            .assessment-date,
+            .view-all {
                 font-size: 0.8rem;
             }
-            .data-table th, .data-table td {
+
+            .data-table th,
+            .data-table td {
                 padding: 0.6rem;
                 font-size: 0.85rem;
             }
+
             .data-table th {
                 font-size: 0.75rem;
             }
+
             .badge {
                 padding: 0.3rem 0.6rem;
                 font-size: 0.7rem;
             }
+
             .no-data {
                 padding: 1.5rem;
             }
+
             .no-data-icon {
                 font-size: 2.5rem;
             }
-            #activityChart, #stressPatternChart {
+
+            #activityChart,
+            #stressPatternChart {
                 min-height: 160px;
             }
+
             #timelineChart {
                 min-height: 260px;
             }
+
             .welcome-card::before {
                 width: 150px;
                 height: 150px;
                 top: -40px;
                 right: -40px;
             }
+
             .welcome-card::after {
                 width: 200px;
                 height: 200px;
@@ -779,109 +845,145 @@
             nav {
                 padding: 0.6rem 0.8rem;
             }
+
             .logo {
                 font-size: 1.2rem;
             }
+
             .logo-icon {
                 font-size: 1.4rem;
             }
+
             .hamburger {
                 font-size: 1.3rem;
                 padding: 0.4rem;
             }
+
             .mobile-menu {
                 padding: 0.8rem;
                 top: 55px;
             }
+
             .mobile-menu-item {
                 padding: 0.8rem;
                 font-size: 0.9rem;
             }
+
             .container {
                 margin-top: 65px;
                 padding: 0.8rem;
             }
+
             .welcome-card {
                 padding: 1.2rem;
             }
+
             .welcome-title {
                 font-size: 1.3rem;
             }
+
             .welcome-subtitle {
                 font-size: 0.85rem;
             }
+
             .stat-item {
                 min-width: 100%;
                 padding: 0.6rem;
             }
+
             .stat-value {
                 font-size: 1.2rem;
             }
+
             .stat-label {
                 font-size: 0.75rem;
             }
-            .card, .assessment-card, .data-section {
+
+            .card,
+            .assessment-card,
+            .data-section {
                 padding: 1rem;
             }
-            .card-title, .assessment-title, .section-title {
+
+            .card-title,
+            .assessment-title,
+            .section-title {
                 font-size: 1rem;
             }
+
             .assessment-header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 0.5rem;
             }
+
             .assessment-date {
                 font-size: 0.75rem;
             }
+
             .stress-score {
                 padding: 0.4rem 0.8rem;
                 font-size: 0.85rem;
             }
+
             .recommendations-title {
                 font-size: 0.95rem;
             }
+
             .recommendations-list {
                 padding-left: 1rem;
                 font-size: 0.85rem;
             }
+
             .section-header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 0.5rem;
             }
+
             .view-all {
                 font-size: 0.8rem;
             }
-            .data-table th, .data-table td {
+
+            .data-table th,
+            .data-table td {
                 padding: 0.5rem;
                 font-size: 0.8rem;
             }
+
             .data-table th {
                 font-size: 0.7rem;
             }
+
             .badge {
                 padding: 0.25rem 0.5rem;
                 font-size: 0.65rem;
             }
+
             .no-data {
                 padding: 1.2rem;
             }
+
             .no-data-icon {
                 font-size: 2rem;
             }
-            #activityChart, #stressPatternChart {
+
+            #activityChart,
+            #stressPatternChart {
                 min-height: 140px;
             }
+
             #timelineChart {
                 min-height: 240px;
             }
+
             .welcome-card::before {
                 width: 120px;
                 height: 120px;
                 top: -30px;
                 right: -30px;
             }
+
             .welcome-card::after {
                 width: 160px;
                 height: 160px;
@@ -894,97 +996,131 @@
             nav {
                 padding: 0.5rem 0.6rem;
             }
+
             .logo {
                 font-size: 1.1rem;
             }
+
             .logo-icon {
                 font-size: 1.3rem;
             }
+
             .hamburger {
                 font-size: 1.2rem;
                 padding: 0.3rem;
             }
+
             .mobile-menu {
                 padding: 0.6rem;
                 top: 50px;
             }
+
             .mobile-menu-item {
                 padding: 0.7rem;
                 font-size: 0.85rem;
             }
+
             .container {
                 margin-top: 60px;
                 padding: 0.6rem;
             }
+
             .welcome-card {
                 padding: 1rem;
             }
+
             .welcome-title {
                 font-size: 1.2rem;
             }
+
             .welcome-subtitle {
                 font-size: 0.8rem;
             }
+
             .stat-item {
                 padding: 0.5rem;
             }
+
             .stat-value {
                 font-size: 1.1rem;
             }
+
             .stat-label {
                 font-size: 0.7rem;
             }
-            .card, .assessment-card, .data-section {
+
+            .card,
+            .assessment-card,
+            .data-section {
                 padding: 0.8rem;
             }
-            .card-title, .assessment-title, .section-title {
+
+            .card-title,
+            .assessment-title,
+            .section-title {
                 font-size: 0.95rem;
             }
+
             .assessment-date {
                 font-size: 0.7rem;
             }
+
             .stress-score {
                 padding: 0.35rem 0.7rem;
                 font-size: 0.8rem;
             }
+
             .recommendations-title {
                 font-size: 0.9rem;
             }
+
             .recommendations-list {
                 font-size: 0.8rem;
             }
+
             .view-all {
                 font-size: 0.75rem;
             }
-            .data-table th, .data-table td {
+
+            .data-table th,
+            .data-table td {
                 padding: 0.4rem;
                 font-size: 0.75rem;
             }
+
             .data-table th {
                 font-size: 0.65rem;
             }
+
             .badge {
                 padding: 0.2rem 0.4rem;
                 font-size: 0.6rem;
             }
+
             .no-data {
                 padding: 1rem;
             }
+
             .no-data-icon {
                 font-size: 1.8rem;
             }
-            #activityChart, #stressPatternChart {
+
+            #activityChart,
+            #stressPatternChart {
                 min-height: 120px;
             }
+
             #timelineChart {
                 min-height: 220px;
             }
+
             .welcome-card::before {
                 width: 100px;
                 height: 100px;
                 top: -25px;
                 right: -25px;
             }
+
             .welcome-card::after {
                 width: 140px;
                 height: 140px;
@@ -995,18 +1131,19 @@
 
         /* Motion Reduction for Accessibility */
         @media (prefers-reduced-motion: reduce) {
-            .card, .sidebar-item, .nav-link, .hamburger, .mobile-menu, .view-all {
+
+            .card,
+            .sidebar-item,
+            .nav-link,
+            .hamburger,
+            .mobile-menu,
+            .view-all {
                 transition: none;
-            }
-            .mobile-menu {
-                transform: none;
-            }
-            .mobile-menu.active {
-                transform: none;
             }
         }
     </style>
 </head>
+
 <body>
     <nav>
         <div class="nav-container">
@@ -1136,19 +1273,19 @@
                     </div>
                     <div class="card-body">
                         {% if latest_assessment %}
-                            {% if latest_assessment.stress_score >= 7 %}
-                                <div class="stress-score high">{{ latest_assessment.stress_score }} - High Stress</div>
-                            {% elif latest_assessment.stress_score >= 4 %}
-                                <div class="stress-score medium">{{ latest_assessment.stress_score }} - Moderate Stress</div>
-                            {% else %}
-                                <div class="stress-score low">{{ latest_assessment.stress_score }} - Low Stress</div>
-                            {% endif %}
-                            <p>Last assessed: {{ latest_assessment.date|date:"M d, Y" }}</p>
+                        {% if latest_assessment.stress_score >= 7 %}
+                        <div class="stress-score high">{{ latest_assessment.stress_score }} - High Stress</div>
+                        {% elif latest_assessment.stress_score >= 4 %}
+                        <div class="stress-score medium">{{ latest_assessment.stress_score }} - Moderate Stress</div>
                         {% else %}
-                            <div class="no-data">
-                                <i class="fas fa-exclamation-circle no-data-icon"></i>
-                                <p>No assessment data available</p>
-                            </div>
+                        <div class="stress-score low">{{ latest_assessment.stress_score }} - Low Stress</div>
+                        {% endif %}
+                        <p>Last assessed: {{ latest_assessment.date|date:"M d, Y" }}</p>
+                        {% else %}
+                        <div class="no-data">
+                            <i class="fas fa-exclamation-circle no-data-icon"></i>
+                            <p>No assessment data available</p>
+                        </div>
                         {% endif %}
                     </div>
                 </div>
@@ -1186,20 +1323,20 @@
                     <span class="assessment-date">{{ latest_assessment.date|date:"F d, Y H:i" }}</span>
                 </div>
                 <div>
-                    <p><strong>Stress Score:</strong> 
+                    <p><strong>Stress Score:</strong>
                         {% if latest_assessment.stress_score >= 7 %}
-                            <span class="badge badge-danger">{{ latest_assessment.stress_score }} (High)</span>
+                        <span class="badge badge-danger">{{ latest_assessment.stress_score }} (High)</span>
                         {% elif latest_assessment.stress_score >= 4 %}
-                            <span class="badge badge-warning">{{ latest_assessment.stress_score }} (Moderate)</span>
+                        <span class="badge badge-warning">{{ latest_assessment.stress_score }} (Moderate)</span>
                         {% else %}
-                            <span class="badge badge-success">{{ latest_assessment.stress_score }} (Low)</span>
+                        <span class="badge badge-success">{{ latest_assessment.stress_score }} (Low)</span>
                         {% endif %}
                     </p>
                     <div class="recommendations">
                         <h4 class="recommendations-title">Recommendations</h4>
                         <ul class="recommendations-list">
                             {% for rec in latest_assessment.recommendations|slice:":3" %}
-                                <li>{{ rec }}</li>
+                            <li>{{ rec }}</li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -1211,7 +1348,7 @@
             <div class="data-section">
                 <div class="section-header">
                     <h3 class="section-title">Stress Timeline</h3>
-                    
+
                 </div>
                 <div id="timelineChart" style="min-height: 300px;"></div>
             </div>
@@ -1241,11 +1378,11 @@
                                 <td>{{ data.typing_duration }}</td>
                                 <td>
                                     {% if data.stress_correlation >= 70 %}
-                                        <span class="badge badge-danger">High</span>
+                                    <span class="badge badge-danger">High</span>
                                     {% elif data.stress_correlation >= 40 %}
-                                        <span class="badge badge-warning">Medium</span>
+                                    <span class="badge badge-warning">Medium</span>
                                     {% else %}
-                                        <span class="badge badge-success">Low</span>
+                                    <span class="badge badge-success">Low</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -1264,7 +1401,7 @@
             <div class="data-section">
                 <div class="section-header">
                     <h3 class="section-title">Screen Time</h3>
-                    <a href="{% url 'data_collection_dashboard' %}"class="view-all">View All</a>
+                    <a href="{% url 'data_collection_dashboard' %}" class="view-all">View All</a>
                 </div>
                 {% if screen_time_data %}
                 <div class="table-responsive">
@@ -1325,11 +1462,11 @@
                                 <td>{{ data.sleep_duration|default:"--" }}</td>
                                 <td>
                                     {% if data.stress_indicator >= 7 %}
-                                        <span class="badge badge-danger">High</span>
+                                    <span class="badge badge-danger">High</span>
                                     {% elif data.stress_indicator >= 4 %}
-                                        <span class="badge badge-warning">Medium</span>
+                                    <span class="badge badge-warning">Medium</span>
                                     {% else %}
-                                        <span class="badge badge-success">Low</span>
+                                    <span class="badge badge-success">Low</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -1351,11 +1488,11 @@
         // Mobile Menu Toggle
         const hamburger = document.querySelector('.hamburger');
         const mobileMenu = document.getElementById('mobileMenu');
-        
+
         hamburger.addEventListener('click', () => {
             mobileMenu.classList.toggle('active');
-            hamburger.innerHTML = mobileMenu.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
+            hamburger.innerHTML = mobileMenu.classList.contains('active')
+                ? '<i class="fas fa-times"></i>'
                 : '<i class="fas fa-bars"></i>';
         });
 
@@ -1459,7 +1596,7 @@
         var stressPatternOptions = {
             series: [{
                 name: 'Stress Level',
-                data: {{ scores|safe }}
+                data: JSON.parse('{{ scores|safe|escapejs }}')
             }],
             chart: {
                 type: 'radar',
@@ -1470,7 +1607,7 @@
             },
             colors: ['#3f37c9'],
             xaxis: {
-                categories: {{ dates|safe }},
+                categories: JSON.parse('{{ dates|safe|escapejs }}'),
                 labels: {
                     style: {
                         fontSize: '12px'
@@ -1485,7 +1622,7 @@
             },
             tooltip: {
                 y: {
-                    formatter: function(val) {
+                    formatter: function (val) {
                         return val + ' / 10';
                     }
                 }
@@ -1552,7 +1689,7 @@
         var timelineOptions = {
             series: [{
                 name: 'Stress Score',
-                data: {{ scores|safe }}
+                data: JSON.parse('{{ scores|safe|escapejs }}')
             }],
             chart: {
                 type: 'line',
@@ -1582,9 +1719,9 @@
                 }
             },
             xaxis: {
-                categories: {{ dates|safe }},
+                categories: JSON.parse('{{ dates|safe|escapejs }}'),
                 labels: {
-                    formatter: function(value) {
+                    formatter: function (value) {
                         return new Date(value).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
                     },
                     style: {
@@ -1597,7 +1734,7 @@
                 max: 10,
                 tickAmount: 5,
                 labels: {
-                    formatter: function(val) {
+                    formatter: function (val) {
                         return val.toFixed(0);
                     },
                     style: {
@@ -1607,12 +1744,12 @@
             },
             tooltip: {
                 x: {
-                    formatter: function(value) {
+                    formatter: function (value) {
                         return new Date(value).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
                     }
                 },
                 y: {
-                    formatter: function(val) {
+                    formatter: function (val) {
                         return val + ' / 10';
                     }
                 }
@@ -1717,4 +1854,5 @@
         timelineChart.render();
     </script>
 </body>
+
 </html>

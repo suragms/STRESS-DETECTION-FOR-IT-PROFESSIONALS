@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StressDetect - Register</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://media.licdn.com/dms/image/v2/D5603AQGIV1rv-n7MKg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730176568676?e=1752710400&v=beta&t=0qF98hpu_-1tqTWKEBakZGxwZiYsdlpucu0Uhf8VSUo">
-    <link rel="apple-touch-icon" href="https://media.licdn.com/dms/image/v2/D5603AQGIV1rv-n7MKg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730176568676?e=1752710400&v=beta&t=0qF98hpu_-1tqTWKEBakZGxwZiYsdlpucu0Uhf8VSUo">
+    <link rel="icon" type="image/png"
+        href="https://media.licdn.com/dms/image/v2/D5603AQGIV1rv-n7MKg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730176568676?e=1752710400&v=beta&t=0qF98hpu_-1tqTWKEBakZGxwZiYsdlpucu0Uhf8VSUo">
+    <link rel="apple-touch-icon"
+        href="https://media.licdn.com/dms/image/v2/D5603AQGIV1rv-n7MKg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730176568676?e=1752710400&v=beta&t=0qF98hpu_-1tqTWKEBakZGxwZiYsdlpucu0Uhf8VSUo">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
@@ -62,8 +66,13 @@
         }
 
         @keyframes wave {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1440px); }
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-1440px);
+            }
         }
 
         /* Modern Navbar */
@@ -122,7 +131,8 @@
             position: relative;
             display: flex;
             align-items: center;
-            min-height: 44px; /* Accessible touch target */
+            min-height: 44px;
+            /* Accessible touch target */
         }
 
         .nav-link i {
@@ -145,7 +155,7 @@
             border-radius: 32px;
             border: 1px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 12px 40px rgba(15, 23, 42, 0.15),
-                        inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+                inset 0 0 0 1px rgba(255, 255, 255, 0.2);
             width: 100%;
             max-width: 900px;
             margin: 6rem 2rem 2rem;
@@ -154,8 +164,15 @@
         }
 
         @keyframes slideIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Animated Gradient Header */
@@ -175,23 +192,26 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(
-                45deg,
-                rgba(255,255,255,0.15) 25%,
-                transparent 25%,
-                transparent 50%,
-                rgba(255,255,255,0.15) 50%,
-                rgba(255,255,255,0.15) 75%,
-                transparent 75%,
-                transparent
-            );
+            background: linear-gradient(45deg,
+                    rgba(255, 255, 255, 0.15) 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    rgba(255, 255, 255, 0.15) 50%,
+                    rgba(255, 255, 255, 0.15) 75%,
+                    transparent 75%,
+                    transparent);
             background-size: 60px 60px;
             animation: animateStripes 4s linear infinite;
         }
 
         @keyframes animateStripes {
-            0% { transform: rotate(0deg) translate(-5%, -5%); }
-            100% { transform: rotate(360deg) translate(-5%, -5%); }
+            0% {
+                transform: rotate(0deg) translate(-5%, -5%);
+            }
+
+            100% {
+                transform: rotate(360deg) translate(-5%, -5%);
+            }
         }
 
         .sparkles-container {
@@ -212,14 +232,39 @@
             animation: sparkle 2s infinite;
         }
 
-        .sparkle:nth-child(1) { top: 20%; left: 30%; animation-delay: 0s; }
-        .sparkle:nth-child(2) { top: 50%; left: 70%; animation-delay: 0.5s; }
-        .sparkle:nth-child(3) { top: 80%; left: 20%; animation-delay: 1s; }
+        .sparkle:nth-child(1) {
+            top: 20%;
+            left: 30%;
+            animation-delay: 0s;
+        }
+
+        .sparkle:nth-child(2) {
+            top: 50%;
+            left: 70%;
+            animation-delay: 0.5s;
+        }
+
+        .sparkle:nth-child(3) {
+            top: 80%;
+            left: 20%;
+            animation-delay: 1s;
+        }
 
         @keyframes sparkle {
-            0% { transform: scale(0); opacity: 1; }
-            50% { transform: scale(1); opacity: 0.5; }
-            100% { transform: scale(0); opacity: 0; }
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
         }
 
         .logo-container {
@@ -238,7 +283,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
             transition: all 0.3s ease;
         }
 
@@ -252,6 +297,7 @@
             margin-bottom: 0.5rem;
             background: var(--primary-gradient);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -311,7 +357,8 @@
             font-weight: 500;
         }
 
-        input, select {
+        input,
+        select {
             width: 100%;
             padding: 1.2rem 1.2rem 1.2rem 3.5rem;
             border: 2px solid transparent;
@@ -319,11 +366,12 @@
             font-size: 1rem;
             background: var(--white);
             transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
             position: relative;
         }
 
-        input:focus, select:focus {
+        input:focus,
+        select:focus {
             border-color: var(--accent-color);
             box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
             outline: none;
@@ -342,7 +390,7 @@
             background: var(--white);
             transition: all 0.3s ease;
             padding: 1rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
         .file-input-container:hover {
@@ -439,7 +487,8 @@
             background-size: 300% 100%;
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
-            min-height: 48px; /* Accessible touch target */
+            min-height: 48px;
+            /* Accessible touch target */
         }
 
         button[type="submit"]:hover {
@@ -460,15 +509,32 @@
         }
 
         .shake {
-            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+            animation: shake 0.4s cubic-bezier(.36, .07, .19, .97) both;
             border-color: #ef4444 !important;
         }
 
         @keyframes shake {
-            10%, 90% { transform: translateX(-2px); }
-            20%, 80% { transform: translateX(4px); }
-            30%, 50%, 70% { transform: translateX(-6px); }
-            40%, 60% { transform: translateX(6px); }
+
+            10%,
+            90% {
+                transform: translateX(-2px);
+            }
+
+            20%,
+            80% {
+                transform: translateX(4px);
+            }
+
+            30%,
+            50%,
+            70% {
+                transform: translateX(-6px);
+            }
+
+            40%,
+            60% {
+                transform: translateX(6px);
+            }
         }
 
         /* Resources Section */
@@ -487,6 +553,7 @@
             text-align: center;
             background: var(--primary-gradient);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -500,13 +567,13 @@
             background: var(--white);
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
         }
 
         .resource-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
         }
 
         .resource-image {
@@ -532,7 +599,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.3);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -546,7 +613,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
             padding: 1rem;
             color: white;
             font-size: 0.9rem;
@@ -579,7 +646,8 @@
             font-size: 0.9rem;
             text-decoration: none;
             transition: all 0.3s ease;
-            min-height: 44px; /* Accessible touch target */
+            min-height: 44px;
+            /* Accessible touch target */
         }
 
         .resource-link i {
@@ -603,7 +671,7 @@
             margin: 3rem auto;
             max-width: 900px;
             text-align: center;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
         }
 
         .login-suggestion p {
@@ -624,7 +692,8 @@
             text-decoration: none;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-            min-height: 48px; /* Accessible touch target */
+            min-height: 48px;
+            /* Accessible touch target */
         }
 
         .login-btn i {
@@ -643,24 +712,31 @@
                 max-width: 1000px;
                 margin: 7rem 3rem 3rem;
             }
+
             .resources-section {
                 max-width: 1000px;
             }
+
             .login-suggestion {
                 max-width: 1000px;
             }
+
             .registration-header {
                 padding: 3.5rem;
             }
+
             .registration-header h1 {
                 font-size: 2.8rem;
             }
+
             .registration-form {
                 padding: 3.5rem;
             }
+
             .form-row {
                 gap: 2.5rem;
             }
+
             .resources-grid {
                 gap: 2.5rem;
             }
@@ -668,29 +744,37 @@
 
         @media (max-width: 992px) {
             .nav-links {
-                display: none; /* Hide login link on smaller screens */
+                display: none;
+                /* Hide login link on smaller screens */
             }
+
             .navbar {
                 padding: 0.8rem 1.5rem;
             }
+
             .logo {
                 font-size: 1.4rem;
             }
+
             .logo i {
                 font-size: 1.6rem;
             }
+
             .registration-container {
                 max-width: 95%;
                 margin: 5rem 1.5rem 1.5rem;
                 border-radius: 24px;
             }
+
             .registration-form {
                 padding: 2.5rem;
             }
+
             .resources-section {
                 padding: 0 1.5rem;
                 margin: 2.5rem auto;
             }
+
             .login-suggestion {
                 margin: 2.5rem 1.5rem;
                 padding: 2rem;
@@ -702,90 +786,117 @@
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
+
             .registration-container {
                 margin: 4rem 1rem;
                 border-radius: 20px;
             }
+
             .registration-header {
                 padding: 2rem;
             }
+
             .registration-header h1 {
                 font-size: 2rem;
             }
+
             .registration-header p {
                 font-size: 1rem;
             }
+
             .registration-logo {
                 width: 70px;
                 height: 70px;
             }
+
             .registration-logo svg {
                 width: 40px;
                 height: 40px;
             }
+
             .registration-form {
                 padding: 2rem;
             }
+
             .form-group {
                 margin-bottom: 1.5rem;
             }
-            input, select {
+
+            input,
+            select {
                 padding: 1rem 1rem 1rem 3rem;
                 font-size: 0.95rem;
             }
+
             .input-icon {
                 font-size: 1.1rem;
                 left: 0.8rem;
             }
+
             .file-input-container {
                 min-height: 50px;
                 padding: 0.8rem;
             }
+
             .file-input-label {
                 font-size: 0.95rem;
             }
+
             .file-input-label i {
                 font-size: 1.3rem;
             }
+
             button[type="submit"] {
                 padding: 1.1rem;
                 font-size: 1rem;
             }
+
             .terms-container p {
                 font-size: 0.95rem;
             }
+
             .resources-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
+
             .resources-title {
                 font-size: 1.6rem;
             }
+
             .resource-image {
                 height: 140px;
             }
+
             .resource-content {
                 padding: 1.5rem;
             }
+
             .resource-title {
                 font-size: 1.1rem;
             }
+
             .resource-description {
                 font-size: 0.85rem;
             }
+
             .resource-link {
                 font-size: 0.85rem;
             }
+
             .login-suggestion p {
                 font-size: 0.95rem;
             }
+
             .login-btn {
                 padding: 0.8rem 1.8rem;
                 font-size: 0.95rem;
             }
+
             .wave {
                 height: 150px;
             }
+
             .sparkle {
                 width: 8px;
                 height: 8px;
@@ -796,118 +907,153 @@
             .navbar {
                 padding: 0.7rem 1rem;
             }
+
             .logo {
                 font-size: 1.3rem;
             }
+
             .logo i {
                 font-size: 1.5rem;
             }
+
             .registration-container {
                 margin: 3.5rem 0.8rem;
                 border-radius: 16px;
             }
+
             .registration-header {
                 padding: 1.5rem;
             }
+
             .registration-header h1 {
                 font-size: 1.8rem;
             }
+
             .registration-header p {
                 font-size: 0.9rem;
             }
+
             .registration-logo {
                 width: 60px;
                 height: 60px;
             }
+
             .registration-logo svg {
                 width: 35px;
                 height: 35px;
             }
+
             .registration-form {
                 padding: 1.5rem;
             }
+
             .form-progress {
                 height: 6px;
             }
+
             .form-group {
                 margin-bottom: 1.2rem;
             }
+
             label {
                 font-size: 0.9rem;
             }
-            input, select {
+
+            input,
+            select {
                 padding: 0.9rem 0.9rem 0.9rem 2.8rem;
                 font-size: 0.9rem;
                 border-radius: 10px;
             }
+
             .input-icon {
                 font-size: 1rem;
                 left: 0.7rem;
             }
+
             .file-input-container {
                 min-height: 48px;
                 padding: 0.7rem;
             }
+
             .file-input-label {
                 font-size: 0.9rem;
             }
+
             .file-input-label i {
                 font-size: 1.2rem;
             }
+
             .terms-container {
                 margin: 1.5rem 0;
             }
+
             .custom-checkbox {
                 width: 20px;
                 height: 20px;
             }
+
             .terms-container p {
                 font-size: 0.9rem;
             }
+
             button[type="submit"] {
                 padding: 1rem;
                 font-size: 0.95rem;
                 border-radius: 10px;
             }
+
             .error {
                 font-size: 0.8rem;
             }
+
             .resources-section {
                 padding: 0 1rem;
                 margin: 2rem auto;
             }
+
             .resources-title {
                 font-size: 1.4rem;
             }
+
             .resource-image {
                 height: 120px;
             }
+
             .resource-content {
                 padding: 1.2rem;
             }
+
             .resource-title {
                 font-size: 1rem;
             }
+
             .resource-description {
                 font-size: 0.8rem;
             }
+
             .resource-link {
                 font-size: 0.8rem;
             }
+
             .login-suggestion {
                 margin: 2rem 1rem;
                 padding: 1.5rem;
             }
+
             .login-suggestion p {
                 font-size: 0.9rem;
             }
+
             .login-btn {
                 padding: 0.7rem 1.5rem;
                 font-size: 0.9rem;
             }
+
             .wave {
                 height: 120px;
             }
+
             .sparkle {
                 width: 6px;
                 height: 6px;
@@ -919,76 +1065,99 @@
                 margin: 3rem 0.5rem;
                 border-radius: 12px;
             }
+
             .registration-header h1 {
                 font-size: 1.6rem;
             }
+
             .registration-header p {
                 font-size: 0.85rem;
             }
+
             .registration-logo {
                 width: 50px;
                 height: 50px;
             }
+
             .registration-logo svg {
                 width: 30px;
                 height: 30px;
             }
+
             .registration-form {
                 padding: 1.2rem;
             }
+
             label {
                 font-size: 0.85rem;
             }
-            input, select {
+
+            input,
+            select {
                 padding: 0.8rem 0.8rem 0.8rem 2.5rem;
                 font-size: 0.85rem;
                 border-radius: 8px;
             }
+
             .input-icon {
                 font-size: 0.9rem;
                 left: 0.6rem;
             }
+
             .file-input-container {
                 min-height: 44px;
                 padding: 0.6rem;
             }
+
             .file-input-label {
                 font-size: 0.85rem;
             }
+
             .file-input-label i {
                 font-size: 1.1rem;
             }
+
             .terms-container p {
                 font-size: 0.85rem;
             }
+
             button[type="submit"] {
                 padding: 0.9rem;
                 font-size: 0.9rem;
             }
+
             .error {
                 font-size: 0.75rem;
             }
+
             .resources-title {
                 font-size: 1.3rem;
             }
+
             .resource-image {
                 height: 100px;
             }
+
             .resource-content {
                 padding: 1rem;
             }
+
             .resource-title {
                 font-size: 0.95rem;
             }
+
             .resource-description {
                 font-size: 0.75rem;
             }
+
             .resource-link {
                 font-size: 0.75rem;
             }
+
             .login-suggestion p {
                 font-size: 0.85rem;
             }
+
             .login-btn {
                 padding: 0.6rem 1.2rem;
                 font-size: 0.85rem;
@@ -1000,24 +1169,33 @@
             .wave {
                 animation: none;
             }
+
             .sparkle {
                 animation: none;
             }
+
             .registration-header::after {
                 animation: none;
             }
+
             .registration-container {
                 animation: none;
             }
+
             .shake {
                 animation: none;
             }
-            button[type="submit"], .login-btn, .resource-card, .registration-logo {
+
+            button[type="submit"],
+            .login-btn,
+            .resource-card,
+            .registration-logo {
                 transition: none;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Wave Background -->
     <div class="wave-bg">
@@ -1051,7 +1229,9 @@
             <div class="logo-container">
                 <div class="registration-logo">
                     <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="#6366f1"/>
+                        <path
+                            d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"
+                            fill="#6366f1" />
                     </svg>
                 </div>
                 <h1>Create Your Account</h1>
@@ -1096,8 +1276,8 @@
                     <div style="position: relative;">
                         <i class="fas fa-lock input-icon"></i>
                         <input type="password" id="password" name="password" required
-                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}"
-                               title="Password must be at least 8 characters and include one number, one uppercase, one lowercase, and one special character.">
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}"
+                            title="Password must be at least 8 characters and include one number, one uppercase, one lowercase, and one special character.">
                     </div>
                     <div id="passwordError" class="error hidden">Password must meet complexity requirements.</div>
                 </div>
@@ -1167,7 +1347,8 @@
                 <div class="custom-checkbox">
                     <i class="fas fa-check checkmark"></i>
                 </div>
-                <p>I agree to the <a href="#" class="resource-link">Terms of Service</a> and <a href="#" class="resource-link">Privacy Policy</a></p>
+                <p>I agree to the <a href="#" class="resource-link">Terms of Service</a> and <a href="#"
+                        class="resource-link">Privacy Policy</a></p>
             </div>
 
             <button type="submit">Complete Registration</button>
@@ -1180,40 +1361,49 @@
         <div class="resources-grid">
             <div class="resource-card">
                 <div class="resource-image">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxzaI-OIjyY27GFIaYRyE9wknIJZNdsItEXw37oo3X1cFY8c078g&s=10&ec=72940544" alt="IT Stress Management">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxzaI-OIjyY27GFIaYRyE9wknIJZNdsItEXw37oo3X1cFY8c078g&s=10&ec=72940544"
+                        alt="IT Stress Management">
                     <div class="hover-overlay"></div>
                     <div class="resource-overlay">YouTube Video</div>
                 </div>
                 <div class="resource-content">
                     <h3 class="resource-title">Stress Management for IT Professionals</h3>
-                    <p class="resource-description">Learn techniques to manage stress specifically tailored for IT workers dealing with tight deadlines and complex problems.</p>
-                    <a href="https://youtu.be/XTgbQl73dos" class="resource-link" target="_blank">Watch Now <i class="fas fa-external-link-alt"></i></a>
+                    <p class="resource-description">Learn techniques to manage stress specifically tailored for IT
+                        workers dealing with tight deadlines and complex problems.</p>
+                    <a href="https://youtu.be/XTgbQl73dos" class="resource-link" target="_blank">Watch Now <i
+                            class="fas fa-external-link-alt"></i></a>
                 </div>
             </div>
 
             <div class="resource-card">
                 <div class="resource-image">
-                    <img src="https://miro.medium.com/v2/resize:fit:750/format:webp/1*fJSamWfe1tvWtnL5coy1Bg.jpeg" alt="Stress Analysis Trends">
+                    <img src="https://miro.medium.com/v2/resize:fit:750/format:webp/1*fJSamWfe1tvWtnL5coy1Bg.jpeg"
+                        alt="Stress Analysis Trends">
                     <div class="hover-overlay"></div>
                     <div class="resource-overlay">Article</div>
                 </div>
                 <div class="resource-content">
                     <h3 class="resource-title">2023 Workplace Stress Analysis Trends</h3>
-                    <p class="resource-description">Latest research on workplace stress patterns and how modern companies are addressing employee mental health.</p>
-                    <a href="https://medium.com/swlh/workplace-stress-trends-2023" class="resource-link" target="_blank">Read Article <i class="fas fa-external-link-alt"></i></a>
+                    <p class="resource-description">Latest research on workplace stress patterns and how modern
+                        companies are addressing employee mental health.</p>
+                    <a href="https://medium.com/swlh/workplace-stress-trends-2023" class="resource-link"
+                        target="_blank">Read Article <i class="fas fa-external-link-alt"></i></a>
                 </div>
             </div>
 
             <div class="resource-card">
                 <div class="resource-image">
-                    <img src="https://www.verywellmind.com/thmb/Y4Ik6HXVNNdYCGKo8up6xx2qsr0=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/that-s-it--i-m-done--936117884-30b9067edcac4976a48d006a4f0f88b7.jpg" alt="Stress Impact">
+                    <img src="https://www.verywellmind.com/thmb/Y4Ik6HXVNNdYCGKo8up6xx2qsr0=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/that-s-it--i-m-done--936117884-30b9067edcac4976a48d006a4f0f88b7.jpg"
+                        alt="Stress Impact">
                     <div class="hover-overlay"></div>
                     <div class="resource-overlay">Infographic</div>
                 </div>
                 <div class="resource-content">
                     <h3 class="resource-title">How Stress Affects Your Body</h3>
-                    <p class="resource-description">Visual guide showing the physiological impacts of chronic stress on different body systems.</p>
-                    <a href="https://www.verywellmind.com/stress-and-health-4157211" class="resource-link" target="_blank">View Guide <i class="fas fa-external-link-alt"></i></a>
+                    <p class="resource-description">Visual guide showing the physiological impacts of chronic stress on
+                        different body systems.</p>
+                    <a href="https://www.verywellmind.com/stress-and-health-4157211" class="resource-link"
+                        target="_blank">View Guide <i class="fas fa-external-link-alt"></i></a>
                 </div>
             </div>
         </div>
@@ -1307,7 +1497,7 @@
         });
 
         // Form Submission Validation
-        form.addEventListener('submit', function(event) {
+        form.addEventListener('submit', function (event) {
             if (!passwordInput.value || !confirmPasswordInput.value ||
                 !passwordError.classList.contains('hidden') ||
                 !confirmPasswordError.classList.contains('hidden') ||
@@ -1321,7 +1511,7 @@
         const fileInput = document.getElementById('image');
         const fileInputLabel = document.querySelector('.file-input-label span');
 
-        fileInput.addEventListener('change', function() {
+        fileInput.addEventListener('change', function () {
             if (this.files && this.files[0]) {
                 fileInputLabel.textContent = this.files[0].name;
             } else {
@@ -1356,4 +1546,5 @@
         updateProgress();
     </script>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2563eb; /* Modern blue */
+            --primary-color: #2563eb;
+            /* Modern blue */
             --primary-dark: #1d4ed8;
-            --secondary-color: #7c3aed; /* Tech purple */
-            --accent-color: #f59e0b; /* Stress indicator color */
-            --background-color: #f8fafc; /* Light background */
+            --secondary-color: #7c3aed;
+            /* Tech purple */
+            --accent-color: #f59e0b;
+            /* Stress indicator color */
+            --background-color: #f8fafc;
+            /* Light background */
             --card-bg: #ffffff;
             --text-color: #1e293b;
             --text-muted: #64748b;
@@ -82,8 +87,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
         }
 
         .navbar-links {
@@ -217,8 +229,15 @@
         }
 
         @keyframes slideIn {
-            0% { opacity: 0; transform: translateY(-10px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .form-group {
@@ -283,6 +302,7 @@
 
         .slider-container input[type="range"] {
             -webkit-appearance: none;
+            appearance: none;
             width: 100%;
             height: 8px;
             background: var(--slider-bg);
@@ -294,6 +314,7 @@
 
         .slider-container input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
+            appearance: none;
             width: 24px;
             height: 24px;
             background: var(--slider-color);
@@ -380,12 +401,10 @@
             left: -60%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(
-                to right,
-                rgba(255, 255, 255, 0) 0%,
-                rgba(255, 255, 255, 0.2) 50%,
-                rgba(255, 255, 255, 0) 100%
-            );
+            background: linear-gradient(to right,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.2) 50%,
+                    rgba(255, 255, 255, 0) 100%);
             transform: rotate(30deg);
             transition: var(--transition);
         }
@@ -424,8 +443,13 @@
         }
 
         @keyframes wave {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
         }
 
         /* Responsive adjustments */
@@ -464,6 +488,7 @@
         }
     </style>
 </head>
+
 <body>
     <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="stress-wave"></div>
@@ -482,18 +507,20 @@
         <div class="form-container" role="main">
             <div class="form-header">
                 <h1>We Value Your Feedback</h1>
-                <p>Help us improve StressGuard Pro by sharing your thoughts below. Your input helps us better serve IT professionals like you.</p>
+                <p>Help us improve StressGuard Pro by sharing your thoughts below. Your input helps us better serve IT
+                    professionals like you.</p>
             </div>
 
             {% if messages %}
-                <div class="messages" role="alert">
-                    {% for msg in messages %}
-                        <div class="{{ msg.tags }}">
-                            <i class="fas fa-{% if msg.tags == 'success' %}check-circle{% else %}exclamation-circle{% endif %}" aria-hidden="true"></i>
-                            {{ msg.message }}
-                        </div>
-                    {% endfor %}
+            <div class="messages" role="alert">
+                {% for msg in messages %}
+                <div class="{{ msg.tags }}">
+                    <i class="fas fa-{% if msg.tags == 'success' %}check-circle{% else %}exclamation-circle{% endif %}"
+                        aria-hidden="true"></i>
+                    {{ msg.message }}
                 </div>
+                {% endfor %}
+            </div>
             {% endif %}
 
             <form method="post" aria-label="Feedback form">
@@ -504,21 +531,21 @@
                     <label for="{{ form.feedback_text.id_for_label }}">Your Feedback</label>
                     {{ form.feedback_text }}
                     {% if form.feedback_text.errors %}
-                        <ul class="errorlist">
-                            {% for error in form.feedback_text.errors %}
-                                <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
+                    <ul class="errorlist">
+                        {% for error in form.feedback_text.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
                     {% endif %}
                 </div>
 
                 <div class="form-group">
                     <label for="{{ form.rating.id_for_label }}">Your Rating</label>
                     <div class="slider-container" role="slider" aria-label="Rating (1 to 5)">
-                        <input type="range" name="{{ form.rating.name }}" id="{{ form.rating.id_for_label }}"
-                               min="1" max="5" step="1" value="{{ form.rating.value|default:'3' }}"
-                               aria-valuemin="1" aria-valuemax="5" aria-valuenow="{{ form.rating.value|default:'3' }}"
-                               oninput="updateSlider(this)">
+                        <input type="range" name="{{ form.rating.name }}" id="{{ form.rating.id_for_label }}" min="1"
+                            max="5" step="1" value="{{ form.rating.value|default:'3' }}" aria-valuemin="1"
+                            aria-valuemax="5" aria-valuenow="{{ form.rating.value|default:'3' }}"
+                            oninput="updateSlider(this)">
                     </div>
                     <div class="rating-label" id="rating-label">3 - Average</div>
                     <div class="rating-scale">
@@ -526,11 +553,11 @@
                         <span>5 - Excellent</span>
                     </div>
                     {% if form.rating.errors %}
-                        <ul class="errorlist">
-                            {% for error in form.rating.errors %}
-                                <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
+                    <ul class="errorlist">
+                        {% for error in form.rating.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
                     {% endif %}
                 </div>
 
@@ -583,7 +610,7 @@
             // Add form submission loading state
             const form = document.querySelector('form');
             if (form) {
-                form.addEventListener('submit', function() {
+                form.addEventListener('submit', function () {
                     const btn = this.querySelector('button[type="submit"]');
                     btn.disabled = true;
                     btn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Processing...';
@@ -592,4 +619,5 @@
         });
     </script>
 </body>
+
 </html>

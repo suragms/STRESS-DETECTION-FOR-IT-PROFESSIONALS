@@ -18,13 +18,15 @@
                 <div class="user-info">
                     <div class="profile-pic-container">
                         {% if user.image %}
-                        <img src="{{ user.image.url }}" alt="Profile Picture" class="profile-pic" onclick="showImage(this.src)">
+                        <img src="{{ user.image.url }}" alt="Profile Picture" class="profile-pic"
+                            onclick="showImage(this.src)">
                         {% else %}
                         <div class="no-pic">No Image</div>
                         {% endif %}
                     </div>
                     <div class="user-text">
-                        <p><strong>Name:</strong> {{ user.first_name|default:"Not provided" }} {{ user.last_name|default:"" }}</p>
+                        <p><strong>Name:</strong> {{ user.first_name|default:"Not provided" }} {{
+                            user.last_name|default:"" }}</p>
                         <p><strong>Email:</strong> {{ user.email_id|default:"Not provided" }}</p>
                         <p><strong>Department:</strong> {{ user.department|default:"Not specified" }}</p>
                     </div>
@@ -44,7 +46,8 @@
                 {% if feedbacks %}
                 <div class="feedback-list">
                     {% for feedback in feedbacks %}
-                    <div class="feedback-item" data-tooltip="Assessment Date: {{ feedback.assessment.date|date:'F d, Y' }}">
+                    <div class="feedback-item"
+                        data-tooltip="Assessment Date: {{ feedback.assessment.date|date:'F d, Y' }}">
                         <div class="feedback-header">
                             <span class="rating">Rating: {{ feedback.rating }}/5 <i class="fas fa-star"></i></span>
                             <span class="date">{{ feedback.date|date:"F d, Y H:i" }}</span>
@@ -75,7 +78,7 @@
                         <div class="assessment-header">
                             <span class="date">{{ assessment.date|date:"F d, Y H:i" }}</span>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="width: {{ assessment.stress_score }}%;"></div>
+                                <div class="progress-fill" data-width="{{ assessment.stress_score|default:0 }}%"></div>
                             </div>
                         </div>
                         <p class="recommendation"><strong>Recommendations:</strong> {{ assessment.recommendations }}</p>
@@ -220,13 +223,15 @@
         margin-right: 0.5rem;
     }
 
-    .feedback-list, .assessment-list {
+    .feedback-list,
+    .assessment-list {
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
     }
 
-    .feedback-item, .assessment-item {
+    .feedback-item,
+    .assessment-item {
         background: var(--light-bg);
         border-radius: 10px;
         padding: 1.5rem;
@@ -234,11 +239,13 @@
         transition: background 0.3s ease;
     }
 
-    .feedback-item:hover, .assessment-item:hover {
+    .feedback-item:hover,
+    .assessment-item:hover {
         background: rgba(42, 94, 232, 0.05);
     }
 
-    .feedback-item:hover::after, .assessment-item:hover::after {
+    .feedback-item:hover::after,
+    .assessment-item:hover::after {
         content: attr(data-tooltip);
         position: absolute;
         top: -2.5rem;
@@ -253,7 +260,8 @@
         z-index: 10;
     }
 
-    .feedback-header, .assessment-header {
+    .feedback-header,
+    .assessment-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -274,7 +282,8 @@
         color: #666;
     }
 
-    .feedback-text, .recommendation {
+    .feedback-text,
+    .recommendation {
         font-size: 1.1rem;
         color: #333;
     }
@@ -358,7 +367,8 @@
             font-size: 2.2rem;
         }
 
-        h2, .toggle-btn {
+        h2,
+        .toggle-btn {
             font-size: 1.6rem;
         }
 
@@ -372,16 +382,20 @@
             gap: 1rem;
         }
 
-        .profile-pic, .no-pic {
+        .profile-pic,
+        .no-pic {
             width: 80px;
             height: 80px;
         }
 
-        .user-text p, .feedback-text, .recommendation {
+        .user-text p,
+        .feedback-text,
+        .recommendation {
             font-size: 1rem;
         }
 
-        .feedback-header, .assessment-header {
+        .feedback-header,
+        .assessment-header {
             flex-direction: column;
             align-items: flex-start;
             gap: 0.5rem;
@@ -416,6 +430,12 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+        // Set progress bar widths
+        document.querySelectorAll('.progress-fill').forEach(el => {
+            const width = el.getAttribute('data-width');
+            if (width) el.style.width = width;
+        });
+
         const messages = document.querySelectorAll('.alert-success');
         messages.forEach(msg => {
             setTimeout(() => {
