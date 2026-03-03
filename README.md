@@ -1,9 +1,9 @@
-# 🎯 𝕊𝕋ℝ𝔼𝕊𝕊 𝔻𝔼𝕋𝔼ℂ𝕋𝕀𝕆ℕ 𝔽𝕆ℝ 𝕀𝕋 𝔓ℝ𝕆𝔽𝔼𝕊𝕊𝕀𝕆ℕ𝔸𝕃𝕊 🧠
+﻿# 🎯 𝕊𝕋ℝ𝔼𝕊𝕊 𝔻𝔼𝕋𝔼ℂ𝕋𝕀𝕆ℕ 𝔽𝕆ℝ 𝕀𝕋 𝔓ℝ𝕆𝔽𝔼𝕊𝕊𝕀𝕆ℕ𝔸𝕃𝕊 🧠
 
 > **An AI-powered wellness ecosystem designed to monitor, detect, and mitigate stress in the high-pressure technology industry.**
 
-[![Python](https://img.shields.io/badge/Python-3.10-blue.svg)](https://www.python.org/)
-[![Django](https://img.shields.io/badge/Django-5.0-green.svg)](https://www.djangoproject.com/)
+[![Python](https://img.shields.io/badge/Python-3.9-blue.svg)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/Django-4.2-green.svg)](https://www.djangoproject.com/)
 [![Rasa](https://img.shields.io/badge/Rasa-3.6-purple.svg)](https://rasa.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -49,47 +49,58 @@ Physical infrastructure involving Django web servers, Rasa AI servers, and cloud
 ## 🚀 4. Installation & Setup
 
 ### **Prerequisites**
-*   Python 3.10+
-*   Git & Git LFS
-*   PowerShell (for Windows)
+*   **Python 3.9** (3.8+ supported)
+*   Git
+*   PowerShell (Windows) or bash (Linux/macOS)
 
 ### **Quick Setup Guide**
 1.  **Clone the Repository**:
     ```bash
-    git clone https://github.com/suragms/STRESS-DETECTION-FOR-IT-PROFESSIONALS.git
+    git clone https://github.com/suragsunil/STRESS-DETECTION-FOR-IT-PROFESSIONALS.git
     cd STRESS-DETECTION-FOR-IT-PROFESSIONALS/strees_dection
     ```
 
 2.  **Environment Setup**:
     ```bash
     python -m venv venv
-    .\venv\Scripts\Activate.ps1  # Windows
-    # source venv/bin/activate   # Linux/Mac
+    .\venv\Scripts\Activate.ps1   # Windows PowerShell
+    # venv\Scripts\activate.bat    # Windows CMD
+    # source venv/bin/activate    # Linux/Mac
     ```
 
 3.  **Install Dependencies**:
     ```bash
+    pip install --upgrade pip
     pip install -r requirements.txt
     ```
 
 4.  **Database Migration**:
     ```bash
     python manage.py migrate
+    python manage.py collectstatic --noinput   # optional, for static files
     ```
 
 ---
 
 ## ▶️ 5. Running the System
 
-You must run these **three services** in separate terminals:
+Run these **three services** in separate terminals (all from the `strees_dection` directory):
 
 | Terminal | Service | Command |
 | :--- | :--- | :--- |
-| **1** | **Django Web App** | `python manage.py runserver` |
+| **1** | **Django Web App** | `python manage.py runserver` *(activate venv first)* |
 | **2** | **Rasa Action Server** | `rasa run actions --port 5055` |
 | **3** | **Rasa Core API** | `rasa run --enable-api --cors "*" --port 5005` |
 
-**Access Point**: Open `http://127.0.0.1:8000` in your browser.
+**Windows:** You can use the batch files: `start-django.bat`, `start-rasa-actions.bat`, `start-rasa-core.bat`.
+
+| URL | Service |
+| :--- | :--- |
+| **http://127.0.0.1:8000** | Django web app |
+| **http://localhost:5005** | Rasa API |
+| **http://localhost:5055** | Rasa actions |
+
+📖 **Detailed run guides:** [HOW-TO-RUN-DJANGO.md](HOW-TO-RUN-DJANGO.md) · [HOW-TO-RUN-RASA.md](HOW-TO-RUN-RASA.md) · [HOW-TO-RUN.md](HOW-TO-RUN.md) (full system)
 
 ---
 
@@ -108,7 +119,7 @@ This project moves mental health support from reactive to **preventative**. By b
 
 ---
 
-## 👨‍� 8. About the Founder
+## 👤 8. About the Founder
 
 <p align="center">
   <img src="founder_surag_ms_1770214632000.png" width="200" style="border-radius: 50%;">
